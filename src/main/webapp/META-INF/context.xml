@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+  <Resource name="jdbc/order" auth="Container" type="javax.sql.DataSource"
+               maxActive="50" maxIdle="30" maxWait="10000" logAbandoned="true" 
+               username="root" password="qwertyuiop" driverClassName="com.mysql.cj.jdbc.Driver"
+               url="jdbc:mysql://localhost:3306/order?serverTimezone=GMT%2b8&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"/>
+</Context>
