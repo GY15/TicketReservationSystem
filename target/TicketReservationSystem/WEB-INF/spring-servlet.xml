@@ -14,7 +14,14 @@
     <mvc:default-servlet-handler />
 
     <!-- if you use annotation you must configure following setting -->
-    <mvc:annotation-driven />
+    <mvc:annotation-driven >
+        <!-- 消息转换器 -->
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes" value="text/html;charset=UTF-8"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 
     <!-- configure the InternalResourceViewResolver -->
     <bean

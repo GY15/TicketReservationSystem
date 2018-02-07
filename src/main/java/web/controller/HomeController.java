@@ -27,21 +27,17 @@ public class HomeController extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		Cookie cookie = null;
 
-//        ServletContext Context= getServletContext();
-        int allCounter = Integer.parseInt((String) Context.getAttribute("allCounter"));
-        int loginCounter = Integer.parseInt((String) Context.getAttribute("loginCounter"));
+
 
         if(session==null) {
             request.getSession(true);
             System.out.println("create session");
-            allCounter++;
-            Context.setAttribute("allCounter", Integer.toString(allCounter));
         }else{
-            if(session.getAttribute("userID")!=null){
-                loginCounter--;
-                session.removeAttribute("userID");
-                Context.setAttribute("loginCounter", Integer.toString(loginCounter));
-            }
+//            if(session.getAttribute("userID")!=null){
+//                loginCounter--;
+//                session.removeAttribute("userID");
+//                Context.setAttribute("loginCounter", Integer.toString(loginCounter));
+//            }
         }
 
 
@@ -58,9 +54,8 @@ public class HomeController extends HttpServlet {
             }
         }
         request.setAttribute("login",login);
-        request.setAttribute("allCounter",allCounter);
-        request.setAttribute("loginCounter",loginCounter);
-        return "login";
-
+//        request.setAttribute("allCounter",allCounter);
+//        request.setAttribute("loginCounter",loginCounter);
+        return "member_home";
 	}
 }

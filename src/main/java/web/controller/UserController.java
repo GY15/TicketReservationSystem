@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import web.service.UserService;
+import web.utilities.enums.MemberState;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.*;
@@ -58,7 +61,6 @@ public class UserController extends HttpServlet {
 
     @GetMapping(value = "/logout")
     protected String logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ServletContext Context = getServletContext();
         HttpSession session = request.getSession(false);//防止创建Session
         if(session!=null) {
             if (session.getAttribute("userID") != null) {
@@ -71,4 +73,11 @@ public class UserController extends HttpServlet {
         response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/home"));
         return null;
     }
+
+    @PostMapping(value = "/valid", produces = "text/html;charset=UTF-8;")
+    protected @ResponseBody
+    String valid(@RequestParam("email") String email){
+        return userService.validEmail(email).getRepre();
+    }
+
 }

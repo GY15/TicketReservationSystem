@@ -3,7 +3,7 @@ package web.dao.daoImpl;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import web.dao.BaseDao;
-import web.util.HibernateUtil;
+import web.utilities.HibernateUtil;
 
 import java.util.List;
 
@@ -21,7 +21,6 @@ public class BaseDaoImpl implements BaseDao {
 		HibernateUtil.getSession().clear();
 	}
 
-	/** * ���� * * @param bean * */
 	public void save(Object bean) {
 		try {
 			System.out.println("ready to getsession");	
@@ -29,7 +28,6 @@ public class BaseDaoImpl implements BaseDao {
 			Transaction tx=session.beginTransaction();
 			session.merge(bean);
 			tx.commit();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}  
@@ -48,34 +46,25 @@ public class BaseDaoImpl implements BaseDao {
 		} 
 	}
 
-	/** * ��ȡ������Ϣ * * @param c * * @return */
 
 	public List getAllList(Class c) {
 		return null;
-		//
-
 	}
 
-	/** * ��ȡ������ * * @param c * @return */
 
 	public Long getTotalCount(Class c) {
-		//
 		return null;
 	}
 
 
 
-	/** * ���� * * @param bean * */
 	public void update(Object bean) {
-		//
 
 	}
 
-	/** * ɾ�� * * @param bean * */
 	public void delete(Object bean) {
 
 		try {
-		//	System.out.println("ready to getsession");	
 			Session session =HibernateUtil.getSession() ;
 			Transaction tx=session.beginTransaction();
 			session.delete(bean);
@@ -86,15 +75,9 @@ public class BaseDaoImpl implements BaseDao {
 		} 
 	}
 
-	/** * ����IDɾ�� * * @param c �� * * @param id ID * */
-	@SuppressWarnings({ "rawtypes" })
 	public void delete(Class c, String id) {
-		//
 	}
 
-	/** * ����ɾ�� * * @param c �� * * @param ids ID ���� * */
-	@SuppressWarnings({ "rawtypes" })
 	public void delete(Class c, String[] ids) {
-		//
 	}
 }

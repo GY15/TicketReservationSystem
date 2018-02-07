@@ -1,6 +1,6 @@
 package web.dao;
 
-import web.model.User;
+import web.model.Member;
 
 /**
  * Created by 61990 on 2017/12/19.
@@ -11,8 +11,17 @@ public interface UserDao extends BaseDao {
      *
      * @author 61990
      * @updateTime 2017/12/19
-     * @param userID 用户ID
-     * @return 指定ID的基本数据
+     * @param email 用户email
+     * @return 指定email的数据
      */
-    User getUser(String userID);
+    Member getMember(String email);
+    /**
+     * 保存验证信息
+     *
+     * @author 61990
+     * @updateTime 2018/2/7
+     * @param email 用户email
+     * @return success
+     */
+    String getValidNum(String email);
 }
