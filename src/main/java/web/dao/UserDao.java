@@ -24,4 +24,14 @@ public interface UserDao extends BaseDao {
      * @return success
      */
     String getValidNum(String email);
+    /**
+     * 验证是否符合验证码，并通过注册
+     *
+     * @author 61990
+     * @updateTime 2018/2/7
+     * @param member 用户信息
+     * @param valid 用户验证码
+     * @return success
+     */
+    boolean registerMember(Member member, String valid);
 }

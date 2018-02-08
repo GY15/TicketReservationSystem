@@ -13,7 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>会员登录</title>
+    <title>场馆登录</title>
 
     <!-- Bootstrap -->
     <link href="../css/bootstrap.css" rel="stylesheet">
@@ -40,10 +40,10 @@
                     <form class="form-horizontal" action="/login" method="POST" role="form">
                         <div class="form-group" style="margin-top: 50px">
                             <label class="col-md-3 col-md-offset-1 control-label" for="login_email"
-                                   style="font-size: 18px;color:whitesmoke">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱</label>
+                                   style="font-size: 18px;color:whitesmoke">帐&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</label>
                             <div class="col-md-7">
                                 <input type="text" class="form-control" name='login_email' id="login_email" value=""
-                                       placeholder="请输入用户名">
+                                       placeholder="请输入账号">
                             </div>
                         </div>
 
@@ -70,15 +70,6 @@
 
                 <div class="registerPanel" style="display: none">
                     <form class="form-horizontal" action="/member/registerMember" method="post" role="form">
-                        <div class="form-group" style="margin-top: 30px">
-                            <label class="col-md-3 col-md-offset-1 control-label" for="reg_email"
-                                   style="font-size: 18px;color:whitesmoke">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱</label>
-                            <div class="col-md-6 input-group" style="margin-left: 0px;left: 15px;">
-                                <input type="text" class="form-control" name="reg_email" id="reg_email"
-                                       placeholder="请输入邮箱" style="width: 210px;">
-                                <span class="input-group-addon button-valid ">  <i class="icon-envelope"></i></span>
-                            </div>
-                        </div>
 
                         <div class="form-group" style="margin-top: 20px">
                             <label class="col-md-3 col-md-offset-1 control-label" for="valid_word"

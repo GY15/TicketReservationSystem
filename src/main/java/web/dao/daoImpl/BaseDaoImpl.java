@@ -76,6 +76,7 @@ public class BaseDaoImpl implements BaseDao {
 	}
 
 	public void delete(Class c, String id) {
+
 	}
 
 	public void delete(Class c, String[] ids) {

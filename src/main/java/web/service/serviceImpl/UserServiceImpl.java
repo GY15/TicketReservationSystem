@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
      * 查看是否已经注册，否则生成并发送验证码
      *
      * @author 61990
-     * @updateTime 2017/2/7
+     * @updateTime 2018/2/7
      * @param email 注册的电子邮件
      * @return 是否成功
      */
@@ -49,5 +49,18 @@ public class UserServiceImpl implements UserService {
                 return MemberState.REGISTERED;
             }
         }
+    }
+
+    /**
+     * 查看是否已经注册，否则生成并发送验证码
+     *
+     * @author 61990
+     * @updateTime 2018/2/8
+     * @param member 注册的会员信息
+     * @param valid 验证码
+     * @return 是否成功
+     */
+    public boolean registerMember(Member member, String valid){
+        return userDao.registerMember(member,valid);
     }
 }

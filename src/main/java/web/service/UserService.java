@@ -1,5 +1,6 @@
 package web.service;
 
+import web.model.Member;
 import web.utilities.enums.MemberState;
 
 /**
@@ -8,4 +9,5 @@ import web.utilities.enums.MemberState;
 public interface UserService {
     boolean login(String userID, String password);
     MemberState validEmail(String email);
+    boolean registerMember(Member member, String valid);
 }

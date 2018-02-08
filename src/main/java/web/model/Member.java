@@ -1,5 +1,7 @@
 package web.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -15,7 +17,22 @@ public class Member implements Serializable{
     private int grade;
     private int rank;
 
-    @Id @GeneratedValue
+    public Member(){
+
+    }
+    public Member(String email, String nickname, String password) {
+        this.email = email;
+        this.nickname = nickname;
+        this.password = password;
+        this.valid = true;
+        this.balance = 0;
+        this.grade = 0;
+        this.rank = 1;
+    }
+
+    @Id
+    @GenericGenerator(name = "myGenerator", strategy = "assigned")
+    @GeneratedValue(generator = "myGenerator")
     @Column(name="email")
     public String getEmail() {
         return email;
