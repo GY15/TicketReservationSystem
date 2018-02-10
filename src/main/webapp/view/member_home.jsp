@@ -121,8 +121,7 @@
 
                     <a class="loginBt col-md-3">返回登录</a>
                 </div>
-                <div class="col-md-12 errorMessage"
-                     style="margin-top: 20px;color: red;font-weight: 500;font-size: 20px">
+                <div class="col-md-12 errorMessage">
                 </div>
                 <a class="loginBt" style="position: absolute;right:20px;bottom: 10px">场馆登录</a>
             </div>

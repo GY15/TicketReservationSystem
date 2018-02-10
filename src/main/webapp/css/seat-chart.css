@@ -1,0 +1,133 @@
+body {
+    font-family: 'Lato', sans-serif;
+}
+a {
+    color: #b71a4c;
+}
+
+.label-font{
+    margin-top: 5px;
+    font-size: 15px;
+    color:slategrey
+
+}
+.input-style{
+    color:gray;
+    font-size:13px;
+    border-color:rgba(200,200,200,0.2);
+    background:rgba(200,200,200, 0.2);
+}
+.front-indicator {
+    width: 30%;
+    margin: 0px auto;
+    background-color: skyblue;
+    color: seashell;
+    text-align: center;
+    padding: 3px;
+    border-radius: 5px;
+}
+.seatCharts-space:hover{
+    cursor: pointer;
+}
+div.seatCharts-cell {
+    color: #182C4E;
+    height: 26px;
+    width: 26px;
+    line-height: 26px;
+
+}
+div.seatCharts-seat {
+    color: #FFFFFF;
+    cursor: pointer;
+}
+div.seatCharts-row {
+    height: 35px;
+}
+
+.seat-choose{
+    margin-top: 15px;
+}
+
+div.seatCharts-seat.available {
+    background-color: #B9DEA0;
+}
+div.seatCharts-seat.available.a-class {
+    /* 	background: url(vip.png); */
+    background-color: #3a78c3;
+}
+div.seatCharts-seat.available.b-class {
+    /* 	background: url(vip.png); */
+    background-color: #febc44;
+}
+div.seatCharts-seat.available.c-class {
+    /* 	background: url(vip.png); */
+    background-color: #CC33FF;
+}
+div.seatCharts-seat.available.d-class {
+    /* 	background: url(vip.png); */
+    background-color: #FF3300;
+}
+div.seatCharts-seat.available.e-class {
+    /* 	background: url(vip.png); */
+    background-color: #33FF00;
+}
+div.seatCharts-seat.available.f-class {
+    /* 	background: url(vip.png); */
+    background-color: #FF99FF;
+}
+div.seatCharts-seat.available.g-class {
+    /* 	background: url(vip.png); */
+    background-color: #33CCCC;
+}
+
+div.seatCharts-seat.focused {
+    background-color: #76B474;
+}
+div.seatCharts-seat.selected {
+    background-color: #E6CAC4;
+}
+div.seatCharts-seat.unavailable {
+    background-color: #472B34;
+}
+.seat-container{
+    overflow-x: auto;
+    overflow-y : auto;
+    height: 500px;
+    background-color: snow;
+}
+div.seatCharts-container {
+    /*border-right: 1px dotted #adadad;*/
+    /*width: 1500px;*/
+    padding: 20px;
+    float: left;
+    text-align: center;
+}
+div.seatCharts-legend {
+    padding-left: 0px;
+    position: absolute;
+    bottom: 16px;
+}
+ul.seatCharts-legendList {
+    padding-left: 0px;
+}
+span.seatCharts-legendDescription {
+    margin-left: 5px;
+    line-height: 30px;
+}
+.checkout-button {
+    display: block;
+    margin: 10px 0;
+    font-size: 14px;
+}
+#selected-seats {
+    max-height: 90px;
+    overflow-y: scroll;
+    overflow-x: none;
+    width: 170px;
+}
+.seat_general{
+    border-radius:10px;
+    background-color:whitesmoke;
+    height: 25px;
+    margin-top: 5px;
+}
