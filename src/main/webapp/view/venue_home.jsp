@@ -426,6 +426,33 @@
         regExp = new RegExp(FindText, "g");
         return this.replace(regExp, RepText);
     }
+
+    $('.button-valid').bind("click",  function() {
+            $('.button-valid').html("<i class=\"icon-spinner icon-spin\"></i>");
+            $('.button-valid').unbind("click")
+            $.ajax({
+                type: "post",
+                async: true,
+                url: "/venue/valid",
+
+                success: function (result) {
+                    $('#reg_venue').val(result);
+                    setTimeout(function () {
+                        $('.errorMessage').html(" ")
+                    }, 2000);
+                    $('.button-valid').html("<i class=\"icon-download-alt\"></i>");
+                    $('.button-valid').bind("click")
+                },
+                error: function (result) {
+                    $('.button-valid').html("<i class=\"icon-download-alt\"></i>");
+                    alert("发生了未知的错误");
+                }
+            });
+
+    });
+
+
+
 </script>
 
 </body>

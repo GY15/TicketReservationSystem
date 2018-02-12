@@ -76,7 +76,7 @@
                             <div class="col-md-6 input-group" style="margin-left: 0px;left: 15px;">
                                 <input type="text" class="form-control" name="reg_email" id="reg_email"
                                        placeholder="请输入邮箱" style="width: 210px;">
-                                <span class="input-group-addon button-valid ">  <i class="icon-envelope"></i></span>
+                                <span class="input-group-addon button-valid">  <i class="icon-envelope"></i></span>
                             </div>
                         </div>
 

@@ -63,4 +63,14 @@ public class UserServiceImpl implements UserService {
     public boolean registerMember(Member member, String valid){
         return userDao.registerMember(member,valid);
     }
+    /**
+     * 自动生成场馆的识别码
+     *
+     * @author 61990
+     * @updateTime 2018/2/10
+     * @return 是否成功
+     */
+    public int createVenueId(){
+        return 0;
+    }
 }
