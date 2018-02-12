@@ -1,6 +1,7 @@
 package web.service;
 
 import web.model.Member;
+import web.model.Venue;
 import web.utilities.enums.MemberState;
 
 /**
@@ -36,4 +37,13 @@ public interface UserService {
      * @return 是否成功
      */
     int createVenueId();
+
+    /**
+     * 修改场馆信息
+     *
+     * @author 61990
+     * @updateTime 2018/2/12
+     * @return 是否成功
+     */
+    boolean modifyVenueMessage(Venue venue);
 }

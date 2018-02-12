@@ -1,6 +1,7 @@
 package web.dao;
 
 import web.model.Member;
+import web.model.Venue;
 
 /**
  * Created by 61990 on 2017/12/19.
@@ -34,4 +35,21 @@ public interface UserDao extends BaseDao {
      * @return success
      */
     boolean registerMember(Member member, String valid);
+    /**
+     * 创建一个未经过注册的账号,并返回id
+     *
+     * @author 61990
+     * @updateTime 2018/2/12
+     * @return success
+     */
+    int createVenueId();
+
+    /**
+     * 更新场馆信息
+     *
+     * @author 61990
+     * @updateTime 2018/2/12
+     * @return 是否成功
+     */
+    boolean updateVenue(Venue venue);
 }

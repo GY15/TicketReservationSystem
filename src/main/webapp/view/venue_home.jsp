@@ -14,7 +14,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>JSC Demo</title>
+    <title>登录、注册</title>
 
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <link href="../css/bootstrap.css" rel="stylesheet">
@@ -40,7 +40,7 @@
     <div class="jumbotron banner-desc col-md-4 col-md-offset-4 loginPanel" style="z-index: 10;display: none">
         <div class="container text-center">
             <h1>淘 票</h1>
-            <div  style="margin-top: 80px">
+            <div style="margin-top: 80px">
                 <form class="form-horizontal" action="/login" method="POST" role="form">
                     <div class="form-group" style="margin-top: 50px">
                         <label class="col-md-3 col-md-offset-1 control-label" for="login_email"
@@ -81,7 +81,7 @@
         <div class="container text-center">
             <h2>淘 票</h2>
             <div>
-                <div class="form-horizontal" >
+                <div class="form-horizontal">
 
                     <div class="form-group" style="margin-top: 20px">
                         <label class="col-md-3  control-label" for="reg_venue"
@@ -143,11 +143,13 @@
                                 <!--<div class="seat_local_description">位于场馆右侧</div>-->
                                 <!--</div>-->
                             </div>
-                            <button class="button button-primary button-circle button-small" style="margin: 10px" id="add_seat_btn"><i class="icon-plus"></i></button>
+                            <button class="button button-primary button-circle button-small" style="margin: 10px"
+                                    id="add_seat_btn"><i class="icon-plus"></i></button>
 
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary col-md-6 col-md-offset-3" style="margin-top: 30px">
+                    <button type="button" class="btn btn-primary col-md-6 col-md-offset-3 submit-btn"
+                            style="margin-top: 30px">
                         申&nbsp;&nbsp;&nbsp;请&nbsp;&nbsp;&nbsp;注&nbsp;&nbsp;&nbsp;册
                     </button>
                 </div>
@@ -200,7 +202,7 @@
                     <div class="set-panel col-md-2" style="margin-left: 20px">
                         <h4 style="margin-top: 50px;margin-left: 30px">座位编辑</h4>
                         <div class="seat-choose">
-                            <input type="radio"  name="iCheck"  value="_">删除座位
+                            <input type="radio" name="iCheck" value="_">删除座位
                         </div>
                         <div class="seat-choose">
                             <input type="radio" class="col-md-2 theType" name="iCheck" value='a' checked>
@@ -209,7 +211,8 @@
                         <div id="seat_type">
 
                         </div>
-                        <button id="addType"  style="margin-left: 40px;margin-top: 20px">  <i class="icon-plus"></i></button>
+                        <button id="addType" style="margin-left: 40px;margin-top: 20px"><i class="icon-plus"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -234,7 +237,7 @@
 <script src="../js/icheck.js"></script>
 
 <script>
-    var createRow,createCol;
+    var createRow, createCol;
     $('.loginBt').click(function () {
         $('.loginPanel').slideDown();
         $('.registerPanel').slideUp("fast");
@@ -267,15 +270,16 @@
         create(map);
         $('.seat-panel').show();
     });
-    $('#add_seat_btn').bind("click",function () {
+    $('#add_seat_btn').bind("click", function () {
         $('#createSeatModal').modal();
     });
-    var message = {};
+    var seat_info = {};
+
     function saveSeat() {
-        message = {};
-        message.local_name = $("#localName").val();
-        message.local_descrption = $("#localDescription").val();
-        message.seat_map = map;
+        seat_info = {};
+        seat_info.local_name = $("#localName").val();
+        seat_info.local_descrption = $("#localDescription").val();
+        seat_info.seat_map = map;
         var seat_type = [];
         $('.typeName').each(function () {
             var seat = {}
@@ -283,21 +287,21 @@
             seat.name = $(this).val();
             seat_type.push(seat);
         });
-        message.seat_type = seat_type;
-//        alert(JSON.stringify(message));
+        seat_info.seat_type = seat_type;
+//        alert(JSON.stringify(seat_info));
         $('.seat_set').append("  <div class=\"row seat_general\">\n" +
-            "<div class=\"seat_local_name col-md-2\">"+$("#localName").val()+"</div>\n" +
-            "<div class=\"seat_local_description\">"+$("#localDescription").val()+"</div>\n" +
+            "<div class=\"seat_local_name col-md-2\">" + $("#localName").val() + "</div>\n" +
+            "<div class=\"seat_local_description\">" + $("#localDescription").val() + "</div>\n" +
             "</div>")
         $('#createSeatModal').modal("hide");
     }
 
-    var seat_kind = ['g','f','e','d','c','b']
-    $('#addType').bind("click",function () {
+    var seat_kind = ['g', 'f', 'e', 'd', 'c', 'b']
+    $('#addType').bind("click", function () {
         var type = seat_kind.pop();
-        if(type){
-            $('#seat_type').append("  <div class=\"seat-choose\">\n" +
-                "                                <input type=\"radio\" class=\"col-md-2 theType\" name=\"iCheck\"  value='"+type+"'>\n" +
+        if (type) {
+            $('#seat_type').append("<div class=\"seat-choose\">\n" +
+                "                                <input type=\"radio\" class=\"col-md-2 theType\" name=\"iCheck\"  value='" + type + "'>\n" +
                 "                                <input type=\"text\" class='typeName' style=\"width: 100px\" value=\"\">\n" +
                 "                                <button >  <i class=\"removeType icon-minus\" \"></i></button>\n" +
                 "                            </div>")
@@ -309,9 +313,9 @@
                 var deleteType = $(this).parent().parent().find('.theType').eq(0).val();
                 seat_kind.push(deleteType);
                 $(this).parent().parent().remove();
-                var mapTemp =[];
-                for(var i =0;i<createRow;i++){
-                    mapTemp.push(map[i].replaceAll(deleteType,'a'));
+                var mapTemp = [];
+                for (var i = 0; i < createRow; i++) {
+                    mapTemp.push(map[i].replaceAll(deleteType, 'a'));
                 }
                 map = mapTemp;
                 create(map);
@@ -329,6 +333,7 @@
         checkboxClass: 'icheckbox_flat-green',
         radioClass: 'iradio_flat-green'
     });
+
     function create(theMap) {
         $('#seat-area').html("<div id=\"seat-map\">\n" +
             "            <div class=\"front-indicator\">Front</div>\n" +
@@ -361,20 +366,20 @@
 
             click: function () {
                 if (this.status() == 'available') {
-                    var newType="a";
-                    $("input[name='iCheck']:radio").each(function(){
-                        if(true == $(this).is(':checked')){
-                            newType=$(this).val();
+                    var newType = "a";
+                    $("input[name='iCheck']:radio").each(function () {
+                        if (true == $(this).is(':checked')) {
+                            newType = $(this).val();
                         }
                     });
-                    var locate=this.settings.id;
-                    var theRow = locate.split("_")[0]-1;
-                    var theCol = locate.split("_")[1]-1;
-                    var mapTemp =[];
-                    for(var i =0;i<createRow;i++){
-                        if(theRow==i){
-                            mapTemp.push(map[i].substr(0, theCol) + newType + map[i].substr(theCol+1, createCol)   );
-                        }else{
+                    var locate = this.settings.id;
+                    var theRow = locate.split("_")[0] - 1;
+                    var theCol = locate.split("_")[1] - 1;
+                    var mapTemp = [];
+                    for (var i = 0; i < createRow; i++) {
+                        if (theRow == i) {
+                            mapTemp.push(map[i].substr(0, theCol) + newType + map[i].substr(theCol + 1, createCol));
+                        } else {
                             mapTemp.push(map[i]);
                         }
                     }
@@ -385,35 +390,35 @@
             },
 
         });
-        var left = 780/26*((25-createCol)/2);
-        if(createCol>25){
-            $("#seat-area").css("margin-left",0+"px");
-            $(".seatCharts-container").css("width",780/22*createCol+"px");
-        }else{
-            $("#seat-area").css("margin-left",left+"px");
-            $(".seatCharts-container").css("width","auto");
+        var left = 780 / 26 * ((25 - createCol) / 2);
+        if (createCol > 25) {
+            $("#seat-area").css("margin-left", 0 + "px");
+            $(".seatCharts-container").css("width", 780 / 22 * createCol + "px");
+        } else {
+            $("#seat-area").css("margin-left", left + "px");
+            $(".seatCharts-container").css("width", "auto");
         }
-        $('.seatCharts-space').bind("click",function () {
-            var newType="a";
-            var mapTemp =[];
-            $("input[name='iCheck']:radio").each(function(){
-                if(true == $(this).is(':checked')){
-                    newType=$(this).val();
+        $('.seatCharts-space').bind("click", function () {
+            var newType = "a";
+            var mapTemp = [];
+            $("input[name='iCheck']:radio").each(function () {
+                if (true == $(this).is(':checked')) {
+                    newType = $(this).val();
                 }
             });
             var theRow = $(this).html();
-            for(var i =0;i<createRow;i++){
-                if(theRow==(i+1)){
+            for (var i = 0; i < createRow; i++) {
+                if (theRow == (i + 1)) {
                     var temp = '';
-                    for(var j = 0;j<createCol;j++){
-                        if(map[i].charAt(j)=='_'){
-                            temp+="_";
-                        }else {
+                    for (var j = 0; j < createCol; j++) {
+                        if (map[i].charAt(j) == '_') {
+                            temp += "_";
+                        } else {
                             temp += newType;
                         }
                     }
                     mapTemp.push(temp);
-                }else{
+                } else {
                     mapTemp.push(map[i]);
                 }
             }
@@ -427,31 +432,51 @@
         return this.replace(regExp, RepText);
     }
 
-    $('.button-valid').bind("click",  function() {
-            $('.button-valid').html("<i class=\"icon-spinner icon-spin\"></i>");
-            $('.button-valid').unbind("click")
-            $.ajax({
-                type: "post",
-                async: true,
-                url: "/venue/valid",
+    $('.button-valid').bind("click", function valid() {
+        $('.button-valid').html("<i class=\"icon-spinner icon-spin\"></i>");
+        $('.button-valid').unbind("click")
+        $.ajax({
+            type: "post",
+            async: true,
+            url: "/venue/valid",
 
-                success: function (result) {
-                    $('#reg_venue').val(result);
-                    setTimeout(function () {
-                        $('.errorMessage').html(" ")
-                    }, 2000);
-                    $('.button-valid').html("<i class=\"icon-download-alt\"></i>");
-                    $('.button-valid').bind("click")
-                },
-                error: function (result) {
-                    $('.button-valid').html("<i class=\"icon-download-alt\"></i>");
-                    alert("发生了未知的错误");
-                }
-            });
-
+            success: function (result) {
+                $('#reg_venue').val(result);
+                $('.button-valid').html("<i class=\"icon-download-alt\"></i>");
+                $('.button-valid').bind("click", valid);
+            },
+            error: function (result) {
+                $('.button-valid').html("<i class=\"icon-download-alt\"></i>");
+                $('.button-valid').bind("click", valid);
+                alert("发生了未知的错误，刷新后重试");
+            }
+        });
     });
 
+    $(".submit-btn").bind("click", function () {
+        //todo 错误检验
+        $.ajax({
+            type: "post",
+            async: true,
+            url: "/venue/register_venue",
+            data: {
+                "venueid": $('#reg_venue').val(),
+                "password": $('#reg_password').val(),
+                "name": $('#reg_name').val(),
+                "province": $('#reg_province').val(),
+                "city": $('#reg_city').val(),
+                "location": $('#reg_location').val(),
+                "seat_info": JSON.stringify(seat_info)
+            },
 
+            success: function (result) {
+                location.reload();
+            },
+            error: function (result) {
+                alert("发生了未知的错误");
+            }
+        });
+    })
 
 </script>
 

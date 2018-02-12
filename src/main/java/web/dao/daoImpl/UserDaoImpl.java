@@ -1,10 +1,18 @@
 package web.dao.daoImpl;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import web.dao.UserDao;
 import web.model.Member;
 import web.model.ValidUser;
+import web.model.Venue;
 import web.utilities.FormatValid;
+import web.utilities.HibernateUtil;
+
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 @Repository
 public class UserDaoImpl extends BaseDaoImpl implements UserDao {
@@ -57,5 +65,36 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
             super.delete(validUser);
             return true;
         }
+    }
+    /**
+     * 创建一个未经过注册的账号,并返回id
+     *
+     * @author 61990
+     * @updateTime 2018/2/12
+     * @return success
+     */
+    public int createVenueId(){
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        String sql = "select max(v.venueid) from venue v";
+        int query = (Integer)session.createNativeQuery(sql).uniqueResult()+1;
+        Venue venue = new Venue();
+        venue.setVenueid(query);
+        venue.setValid(false);
+        super.save(venue);
+        transaction.commit();
+        session.close();
+        return query;
+    }
+    /**
+     * 更新场馆信息
+     *
+     * @author 61990
+     * @updateTime 2018/2/12
+     * @return 是否成功
+     */
+    public boolean updateVenue(Venue venue){
+        super.update(venue);
+        return true;
     }
 }

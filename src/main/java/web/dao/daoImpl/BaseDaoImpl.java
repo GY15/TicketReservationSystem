@@ -59,7 +59,15 @@ public class BaseDaoImpl implements BaseDao {
 
 
 	public void update(Object bean) {
+		try {
+			Session session =HibernateUtil.getSession() ;
+			Transaction tx=session.beginTransaction();
+			session.update(bean);
+			tx.commit();
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void delete(Object bean) {

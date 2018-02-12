@@ -11,12 +11,23 @@ public class Venue implements Serializable{
 
     private int venueid;
     private String password;
+    private String name;
+    private String province;
+    private String city;
     private String location;
-
+    private boolean valid;
     public Venue(){
 
     }
 
+    public Venue(int venueid, String password, String name, String province, String city, String location) {
+        this.venueid = venueid;
+        this.password = password;
+        this.name = name;
+        this.province = province;
+        this.city = city;
+        this.location = location;
+    }
 
     @Id
     @GenericGenerator(name = "myGenerator", strategy = "assigned")
@@ -40,6 +51,31 @@ public class Venue implements Serializable{
         this.password = password;
     }
 
+    @Column(name="name")
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    @Column(name="province")
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    @Column(name="city")
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 
     @Column(name="location")
     public String getLocation() {
@@ -50,4 +86,12 @@ public class Venue implements Serializable{
         this.location = location;
     }
 
+    @Column(name="valid")
+    public boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
+    }
 }

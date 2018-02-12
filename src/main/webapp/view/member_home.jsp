@@ -198,7 +198,7 @@
                         $('.errorMessage').html(" ")
                     }, 2000);
                     $('.button-valid').html("<i class=\"icon-envelope\n\"></i>");
-                    $('.button-valid').bind("click")
+                    $('.button-valid').bind("click",valid_email)
                 },
                 error: function (result) {
                     $('.button-valid').html("<i class=\"icon-envelope\n\"></i>");

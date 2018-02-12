@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import web.dao.UserDao;
 import web.dao.daoImpl.UserDaoImpl;
 import web.model.Member;
+import web.model.Venue;
 import web.service.UserService;
 import web.utilities.MailUtil;
 import web.utilities.enums.MemberState;
@@ -71,6 +72,16 @@ public class UserServiceImpl implements UserService {
      * @return 是否成功
      */
     public int createVenueId(){
-        return 0;
+        return userDao.createVenueId();
+    }
+    /**
+     * 修改场馆信息
+     *
+     * @author 61990
+     * @updateTime 2018/2/12
+     * @return 是否成功
+     */
+    public boolean modifyVenueMessage(Venue venue){
+        return userDao.updateVenue(venue);
     }
 }
