@@ -28,7 +28,18 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
         Member member = (Member) super.load(Member.class, email);
         return member;
     }
-
+    /**
+     * 获取会员信息
+     *
+     * @author 61990
+     * @updateTime 2017/2/13
+     * @param venueid venueid
+     * @return 指定venue的数据
+     */
+    public Venue getVenue(int venueid){
+        Venue venue = (Venue) super.load(Venue.class, venueid);
+        return venue;
+    }
     /**
      * 保存验证信息
      *
@@ -83,7 +94,6 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
         venue.setValid(false);
         super.save(venue);
         transaction.commit();
-        session.close();
         return query;
     }
     /**

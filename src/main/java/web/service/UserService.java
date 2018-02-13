@@ -3,13 +3,23 @@ package web.service;
 import web.model.Member;
 import web.model.Venue;
 import web.utilities.enums.MemberState;
+import web.utilities.enums.UserType;
 
 /**
  * 管理用户登录
  */
 public interface UserService {
-
-    boolean login(String userID, String password);
+    /**
+     * 用户登录
+     *
+     * @author 61990
+     * @updateTime 2018/2/7
+     * @param userID id
+     * @param password 密码
+     * @param userType 登录类型
+     * @return 是否成功
+     */
+    boolean login(String userID, String password, UserType userType);
     /**
      * 查看是否已经注册，否则生成并发送验证码
      *

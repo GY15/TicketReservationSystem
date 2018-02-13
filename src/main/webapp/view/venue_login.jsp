@@ -37,16 +37,16 @@
     </div>
 
 
-    <div class="jumbotron banner-desc col-md-4 col-md-offset-4 loginPanel" style="z-index: 10;display: none">
+    <div class="jumbotron banner-desc col-md-4 col-md-offset-4 loginPanel" style="z-index: 10">
         <div class="container text-center">
             <h1>淘 票</h1>
             <div style="margin-top: 80px">
-                <form class="form-horizontal" action="/login" method="POST" role="form">
+                <form class="form-horizontal" action="/venue/login" method="POST" role="form">
                     <div class="form-group" style="margin-top: 50px">
-                        <label class="col-md-3 col-md-offset-1 control-label" for="login_email"
-                               style="font-size: 18px;color:whitesmoke">帐&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</label>
+                        <label class="col-md-3 col-md-offset-1 control-label" for="login_id"
+                               style="font-size: 18px;color:whitesmoke">账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</label>
                         <div class="col-md-7">
-                            <input type="text" class="form-control" name='login_email' id="login_email" value=""
+                            <input type="text" class="form-control" name='login_id' id="login_id" value=""
                                    placeholder="请输入账号">
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                     </div>
                     <div class="col-md-4 col-md-offset-8" style="color: whitesmoke">
                         <label id="rem-password">
-                            <input type="checkbox" class="remember">记住密码
+                            <input type="checkbox" name="remember" id="remember" class="remember">记住密码
                         </label>
                     </div>
 
@@ -77,7 +77,7 @@
         </div>
 
     </div>
-    <div class="jumbotron banner-desc2 col-md-6 col-md-offset-3 registerPanel" style="z-index: 10">
+    <div class="jumbotron banner-desc2 col-md-6 col-md-offset-3 registerPanel" style="z-index: 10" hidden>
         <div class="container text-center">
             <h2>淘 票</h2>
             <div>
@@ -237,6 +237,15 @@
 <script src="../js/icheck.js"></script>
 
 <script>
+    $(document).ready(function () {
+        var message = "<%=session.getAttribute("errorMessage")%>";
+        if(message=="1"){
+            $('.errorMessage').html("账号或者密码错误");
+            setTimeout(function () {
+                $('.errorMessage').html(" ")
+            }, 2000);
+        }
+    });
     var createRow, createCol;
     $('.loginBt').click(function () {
         $('.loginPanel').slideDown();
@@ -277,18 +286,19 @@
 
     function saveSeat() {
         seat_info = {};
-        seat_info.local_name = $("#localName").val();
-        seat_info.local_descrption = $("#localDescription").val();
-        seat_info.seat_map = map;
+        seat_info.block = $("#localName").val();
+        seat_info.description = $("#localDescription").val();
+        seat_info.map = map;
         var seat_type = [];
         $('.typeName').each(function () {
             var seat = {}
             seat.type = $(this).parent().find('.theType').eq(0).val();
             seat.name = $(this).val();
+            seat.value= 0.00;
             seat_type.push(seat);
         });
-        seat_info.seat_type = seat_type;
-//        alert(JSON.stringify(seat_info));
+        seat_info.type = seat_type;
+
         $('.seat_set').append("  <div class=\"row seat_general\">\n" +
             "<div class=\"seat_local_name col-md-2\">" + $("#localName").val() + "</div>\n" +
             "<div class=\"seat_local_description\">" + $("#localDescription").val() + "</div>\n" +
@@ -326,9 +336,7 @@
     var map = [];
     var sc;
 
-    //    $(document).ready(function () {
-    ////            $('#createSeatModal').modal();
-    //    });
+
     $('input').iCheck({
         checkboxClass: 'icheckbox_flat-green',
         radioClass: 'iradio_flat-green'
@@ -454,7 +462,6 @@
     });
 
     $(".submit-btn").bind("click", function () {
-        //todo 错误检验
         $.ajax({
             type: "post",
             async: true,
@@ -470,10 +477,18 @@
             },
 
             success: function (result) {
-                location.reload();
+                $(".registerPanel").hide();
+                $(".loginPanel").show();
+                $('.errorMessage').html("注册成功，账号"+  $('#reg_venue').val());
+                setTimeout(function () {
+                    $('.errorMessage').html(" ")
+                }, 4000);
             },
             error: function (result) {
-                alert("发生了未知的错误");
+                $('.errorMessage').html("注册失败，请重新检查注册信息");
+                setTimeout(function () {
+                    $('.errorMessage').html(" ")
+                }, 2000);
             }
         });
     })

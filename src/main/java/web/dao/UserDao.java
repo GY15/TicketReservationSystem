@@ -8,14 +8,23 @@ import web.model.Venue;
  */
 public interface UserDao extends BaseDao {
     /**
-     * 获取用户信息
+     * 获取会员信息
      *
      * @author 61990
-     * @updateTime 2017/12/19
+     * @updateTime 2017/2/13
      * @param email 用户email
      * @return 指定email的数据
      */
     Member getMember(String email);
+    /**
+     * 获取场馆信息
+     *
+     * @author 61990
+     * @updateTime 2017/2/13
+     * @param venueid venueid
+     * @return 指定venue的数据
+     */
+    Venue getVenue(int venueid);
     /**
      * 保存验证信息
      *

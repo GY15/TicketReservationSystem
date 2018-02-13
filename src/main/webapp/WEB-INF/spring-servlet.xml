@@ -10,6 +10,34 @@
 
     <context:component-scan base-package="web" />
 
+    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">-->
+        <!--<property name="messageConverters">-->
+            <!--<list>-->
+            <!--<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>-->
+            <!--<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>-->
+            <!--<bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>-->
+            <!--<bean class="org.springframework.http.converter.FormHttpMessageConverter"/>-->
+            <!--<bean class="org.springframework.http.converter.StringHttpMessageConverter"/>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">-->
+        <!--<property name="webBindingInitializer">-->
+            <!--<bean class="web.utilities.spring.MyBindingInitializer" />-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">-->
+        <!--<property name="formatters">-->
+            <!--<set>-->
+                <!--<bean class="web.utilities.spring.SeatMapFormatter">-->
+                <!--</bean>-->
+                <!--<bean class="web.utilities.spring.SeatTypeFormatter">-->
+                <!--</bean>-->
+            <!--</set>-->
+        <!--</property>-->
+    <!--</bean>-->
+
     <!-- don't handle the static resource -->
     <mvc:default-servlet-handler />
 

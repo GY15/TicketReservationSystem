@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import web.model.Member;
 import web.service.UserService;
 import web.utilities.enums.MemberState;
+import web.utilities.enums.UserType;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.*;
@@ -38,7 +39,7 @@ public class MemberController extends HttpServlet {
             }
         }
         session.setAttribute("type","init");
-        return "member_home";
+        return "member_login";
     }
 
     @PostMapping(value = "/login")
@@ -55,7 +56,7 @@ public class MemberController extends HttpServlet {
             myCookie.setMaxAge(60 * 60 * 24);
         }
 
-        if (userService.login(loginID, request.getParameter("password"))) {
+        if (userService.login(loginID, request.getParameter("password"), UserType.MEMBER)) {
             if (session == null) {
                 session = request.getSession(true);
                 session.setAttribute("userID", loginID);

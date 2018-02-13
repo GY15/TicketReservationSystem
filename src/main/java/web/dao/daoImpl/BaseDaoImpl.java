@@ -45,6 +45,18 @@ public class BaseDaoImpl implements BaseDao {
 			return null;
 		} 
 	}
+	public Object load(Class c, int id) {
+		try {
+			Session session = HibernateUtil.getSession();
+			Transaction tx=session.beginTransaction();
+			Object o=session.get(c, id);
+			tx.commit();
+			return o;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 
 	public List getAllList(Class c) {

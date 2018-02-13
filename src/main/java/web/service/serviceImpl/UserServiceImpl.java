@@ -9,14 +9,40 @@ import web.model.Venue;
 import web.service.UserService;
 import web.utilities.MailUtil;
 import web.utilities.enums.MemberState;
+import web.utilities.enums.UserType;
 
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    UserDao userDao = new UserDaoImpl();
-    public boolean login(String userID, String password) {
-        Member user = userDao.getMember(userID);
-        if (user == null||!user.getPassword().equals(password)) {
+    UserDao userDao;
+    /**
+     * 用户登录
+     *
+     * @author 61990
+     * @updateTime 2018/2/7
+     * @param userID id
+     * @param password 密码
+     * @param userType 登录类型
+     * @return 是否成功
+     */
+    public boolean login(String userID, String password, UserType userType){
+        String realPassword = "";
+        if(userType.equals(UserType.MEMBER)){
+            Member member = userDao.getMember(userID);
+            if (member==null){
+                return false;
+            }
+            realPassword = member.getPassword();
+        }else if(userType.equals(UserType.VENUE)){
+            Venue venue = userDao.getVenue(Integer.parseInt(userID));
+            if (venue==null){
+                return false;
+            }
+            realPassword = venue.getPassword();
+        }else{
+
+        }
+        if (realPassword == ""||!realPassword.equals(password)) {
             return false;
         } else {
            return true;
