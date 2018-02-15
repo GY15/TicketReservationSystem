@@ -1,6 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" import="web.model.SeatMapObj" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <html>
 <head>
     <meta charset="utf-8">
@@ -22,15 +21,7 @@
 <body>
 
 <div class="container">
-    <div class="row navigation">
-        <ul class="nav nav-pills">
-            <li><a href="#">查看我的计划</a></li>
-            <li><a href="#">发布一个计划</a></li>
-            <li><a href="#">查看统计信息</a></li>
-            <li><a href="#">查看场馆信息</a></li>
-        </ul>
-    </div>
-
+    <jsp:include page="navigation.jsp"></jsp:include>
     <div class="row jumbotron banner-desc2 ">
         <div class="text-center">
 
@@ -60,7 +51,7 @@
                     <div class="form-group" style="margin-top: 20px">
                         <label class="col-md-3  form-label">类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型</label>
                         <div class="col-md-7">
-                            <input type="password" class="form-control" id="plan_type" name="plan_type"
+                            <input type="text" class="form-control" id="plan_type" name="plan_type"
                                    placeholder="输入类型">
                         </div>
                     </div>
@@ -68,34 +59,40 @@
                     <div class="form-group" style="margin-top: 20px">
                         <label class="col-md-3  form-label" for="plan_description">描&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;述</label>
                         <div class="col-md-7">
-                            <input type="password" class="form-control" id="plan_description" name="plan_description"
-                                   placeholder="输入计划的描述">
+                            <input type="text" class="form-control" id="plan_description" name="plan_description"
+                                   placeholder="输入演出描述">
                         </div>
                     </div>
 
                     <div class="form-group" style="margin-top: 20px">
                         <label class="col-md-3  form-label">座位价格</label>
                         <div class="col-md-8" style="margin-left: 15px">
-                            <div class='seat_set'>
-                                <div class="form-group" style="margin-top:10px">
-                                    <div class="seat-char" hidden>a</div>
-                                    <label class="col-md-2  form-label-sm">普通座位</label>
-                                    <div class="col-md-4">
-                                        <input type="text" class="form-control seat_value"
-                                               placeholder="输入座位价格">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class='seat_set'>
-                                <div class="form-group" style="margin-top:10px">
-                                    <div class="seat-char" hidden>a</div>
-                                    <label class="col-md-2  form-label-sm">普通座位</label>
-                                    <div class="col-md-4">
-                                        <input type="text" class="form-control seat_value"
-                                               placeholder="输入座位价格">
-                                    </div>
-                                </div>
-                            </div>
+                            <c:choose>
+                                <c:when test="${seatMaps!=null}">
+                                    <input hidden type="text" id="map" value="${seatMaps}">
+                                    <c:forEach items="${seatMaps}" var="seatMap" varStatus="vs">
+                                        <div class="seat-block"
+                                             style="background-color:rgb(230,230,230);color: indigo;margin-bottom: 10px;text-align: left;">
+                                            <div class="row">
+                                                <div class="col-md-offset-1">区域: <span class="col-md-offset-1">${seatMap.block}</span></div>
+                                            </div>
+                                            <c:forEach items="${seatMap.type}" var="seatType" varStatus="vs">
+                                                <div class='seat_set'style="margin-top:10px;margin-bottom: 3px">
+                                                    <div class="form-group row">
+                                                        <div class="seat-char" hidden>${seatType.type}</div>
+                                                        <label class="col-md-2 col-md-offset-2 form-label-sm">${seatType.name}</label>
+                                                        <div class="col-md-4">
+                                                            <input type="text" class="form-control seat_value"
+                                                                   placeholder="输入座位价格" value="${seatType.value}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </c:forEach>
+                                        </div>
+                                    </c:forEach>
+                                </c:when>
+                            </c:choose>
+
                         </div>
                     </div>
                     <button class="btn btn-primary col-md-4 col-md-offset-4" id="publish_btn" style="margin-top: 30px">
@@ -125,44 +122,55 @@
 <script src="../js/bootstrap-datetimepicker.zh-CN.js"></script>
 
 <script>
-    $("#publish_btn").bind("click",function () {
-        var startTime = $("#startDate").val();
-        var endTime = $("#endDate").val();
-        var type = $("#plan_type").val();
-        var description  = $("#plan_description").val();
+    var maps = "";
+    $(document).ready(function () {
+        maps = JSON.parse('${seatMapsJson}');
+//        alert(maps[0].map);
+    });
+    $("#publish_btn").bind("click", function () {
+
         var seat_value = [];
-        alert(seat_value);
-        $('.seat_set').each(function () {
-            var seat = {};
-            seat.type = $(this).find('.seat-char').eq(0).html();
-            seat.name = $(this).find('label').eq(0).html();
-            seat.value = $(this).find('.seat_value').eq(0).html();
-            seat_value.push(seat);
+        $('.seat_value').each(function () {
+            seat_value.push($(this).val());
         });
-        alert(JSON.stringify(seat_value));
+        var k = 0;
+        for(var i= 0;i<maps.length;i++) {
+            for(var j = 0; j<maps[i].type.length;j++){
+                maps[i].type[j].value = seat_value[k];
+                k++;
+            }
+        }
         $.ajax({
             type: "post",
             async: true,
             url: "/venue/publish",
             data: {
-                "email": $('#reg_email').val()
+                "startTime":$("#startDate").val(),
+                "endTime": $('#endDate').val(),
+                "type": $('#plan_type').val(),
+                "description": $('#plan_description').val(),
+                "seat_info": JSON.stringify(maps)
             },
 
             success: function (result) {
-                $('.errorMessage').html(result);
+
+                $('.errorMessage').html("注册成功，账号"+  $('#reg_venue').val());
+                setTimeout(function () {
+                    $('.errorMessage').html(" ")
+                }, 4000);
+            },
+            error: function (result) {
+                $('.errorMessage').html("注册失败，请重新检查注册信息");
                 setTimeout(function () {
                     $('.errorMessage').html(" ")
                 }, 2000);
-                $('.button-valid').html("<i class=\"icon-envelope\n\"></i>");
-                $('.button-valid').bind("click")
-            },
-            error: function (result) {
-                $('.button-valid').html("<i class=\"icon-envelope\n\"></i>");
-                alert("发生了未知的错误");
             }
         });
-
     })
+    String.prototype.replaceAll = function (FindText, RepText) {
+        regExp = new RegExp(FindText, "g");
+        return this.replace(regExp, RepText);
+    }
 </script>
 
 </body>

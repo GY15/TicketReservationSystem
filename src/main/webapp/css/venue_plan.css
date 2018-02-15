@@ -32,3 +32,8 @@
     margin-bottom: 0;
     color:#b1b7ba;
 }
+.seat-block{
+    color: silver;
+    margin-bottom: 10px;
+    text-align: right;
+}

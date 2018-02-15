@@ -1,5 +1,5 @@
-<!doctype html>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -20,15 +20,8 @@
 <body>
 
 <div class="container">
-    <div class="row navigation">
-        <ul class="nav nav-pills">
-            <li><a href="#">查看我的计划</a></li>
-            <li><a href="#">发布一个计划</a></li>
-            <li><a href="#">查看统计信息</a></li>
-            <li><a href="#">查看场馆信息</a></li>
-        </ul>
-    </div>
 
+    <jsp:include page="navigation.jsp"></jsp:include>
     <div class="row jumbotron banner-desc2 ">
         <div class="text-center">
 

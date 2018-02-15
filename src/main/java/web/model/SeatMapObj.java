@@ -1,31 +1,30 @@
 package web.model;
 
-import org.hibernate.annotations.GenericGenerator;
+import com.alibaba.fastjson.JSON;
 
-import javax.persistence.*;
 import java.io.Serializable;
-/**
- * 座位的概况
- */
-@Entity
-@Table(name="seat_map")
-public class SeatMap implements Serializable{
+import java.util.List;
+
+public class SeatMapObj implements Serializable {
 
     private String blockid;
     private int venueid;
     private String block;
     private String description;
-    private String map;
-    private String type;
+    private String[] map;
+    private SeatType[] type;
 
-    public SeatMap(){
+    public SeatMapObj(SeatMap seatMap) {
+        this.blockid = seatMap.getBlockid();
+        this.venueid = seatMap.getVenueid();
+        this.block = seatMap.getBlock();
+        this.description = seatMap.getDescription();
+        List<String> list = JSON.parseArray(seatMap.getMap(),String.class);
+        this.map = list.stream().toArray(String[]::new);
+        this.type = JSON.parseObject(seatMap.getType(), SeatType[].class);
 
     }
 
-    @Id
-    @GenericGenerator(name = "myGenerator", strategy = "assigned")
-    @GeneratedValue(generator = "myGenerator")
-    @Column(name="blockid")
     public String getBlockid() {
         return blockid;
     }
@@ -34,8 +33,6 @@ public class SeatMap implements Serializable{
         this.blockid = blockid;
     }
 
-
-    @Column(name="venueid")
     public int getVenueid() {
         return venueid;
     }
@@ -44,7 +41,6 @@ public class SeatMap implements Serializable{
         this.venueid = venueid;
     }
 
-    @Column(name="block")
     public String getBlock() {
         return block;
     }
@@ -53,7 +49,6 @@ public class SeatMap implements Serializable{
         this.block = block;
     }
 
-    @Column(name="description")
     public String getDescription() {
         return description;
     }
@@ -62,21 +57,19 @@ public class SeatMap implements Serializable{
         this.description = description;
     }
 
-    @Column(name="map")
-    public String getMap() {
+    public String[] getMap() {
         return map;
     }
 
-    public void setMap(String map) {
+    public void setMap(String[] map) {
         this.map = map;
     }
 
-    @Column(name="type")
-    public String getType() {
+    public SeatType[] getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(SeatType[] type) {
         this.type = type;
     }
 }

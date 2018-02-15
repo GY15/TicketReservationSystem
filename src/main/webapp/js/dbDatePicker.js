@@ -3,7 +3,7 @@
  */
 var today = new Date();
 
-today.setTime(today.getTime() - 24 * 60 * 60 * 1000);
+today.setTime(today.getTime());
 var yesterday = new Date();
 yesterday.setTime(today.getTime() - 29*24 * 60 * 60 * 1000);
 

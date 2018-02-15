@@ -5,10 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-import web.model.Member;
-import web.model.SeatMap;
-import web.model.ValidUser;
-import web.model.Venue;
+import web.model.*;
 
 public class HibernateUtil {
     private static SessionFactory sessionFactory;
@@ -22,6 +19,7 @@ public class HibernateUtil {
             config.addAnnotatedClass(Member.class);
             config.addAnnotatedClass(Venue.class);
             config.addAnnotatedClass(SeatMap.class);
+            config.addAnnotatedClass(Plan.class);
             serviceRegistry = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
             sessionFactory = config.buildSessionFactory(serviceRegistry);
             return sessionFactory;

@@ -279,13 +279,15 @@
         create(map);
         $('.seat-panel').show();
     });
+
     $('#add_seat_btn').bind("click", function () {
         $('#createSeatModal').modal();
     });
-    var seat_info = {};
-
+    var seats=[];
     function saveSeat() {
-        seat_info = {};
+        var seat_info = {};
+        seat_info.blockid = $('#reg_venue').val() +"_"+ $("#localName").val();
+        seat_info.venueid = $('#reg_venue').val();
         seat_info.block = $("#localName").val();
         seat_info.description = $("#localDescription").val();
         seat_info.map = map;
@@ -303,9 +305,9 @@
             "<div class=\"seat_local_name col-md-2\">" + $("#localName").val() + "</div>\n" +
             "<div class=\"seat_local_description\">" + $("#localDescription").val() + "</div>\n" +
             "</div>")
+        seats.push(seat_info);
         $('#createSeatModal').modal("hide");
     }
-
     var seat_kind = ['g', 'f', 'e', 'd', 'c', 'b']
     $('#addType').bind("click", function () {
         var type = seat_kind.pop();
@@ -419,11 +421,11 @@
                 if (theRow == (i + 1)) {
                     var temp = '';
                     for (var j = 0; j < createCol; j++) {
-                        if (map[i].charAt(j) == '_') {
-                            temp += "_";
-                        } else {
+//                        if (map[i].charAt(j) == '_') {
+//                            temp += "_";
+//                        } else {
                             temp += newType;
-                        }
+//                        }
                     }
                     mapTemp.push(temp);
                 } else {
@@ -462,6 +464,9 @@
     });
 
     $(".submit-btn").bind("click", function () {
+        var ss =JSON.stringify(seats);
+        alert(ss);
+        var s2 = JSON.parse(ss);
         $.ajax({
             type: "post",
             async: true,
@@ -473,7 +478,7 @@
                 "province": $('#reg_province').val(),
                 "city": $('#reg_city').val(),
                 "location": $('#reg_location').val(),
-                "seat_info": JSON.stringify(seat_info)
+                "seat_info": JSON.stringify(seats)
             },
 
             success: function (result) {

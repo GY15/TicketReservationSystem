@@ -88,13 +88,13 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
         String sql = "select max(v.venueid) from venue v";
-        int query = (Integer)session.createNativeQuery(sql).uniqueResult()+1;
+        int id = (Integer)session.createNativeQuery(sql).uniqueResult()+1;
         Venue venue = new Venue();
-        venue.setVenueid(query);
+        venue.setVenueid(id);
         venue.setValid(false);
         super.save(venue);
         transaction.commit();
-        return query;
+        return id;
     }
     /**
      * 更新场馆信息

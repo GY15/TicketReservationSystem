@@ -5,15 +5,22 @@ import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import web.model.SeatMap;
-import web.model.Venue;
+import org.springframework.web.servlet.ModelAndView;
+import web.model.*;
 import web.service.SeatService;
 import web.service.UserService;
 import web.utilities.enums.UserType;
+import web.utilities.format.SeatMapConvert;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/venue")
@@ -68,54 +75,49 @@ public class VenueController extends HttpServlet {
     @PostMapping(value = "/register_venue")
     protected @ResponseBody
     String register(@RequestParam("venueid") int venueid, @RequestParam("name") String name, @RequestParam("password") String password,
-                              @RequestParam("province") String province, @RequestParam("city") String city, @RequestParam("location") String location,
-                              @RequestParam("seat_info") String seat_info,
-                              HttpServletRequest request, HttpServletResponse response) {
+                    @RequestParam("province") String province, @RequestParam("city") String city, @RequestParam("location") String location,
+                    @RequestParam("seat_info") String seat_info,
+                    HttpServletRequest request, HttpServletResponse response) {
+//        System.out.println(seat_info)   ;
         Venue venue = new Venue(venueid, password, name, province, city, location);
         userService.modifyVenueMessage(venue);
-//        System.out.println(seat_info);
-//        JSONObject jsonObj = ;
-        SeatMap seatMap = JSON.parseObject(seat_info,SeatMap.class);
-        seatMap.setVenueid(venueid);
-        SeatMap[] seatMaps = new SeatMap[]{seatMap};
-        seatService.submitSeatMap(seatMaps);
+        List<SeatMap> seats = JSON.parseArray(seat_info,SeatMap.class);
+
+        seatService.submitSeatMap(seats);
         return "success";
     }
 
-    @GetMapping(value = "/venue_plan_publish")
-    protected String pub(HttpServletRequest request, HttpServletResponse response) {
-
-//        HttpSession session = request.getSession();
-//        if(!reg_password.equals(reg_password2)||reg_password.length()<6||valid_word.length()!=6||reg_nickname.length()==0){
-//            session.setAttribute("type","fail");
-//            return "member_home";
-//        }
-//        Member member = new Member(reg_email,reg_nickname,reg_password);
-//        if (userService.registerMember(member,valid_word)){
-//            session.setAttribute("type","success");
-//            session.setAttribute("registerMember",member.getEmail());
-//        }else{
-//            session.setAttribute("type","fail");
-//        }
-        return "publish_plan";
+    @GetMapping(value = "/open_publish")
+    protected ModelAndView openPublish(HttpServletRequest request, HttpServletResponse response) {
+        int venueid = Integer.parseInt(request.getSession().getAttribute("venueid").toString());
+        List<SeatMap> seatMaps = seatService.getSeatMap(venueid);
+        List<SeatMapObj> seatMapObjs = SeatMapConvert.StringToObj(seatMaps);
+        ModelAndView mv = new ModelAndView("publish_plan");
+        mv.addObject("seatMaps", seatMapObjs);
+        mv.addObject("seatMapsJson", JSON.toJSONString(seatMapObjs));
+        return mv;
     }
 
-    @PostMapping(value = "/publish")
-    protected String publish(HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session = request.getSession();
-        session.setAttribute("venueid", "123456");
+    @GetMapping(value = "/my_plan")
+    protected String myPlan(HttpServletRequest request, HttpServletResponse response) {
+        return "venue_plan";
+    }
 
-//        if(!reg_password.equals(reg_password2)||reg_password.length()<6||valid_word.length()!=6||reg_nickname.length()==0){
-//            session.setAttribute("type","fail");
-//            return "member_home";
-//        }
-//        Member member = new Member(reg_email,reg_nickname,reg_password);
-//        if (userService.registerMember(member,valid_word)){
-//            session.setAttribute("type","success");
-//            session.setAttribute("registerMember",member.getEmail());
-//        }else{
-//            session.setAttribute("type","fail");
-//        }
+    @GetMapping(value = "/my_info")
+    protected String myInfo(HttpServletRequest request, HttpServletResponse response) {
+        return "venue_info";
+    }
+
+    @RequestMapping(value = "/publish")
+    protected @ResponseBody
+    String publish(@RequestParam("startTime") String startTime,@RequestParam("endTime") String endTime,
+                   @RequestParam("type") String type, @RequestParam("description") String description,
+                   @RequestParam("seat_info") String seat_info, HttpServletRequest request, HttpServletResponse response) throws ParseException {
+        HttpSession session = request.getSession();
+        int venueid = Integer.parseInt(request.getSession().getAttribute("venueid").toString());
+        SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd HH:mm");
+        Plan plan = new Plan(venueid,formatter.parse(startTime),formatter.parse(endTime),type,description,seat_info);
+        seatService.publishPlan(plan);
         return "publish_plan";
     }
 }

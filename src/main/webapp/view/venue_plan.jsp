@@ -20,25 +20,14 @@
 <body>
 
 <div class="container">
-    <div class="row navigation">
-        <ul class="nav nav-pills">
-            <li><a href="#">查看我的计划</a></li>
-            <li><a href="#">发布一个计划</a></li>
-            <li><a href="#">查看统计信息</a></li>
-            <li><a href="#">查看场馆信息</a></li>
-        </ul>
-    </div>
 
+<jsp:include page="navigation.jsp"></jsp:include>
     <div class="row">
         <div class="planBlock">
             <div class="row">
                 <div class="planid" hidden>123</div>
-
                 <h5 class="col-md-offset-1 col-md-5 plan_name" style="font-size: 130%">羞羞的铁拳</h5>
-
-
                 <!--<div class="col-md-2" style="width: 100%;height:10px;z-index: 3">-->
-
                 <!--</div>-->
             </div>
             <div class="row">
