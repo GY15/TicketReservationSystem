@@ -35,6 +35,19 @@ public class PlanServiceImpl implements PlanService {
         return ticketDao.addTicket(tickets)?"success":"fail";
     }
     /**
+     * 获得venueid的plan
+     *
+     * @author 61990
+     * @updateTime 2018/2/16
+     * @param venueid 场馆id
+     * @return list
+     */
+    public List<PlanGeneral> getPlanGeneral(int venueid) {
+
+        return null;
+    }
+
+    /**
      * 由seatMapObjs 生成tickets
      *
      * @author 61990

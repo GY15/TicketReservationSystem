@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 座位的概况
+ * 座位的sql
  */
 @Entity
 @Table(name="plan")

@@ -1,6 +1,7 @@
 package web.service;
 
 import web.model.Plan;
+import web.model.PlanGeneral;
 import web.model.SeatMap;
 
 import java.util.List;
@@ -20,12 +21,12 @@ public interface PlanService {
      */
     String publishPlan(Plan plan);
     /**
-     * 发布计划
+     * 获得venueid的plan
      *
      * @author 61990
-     * @updateTime 2018/2/14
-     * @param plan 计划
-     * @return 是否成功
+     * @updateTime 2018/2/16
+     * @param venueid 场馆id
+     * @return list
      */
-    List<Plan> getPlanGeneral(int venueid);
+    List<PlanGeneral> getPlanGeneral(int venueid);
 }
