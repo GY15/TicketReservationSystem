@@ -3,6 +3,7 @@ package web.dao;
 import web.dao.BaseDao;
 import web.model.Plan;
 import web.model.SeatMap;
+import web.model.Ticket;
 
 import java.util.List;
 
@@ -18,6 +19,6 @@ public interface TicketDao extends BaseDao {
      * @param
      * @return 是否成功
      */
-    boolean addTicket();
+    boolean addTicket(List<Ticket> tickets);
 
 }

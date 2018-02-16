@@ -61,9 +61,9 @@ public class SeatDaoImpl extends BaseDaoImpl implements SeatDao {
      * @author 61990
      * @updateTime 2018/2/14
      * @param plan 计划
-     * @return 是否成功
+     * @return planid
      */
-    public String createPlan(Plan plan){
+    public int createPlan(Plan plan){
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
         String sql = "select max(p.planid) from plan p";
@@ -71,6 +71,6 @@ public class SeatDaoImpl extends BaseDaoImpl implements SeatDao {
         plan.setPlanid(id);
         super.save(plan);
         transaction.commit();
-        return "success";
+        return id;
     }
 }

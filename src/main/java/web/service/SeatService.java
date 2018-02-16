@@ -31,13 +31,5 @@ public interface SeatService {
      * @return 是否成功
      */
     List<SeatMap> getSeatMap(int venueid);
-    /**
-     * 发布计划
-     *
-     * @author 61990
-     * @updateTime 2018/2/14
-     * @param plan 计划
-     * @return 是否成功
-     */
-    String publishPlan(Plan plan);
+
 }

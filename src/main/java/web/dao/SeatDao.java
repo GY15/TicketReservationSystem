@@ -35,7 +35,7 @@ public interface SeatDao extends BaseDao {
      * @author 61990
      * @updateTime 2018/2/14
      * @param plan 计划
-     * @return 是否成功
+     * @return planid
      */
-    String createPlan(Plan plan);
+    int createPlan(Plan plan);
 }

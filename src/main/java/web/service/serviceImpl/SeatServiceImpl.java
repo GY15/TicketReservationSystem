@@ -1,21 +1,27 @@
 package web.service.serviceImpl;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import web.dao.SeatDao;
+import web.dao.TicketDao;
 import web.dao.UserDao;
 import web.dao.daoImpl.UserDaoImpl;
-import web.model.Member;
-import web.model.Plan;
-import web.model.SeatMap;
+import web.model.*;
 import web.service.SeatService;
+import web.utilities.format.SeatMapConvert;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SeatServiceImpl implements SeatService {
     @Autowired
     SeatDao seatDao;
+    @Autowired
+    TicketDao ticketDao;
     /**
      * 提交座位信息
      *
@@ -38,15 +44,6 @@ public class SeatServiceImpl implements SeatService {
     public List<SeatMap> getSeatMap(int venueid){
         return seatDao.getSeatMap(venueid);
     }
-    /**
-     * 发布计划
-     *
-     * @author 61990
-     * @updateTime 2018/2/14
-     * @param plan 计划
-     * @return 是否成功
-     */
-    public String publishPlan(Plan plan){
-        return seatDao.createPlan(plan);
-    }
+
+
 }

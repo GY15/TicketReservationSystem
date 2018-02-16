@@ -20,6 +20,7 @@ public class HibernateUtil {
             config.addAnnotatedClass(Venue.class);
             config.addAnnotatedClass(SeatMap.class);
             config.addAnnotatedClass(Plan.class);
+            config.addAnnotatedClass(Ticket.class);
             serviceRegistry = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
             sessionFactory = config.buildSessionFactory(serviceRegistry);
             return sessionFactory;

@@ -15,6 +15,9 @@ public class Plan implements Serializable{
 
     private int planid;
     private int venueid;
+    private int seatNum;
+    private int saleSeatNum;
+    private int unsubscribeNum;
     private Date startTime;
     private Date endTime;
     private String type;
@@ -25,8 +28,11 @@ public class Plan implements Serializable{
 
     }
 
-    public Plan(int venueid, Date startTime, Date endTime, String type, String description, String seatMaps) {
+    public Plan(int venueid, int seatNum,  Date startTime, Date endTime, String type, String description, String seatMaps) {
         this.venueid = venueid;
+        this.seatNum = seatNum;
+        this.saleSeatNum = 0;
+        this.unsubscribeNum = 0;
         this.startTime = startTime;
         this.endTime = endTime;
         this.type = type;
@@ -45,7 +51,8 @@ public class Plan implements Serializable{
     public void setPlanid(int planid) {
         this.planid = planid;
     }
-    @Column(name="planid")
+
+    @Column(name="venueid")
     public int getVenueid() {
         return venueid;
     }
@@ -53,6 +60,34 @@ public class Plan implements Serializable{
     public void setVenueid(int venueid) {
         this.venueid = venueid;
     }
+
+    @Column(name="seat_num")
+    public int getSeatNum() {
+        return seatNum;
+    }
+
+    public void setSeatNum(int seatNum) {
+        this.seatNum = seatNum;
+    }
+
+    @Column(name="sale")
+    public int getSaleSeatNum() {
+        return saleSeatNum;
+    }
+
+    public void setSaleSeatNum(int saleSeatNum) {
+        this.saleSeatNum = saleSeatNum;
+    }
+
+    @Column(name="unsubscribe")
+    public int getUnsubscribeNum() {
+        return unsubscribeNum;
+    }
+
+    public void setUnsubscribeNum(int unsubscribeNum) {
+        this.unsubscribeNum = unsubscribeNum;
+    }
+
     @Column(name="type")
     public String getType() {
         return type;

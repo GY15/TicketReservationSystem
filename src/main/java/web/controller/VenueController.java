@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import web.model.*;
+import web.service.PlanService;
 import web.service.SeatService;
 import web.service.UserService;
 import web.utilities.enums.UserType;
@@ -15,11 +16,8 @@ import web.utilities.format.SeatMapConvert;
 import javax.servlet.ServletContext;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -31,7 +29,8 @@ public class VenueController extends HttpServlet {
     private UserService userService;
     @Autowired
     private SeatService seatService;
-
+    @Autowired
+    private PlanService planService;
     @GetMapping(value = "/")
     protected String getHome(HttpServletRequest request) {
         HttpSession session = request.getSession(true);
@@ -78,11 +77,9 @@ public class VenueController extends HttpServlet {
                     @RequestParam("province") String province, @RequestParam("city") String city, @RequestParam("location") String location,
                     @RequestParam("seat_info") String seat_info,
                     HttpServletRequest request, HttpServletResponse response) {
-//        System.out.println(seat_info)   ;
         Venue venue = new Venue(venueid, password, name, province, city, location);
         userService.modifyVenueMessage(venue);
         List<SeatMap> seats = JSON.parseArray(seat_info,SeatMap.class);
-
         seatService.submitSeatMap(seats);
         return "success";
     }
@@ -100,6 +97,8 @@ public class VenueController extends HttpServlet {
 
     @GetMapping(value = "/my_plan")
     protected String myPlan(HttpServletRequest request, HttpServletResponse response) {
+        int venueid = Integer.parseInt(request.getSession().getAttribute("venueid").toString());
+        planService.getPlanGeneral(venueid);
         return "venue_plan";
     }
 
@@ -112,12 +111,11 @@ public class VenueController extends HttpServlet {
     protected @ResponseBody
     String publish(@RequestParam("startTime") String startTime,@RequestParam("endTime") String endTime,
                    @RequestParam("type") String type, @RequestParam("description") String description,
-                   @RequestParam("seat_info") String seat_info, HttpServletRequest request, HttpServletResponse response) throws ParseException {
-        HttpSession session = request.getSession();
+                   @RequestParam("seat_info") String seat_info,  @RequestParam("seat_num") int seat_num,HttpServletRequest request, HttpServletResponse response) throws ParseException {
         int venueid = Integer.parseInt(request.getSession().getAttribute("venueid").toString());
         SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd HH:mm");
-        Plan plan = new Plan(venueid,formatter.parse(startTime),formatter.parse(endTime),type,description,seat_info);
-        seatService.publishPlan(plan);
+        Plan plan = new Plan(venueid,seat_num,formatter.parse(startTime),formatter.parse(endTime),type,description,seat_info);
+        planService.publishPlan(plan);
         return "publish_plan";
     }
 }

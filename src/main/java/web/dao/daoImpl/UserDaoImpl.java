@@ -94,6 +94,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
         venue.setValid(false);
         super.save(venue);
         transaction.commit();
+        session.close();
         return id;
     }
     /**

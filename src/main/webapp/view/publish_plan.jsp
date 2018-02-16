@@ -125,16 +125,23 @@
     var maps = "";
     $(document).ready(function () {
         maps = JSON.parse('${seatMapsJson}');
-//        alert(maps[0].map);
     });
     $("#publish_btn").bind("click", function () {
-
         var seat_value = [];
         $('.seat_value').each(function () {
             seat_value.push($(this).val());
         });
         var k = 0;
+        var seatNum = 0;
         for(var i= 0;i<maps.length;i++) {
+            var map = maps[i].map;
+            for(var q = 0 ; q < map.length; q++){
+                for(var p = 0 ; p< map[q].length;p++) {
+                    if (map[q].charAt(p)!="_"){
+                        seatNum++;
+                    }
+                }
+            }
             for(var j = 0; j<maps[i].type.length;j++){
                 maps[i].type[j].value = seat_value[k];
                 k++;
@@ -149,18 +156,15 @@
                 "endTime": $('#endDate').val(),
                 "type": $('#plan_type').val(),
                 "description": $('#plan_description').val(),
-                "seat_info": JSON.stringify(maps)
+                "seat_info": JSON.stringify(maps),
+                "seat_num":seatNum
             },
 
             success: function (result) {
-
-                $('.errorMessage').html("注册成功，账号"+  $('#reg_venue').val());
-                setTimeout(function () {
-                    $('.errorMessage').html(" ")
-                }, 4000);
+                location.href = "/venue/my_plan"
             },
             error: function (result) {
-                $('.errorMessage').html("注册失败，请重新检查注册信息");
+                $('.errorMessage').html("座位信息错误，请检查后重新输入");
                 setTimeout(function () {
                     $('.errorMessage').html(" ")
                 }, 2000);
