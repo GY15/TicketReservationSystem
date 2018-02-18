@@ -1,10 +1,13 @@
 package web.model;
 
+import com.alibaba.fastjson.JSON;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 座位的概况
@@ -12,21 +15,20 @@ import java.util.Date;
 public class PlanGeneral implements Serializable{
 
     private int planid;
-    private Date startTime;
-    private Date endTime;
+    private String startTime;
+    private String endTime;
     private String type;
     private String description;
     private SeatMapObj[] seatMaps;
 
-    public PlanGeneral(){
-
-    }
-
-    public PlanGeneral(Date startTime, Date endTime, String type, String description, String seatMaps) {
-        this.startTime = startTime;
-        this.endTime = endTime;
+    public PlanGeneral(int planid, Date startTime, Date endTime, String type, String description, List<SeatMapObj> seatMapObjs){
+        this.planid = planid;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        this.startTime = sdf.format(startTime);
+        this.endTime = sdf.format(endTime);
         this.type = type;
         this.description = description;
+        this.seatMaps = seatMapObjs.stream().toArray(SeatMapObj[]::new);
     }
 
 
@@ -46,19 +48,19 @@ public class PlanGeneral implements Serializable{
         this.description = description;
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 

@@ -164,13 +164,13 @@
 
 <div class="modal fade" id="createSeatModal" tabindex="-1" role="dialog" aria-labelledby="loginLabel"
      aria-hidden="true">
-    <div class="modal-dialog" style="margin-top: 50px;height:692px;width: 90%">
+    <div class="modal-dialog" style="margin-top: 20px;height:692px;width: 90%">
         <div class="modal-content">
             <div class="modal-header text-center">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" style="margin-top: 0px">创建座位</h4>
             </div>
-            <div class="modal-body" style="height: 539px">
+            <div class="modal-body" style="height: 560px">
                 <div class="row">
                     <label class="col-md-1 col-md-offset-1 label-font" align="right">区域名称</label>
                     <div class="col-md-1">

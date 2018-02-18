@@ -13,6 +13,7 @@ import web.service.UserService;
 import web.utilities.enums.UserType;
 import web.utilities.format.SeatMapConvert;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.ServletContext;
 import javax.servlet.http.*;
 import java.io.IOException;
@@ -39,7 +40,7 @@ public class VenueController extends HttpServlet {
     }
 
     @PostMapping(value = "/login")
-    protected String login(@RequestParam("login_id") String venueid, @RequestParam("login_password") String password,
+    protected ModelAndView login(@RequestParam("login_id") String venueid, @RequestParam("login_password") String password,
                            HttpServletRequest request, HttpServletResponse response) {
         String remember = request.getParameter("remember");
         HttpSession session = request.getSession(true);
@@ -51,10 +52,14 @@ public class VenueController extends HttpServlet {
         }
         if (userService.login(venueid, password, UserType.VENUE)) {
             session.setAttribute("venueid", venueid);
-            return "venue_plan";
+            List<PlanGeneral> planGenerals = planService.getPlanGeneral(Integer.parseInt(venueid));
+            ModelAndView mv = new ModelAndView("venue_plan");
+            mv.addObject("plansJson", JSON.toJSONString(planGenerals));
+            mv.addObject("plans", planGenerals);
+            return mv;
         } else {
-            session.setAttribute("errorMessage", "1");
-            return "venue_login";
+            ModelAndView mv = new ModelAndView("venue_login");
+            return mv;
         }
     }
 
@@ -96,10 +101,13 @@ public class VenueController extends HttpServlet {
     }
 
     @GetMapping(value = "/my_plan")
-    protected String myPlan(HttpServletRequest request, HttpServletResponse response) {
+    protected ModelAndView myPlan(HttpServletRequest request, HttpServletResponse response) {
         int venueid = Integer.parseInt(request.getSession().getAttribute("venueid").toString());
-        planService.getPlanGeneral(venueid);
-        return "venue_plan";
+        List<PlanGeneral> planGenerals = planService.getPlanGeneral(venueid);
+        ModelAndView mv = new ModelAndView("venue_plan");
+        mv.addObject("plansJson", JSON.toJSONString(planGenerals));
+        mv.addObject("plans", planGenerals);
+        return mv;
     }
 
     @GetMapping(value = "/my_info")

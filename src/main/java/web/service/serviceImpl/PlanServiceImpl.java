@@ -3,6 +3,7 @@ package web.service.serviceImpl;
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import web.dao.PlanDao;
 import web.dao.SeatDao;
 import web.dao.TicketDao;
 import web.model.*;
@@ -11,6 +12,7 @@ import web.service.SeatService;
 import web.utilities.format.SeatMapConvert;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,6 +22,8 @@ public class PlanServiceImpl implements PlanService {
     SeatDao seatDao;
     @Autowired
     TicketDao ticketDao;
+    @Autowired
+    PlanDao planDao;
     /**
      * 发布计划
      *
@@ -29,7 +33,7 @@ public class PlanServiceImpl implements PlanService {
      * @return 是否成功
      */
     public String publishPlan(Plan plan){
-        int planid = seatDao.createPlan(plan);
+        int planid = planDao.createPlan(plan);
         List<SeatMapObj> seatMapObjs = SeatMapConvert.StringToObj( JSON.parseArray(plan.getSeatMaps(),SeatMap.class));
         List<Ticket> tickets = createTickets(planid,seatMapObjs);
         return ticketDao.addTicket(tickets)?"success":"fail";
@@ -43,8 +47,14 @@ public class PlanServiceImpl implements PlanService {
      * @return list
      */
     public List<PlanGeneral> getPlanGeneral(int venueid) {
-
-        return null;
+        List<PlanGeneral> planGenerals = new ArrayList<>();
+        List<Plan> plans =  planDao.getPlan(venueid);
+        for (Plan plan: plans){
+            List<SeatMap> seatMap = JSON.parseArray(plan.getSeatMaps(),SeatMap.class);
+            List<SeatMapObj> seatMapObjs =SeatMapConvert.StringToObj(seatMap);
+            planGenerals.add(new PlanGeneral(plan.getPlanid(),plan.getStartTime() , plan.getEndTime(), plan.getType(), plan.getDescription(),  seatMapObjs));
+        }
+        return planGenerals;
     }
 
     /**

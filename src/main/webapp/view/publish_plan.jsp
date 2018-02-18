@@ -69,7 +69,6 @@
                         <div class="col-md-8" style="margin-left: 15px">
                             <c:choose>
                                 <c:when test="${seatMaps!=null}">
-                                    <input hidden type="text" id="map" value="${seatMaps}">
                                     <c:forEach items="${seatMaps}" var="seatMap" varStatus="vs">
                                         <div class="seat-block"
                                              style="background-color:rgb(230,230,230);color: indigo;margin-bottom: 10px;text-align: left;">
@@ -92,7 +91,6 @@
                                     </c:forEach>
                                 </c:when>
                             </c:choose>
-
                         </div>
                     </div>
                     <button class="btn btn-primary col-md-4 col-md-offset-4" id="publish_btn" style="margin-top: 30px">

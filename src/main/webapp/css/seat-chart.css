@@ -84,7 +84,7 @@ div.seatCharts-seat.focused {
     background-color: #76B474;
 }
 div.seatCharts-seat.selected {
-    background-color: #E6CAC4;
+    background-color: #f2dede;
 }
 div.seatCharts-seat.unavailable {
     background-color: #472B34;
@@ -103,12 +103,13 @@ div.seatCharts-container {
     text-align: center;
 }
 div.seatCharts-legend {
-    padding-left: 0px;
-    position: absolute;
-    bottom: 16px;
+    /*padding-left: 0px;*/
+    /*position: absolute;*/
+    /*bottom: 16px;*/
 }
 ul.seatCharts-legendList {
-    padding-left: 0px;
+    /*padding-left: 0px;*/
+     margin-bottom: 250px;
 }
 span.seatCharts-legendDescription {
     margin-left: 5px;
@@ -120,14 +121,20 @@ span.seatCharts-legendDescription {
     font-size: 14px;
 }
 #selected-seats {
-    max-height: 90px;
-    overflow-y: scroll;
+    height: 120px;
+    max-height: 120px;
+    overflow-y: auto;
     overflow-x: none;
-    width: 170px;
+    width: 270px;
+    background-color: seashell;
 }
 .seat_general{
     border-radius:10px;
     background-color:whitesmoke;
     height: 25px;
     margin-top: 5px;
+}
+.errorMessage{
+    margin-top: 10px;
+    color: red;
 }

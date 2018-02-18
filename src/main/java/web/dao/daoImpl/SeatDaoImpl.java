@@ -53,24 +53,8 @@ public class SeatDaoImpl extends BaseDaoImpl implements SeatDao {
         Query query = session.createSQLQuery(sql).addEntity(SeatMap.class);
         List<SeatMap> seatMaps= query.list();
         transaction.commit();
+        session.close();
         return seatMaps;
     }
-    /**
-     * 发布计划
-     *
-     * @author 61990
-     * @updateTime 2018/2/14
-     * @param plan 计划
-     * @return planid
-     */
-    public int createPlan(Plan plan){
-        Session session = HibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
-        String sql = "select max(p.planid) from plan p";
-        int id = (Integer)session.createNativeQuery(sql).uniqueResult()+1;
-        plan.setPlanid(id);
-        super.save(plan);
-        transaction.commit();
-        return id;
-    }
+
 }
