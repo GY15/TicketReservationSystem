@@ -56,4 +56,12 @@ public interface UserService {
      * @return 是否成功
      */
     boolean modifyVenueMessage(Venue venue);
+    /**
+     * 在场馆购票时，获取指定客户的折扣
+     *
+     * @author 61990
+     * @updateTime 2018/2/18
+     * @return 是否成功
+     */
+    double      getDiscount(String email);
 }

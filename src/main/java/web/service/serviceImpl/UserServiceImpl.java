@@ -110,4 +110,15 @@ public class UserServiceImpl implements UserService {
     public boolean modifyVenueMessage(Venue venue){
         return userDao.updateVenue(venue);
     }
+
+    /**
+     * 获取指定客户的折扣
+     *
+     * @author 61990
+     * @updateTime 2018/2/18
+     * @return 是否成功
+     */
+    public double getDiscount(String email){
+        return 0.8;
+    }
 }

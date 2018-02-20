@@ -51,4 +51,15 @@ public class PlanDaoImpl extends BaseDaoImpl implements PlanDao {
         session.close();
         return plans;
     }
+    /**
+     * 获得指定id 的计划
+     *
+     * @author 61990
+     * @updateTime 2018/2/18
+     * @param planid 计划的id
+     * @return 计划详情
+     */
+    public Plan getOnePlan(int planid){
+        return (Plan) super.load(Plan.class, planid);
+    }
 }

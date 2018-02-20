@@ -21,6 +21,7 @@ public class HibernateUtil {
             config.addAnnotatedClass(SeatMap.class);
             config.addAnnotatedClass(Plan.class);
             config.addAnnotatedClass(Ticket.class);
+            config.addAnnotatedClass(Order.class);
             serviceRegistry = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
             sessionFactory = config.buildSessionFactory(serviceRegistry);
             return sessionFactory;

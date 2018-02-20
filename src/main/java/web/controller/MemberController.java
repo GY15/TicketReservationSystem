@@ -11,6 +11,7 @@ import web.utilities.enums.UserType;
 import javax.servlet.ServletContext;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.text.ParseException;
 
 @Controller
 @RequestMapping("/member")
@@ -122,5 +123,4 @@ public class MemberController extends HttpServlet {
         }
         return "member_home";
     }
-
 }

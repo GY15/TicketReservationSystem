@@ -29,4 +29,13 @@ public interface PlanService {
      * @return list
      */
     List<PlanGeneral> getPlanGeneral(int venueid);
+    /**
+     * 获得指定id 的计划
+     *
+     * @author 61990
+     * @updateTime 2018/2/18
+     * @param planid 计划的id
+     * @return
+     */
+    PlanGeneral getPlan(int planid);
 }

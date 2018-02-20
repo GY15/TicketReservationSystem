@@ -7,9 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import web.model.*;
-import web.service.PlanService;
-import web.service.SeatService;
-import web.service.UserService;
+import web.service.*;
 import web.utilities.enums.UserType;
 import web.utilities.format.SeatMapConvert;
 
@@ -32,6 +30,11 @@ public class VenueController extends HttpServlet {
     private SeatService seatService;
     @Autowired
     private PlanService planService;
+    @Autowired
+    private TicketService ticketService;
+    @Autowired
+    private OrderService orderService;
+
     @GetMapping(value = "/")
     protected String getHome(HttpServletRequest request) {
         HttpSession session = request.getSession(true);
@@ -110,10 +113,23 @@ public class VenueController extends HttpServlet {
         return mv;
     }
 
+    @PostMapping(value = "/open_plan_detail")
+    protected ModelAndView openDetail(@RequestParam("planid") int planid,@RequestParam("selectpicker") String block,
+            HttpServletRequest request, HttpServletResponse response) {
+        PlanGeneral planGeneral = planService.getPlan(planid);
+        ModelAndView mv = new ModelAndView("venue_buy");
+        mv.addObject("planJson", JSON.toJSONString(planGeneral));
+        mv.addObject("plan", planGeneral);
+        mv.addObject("block", block);
+        return mv;
+    }
+
+
     @GetMapping(value = "/my_info")
     protected String myInfo(HttpServletRequest request, HttpServletResponse response) {
         return "venue_info";
     }
+
 
     @RequestMapping(value = "/publish")
     protected @ResponseBody
@@ -125,5 +141,29 @@ public class VenueController extends HttpServlet {
         Plan plan = new Plan(venueid,seat_num,formatter.parse(startTime),formatter.parse(endTime),type,description,seat_info);
         planService.publishPlan(plan);
         return "publish_plan";
+    }
+
+    @PostMapping(value = "/createVenueOrder")
+    protected @ResponseBody
+    String createOrder(@RequestParam("member") boolean member,@RequestParam("planid") int planid,@RequestParam("email") String email,
+                   @RequestParam("block") String block, @RequestParam("seats") String seats,
+                   @RequestParam("value") double value,HttpServletRequest request){
+        List<String> booked_seats = JSON.parseArray(seats,String.class);
+        int venueid = Integer.parseInt(request.getSession().getAttribute("venueid").toString());
+        String result = orderService.createOrder(email,venueid, planid, block,  booked_seats, value, member);
+        return result;
+    }
+
+    @PostMapping(value = "/getBookedArray")
+    protected @ResponseBody
+    String[] getBookedArray(@RequestParam("planid") int planid,@RequestParam("block") String block) {
+        return ticketService.getBookedArray(planid,block);
+    }
+
+    //用于现场购票
+    @PostMapping(value = "/getDiscount")
+    protected @ResponseBody
+    double getDiscount(@RequestParam("email") String email) {
+        return userService.getDiscount(email);
     }
 }

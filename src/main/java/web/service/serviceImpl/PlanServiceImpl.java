@@ -9,6 +9,7 @@ import web.dao.TicketDao;
 import web.model.*;
 import web.service.PlanService;
 import web.service.SeatService;
+import web.service.TicketService;
 import web.utilities.format.SeatMapConvert;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class PlanServiceImpl implements PlanService {
     @Autowired
     SeatDao seatDao;
     @Autowired
-    TicketDao ticketDao;
+    TicketService ticketService;
     @Autowired
     PlanDao planDao;
     /**
@@ -35,8 +36,7 @@ public class PlanServiceImpl implements PlanService {
     public String publishPlan(Plan plan){
         int planid = planDao.createPlan(plan);
         List<SeatMapObj> seatMapObjs = SeatMapConvert.StringToObj( JSON.parseArray(plan.getSeatMaps(),SeatMap.class));
-        List<Ticket> tickets = createTickets(planid,seatMapObjs);
-        return ticketDao.addTicket(tickets)?"success":"fail";
+        return  ticketService.createTickets(planid,seatMapObjs);
     }
     /**
      * 获得venueid的plan
@@ -56,38 +56,18 @@ public class PlanServiceImpl implements PlanService {
         }
         return planGenerals;
     }
-
     /**
-     * 由seatMapObjs 生成tickets
+     * 获得指定id 的计划
      *
      * @author 61990
-     * @updateTime 2018/2/15
-     * @param seatMapObjs 多个区域的座位信息
-     * @param planid 计划的id信息
-     * @return ticket list
+     * @updateTime 2018/2/18
+     * @param planid 计划的id
+     * @return 计划详情
      */
-    private List<Ticket> createTickets(int planid ,List<SeatMapObj> seatMapObjs) {
-        List<Ticket> tickets = new ArrayList<>();
-        for (SeatMapObj seatMapObj : seatMapObjs){
-            SeatType[] seatTypes =  seatMapObj.getType();
-            HashMap<String,String> seatName = new HashMap();
-            HashMap<String,Double> seatValue = new HashMap();
-            for (SeatType seatType : seatTypes){
-                seatValue.put(seatType.getType(),seatType.getValue());
-                seatName.put(seatType.getType(),seatType.getName());
-            }
-            String[] maps = seatMapObj.getMap();
-            for (int i = 0; i < maps.length;i++){
-                for (int j = 0; j < maps[i].length();j++){
-                    String type = maps[i].substring(j,j+1);
-                    if(!type.equals("_")) {
-                        Ticket ticket = new Ticket(planid + "_" + seatMapObj.getBlock() + "_" + (i + 1) + "_" + (j + 1), planid, seatName.get(type),
-                                seatMapObj.getBlock(), i + 1, j + 1, seatValue.get(type));
-                        tickets.add(ticket);
-                    }
-                }
-            }
-        }
-        return tickets;
+    public PlanGeneral getPlan(int planid){
+        Plan plan = planDao.getOnePlan(planid);
+        List<SeatMap> seatMap = JSON.parseArray(plan.getSeatMaps(),SeatMap.class);
+        List<SeatMapObj> seatMapObjs =SeatMapConvert.StringToObj(seatMap);
+        return new PlanGeneral(plan.getPlanid(),plan.getStartTime() , plan.getEndTime(), plan.getType(), plan.getDescription(),  seatMapObjs);
     }
 }
