@@ -121,4 +121,14 @@ public class UserServiceImpl implements UserService {
     public double getDiscount(String email){
         return 0.8;
     }
+    /**
+     * 获取venue 信息
+     *
+     * @author 61990
+     * @updateTime 2018/2/18
+     * @return 场馆基本信息
+     */
+    public Venue getVenueInfo(int venueid){
+        return userDao.getVenue(venueid);
+    }
 }

@@ -1,6 +1,7 @@
 package web.service.serviceImpl;
 
 import com.alibaba.fastjson.JSON;
+import com.sun.org.apache.xpath.internal.operations.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import web.dao.OrderDao;
@@ -43,5 +44,21 @@ public class OrderServiceImpl implements OrderService {
             orderDao.createOrder(order);
         }
         return "success";
+    }
+    /**
+     * 检查订单是否符合计划id和 场馆id
+     *
+     * @author 61990
+     * @updateTime 2018/2/21
+     * @return 订单的座位信息
+     */
+    public String checkTicket(int planid, int orderid, int venueid){
+        Order order = orderDao.getOrder(orderid);
+        if(order.getPlanid() != planid || order.getVenueid() != venueid || order.getState().equals("已出票")) {
+            return "";
+        }
+        order.setState("已出票");
+        orderDao.updateOrder(order);
+        return order.getTickets();
     }
 }

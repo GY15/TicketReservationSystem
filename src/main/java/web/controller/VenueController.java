@@ -57,7 +57,6 @@ public class VenueController extends HttpServlet {
             session.setAttribute("venueid", venueid);
             List<PlanGeneral> planGenerals = planService.getPlanGeneral(Integer.parseInt(venueid));
             ModelAndView mv = new ModelAndView("venue_plan");
-            mv.addObject("plansJson", JSON.toJSONString(planGenerals));
             mv.addObject("plans", planGenerals);
             return mv;
         } else {
@@ -108,7 +107,6 @@ public class VenueController extends HttpServlet {
         int venueid = Integer.parseInt(request.getSession().getAttribute("venueid").toString());
         List<PlanGeneral> planGenerals = planService.getPlanGeneral(venueid);
         ModelAndView mv = new ModelAndView("venue_plan");
-        mv.addObject("plansJson", JSON.toJSONString(planGenerals));
         mv.addObject("plans", planGenerals);
         return mv;
     }
@@ -126,8 +124,12 @@ public class VenueController extends HttpServlet {
 
 
     @GetMapping(value = "/my_info")
-    protected String myInfo(HttpServletRequest request, HttpServletResponse response) {
-        return "venue_info";
+    protected ModelAndView myInfo(HttpServletRequest request, HttpServletResponse response) {
+        int venueid = Integer.parseInt(request.getSession().getAttribute("venueid").toString());
+        Venue venue = userService.getVenueInfo(venueid);
+        ModelAndView mv = new ModelAndView("venue_info");
+        mv.addObject("venue", venue);
+        return mv;
     }
 
 
@@ -165,5 +167,13 @@ public class VenueController extends HttpServlet {
     protected @ResponseBody
     double getDiscount(@RequestParam("email") String email) {
         return userService.getDiscount(email);
+    }
+
+    //用于现场检票
+    @PostMapping(value = "/check_ticket")
+    protected @ResponseBody
+    String checkTicket(@RequestParam("planid") int planid,@RequestParam("orderid") int orderid,HttpServletRequest request) {
+        int venueid = Integer.parseInt(request.getSession().getAttribute("venueid").toString());
+        return orderService.checkTicket(planid,orderid,venueid);
     }
 }

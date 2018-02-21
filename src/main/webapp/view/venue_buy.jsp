@@ -153,7 +153,7 @@
                 }, 2000);
             }
         });
-    })
+    });
     $(".pay_btn").bind("click",function () {
         var booked_seats = [];
         $("#seatLists").find(".selectedSeat").each(function () {

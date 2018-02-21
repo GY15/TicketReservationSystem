@@ -19,4 +19,13 @@ public interface OrderService {
      * @return 是否成功
      */
     String createOrder(String email, int venueid, int planid, String block,List<String> seat,double value,boolean isMember);
+
+    /**
+     * 检查订单是否符合计划id和 场馆id
+     *
+     * @author 61990
+     * @updateTime 2018/2/21
+     * @return 订单的座位信息
+     */
+    String checkTicket(int planid, int orderid, int venueid);
 }

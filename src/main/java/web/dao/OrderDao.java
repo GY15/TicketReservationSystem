@@ -21,5 +21,20 @@ public interface OrderDao extends BaseDao {
      * @return planid
      */
     int createOrder(Order order);
-
+    /**
+     * 获得一个订单信息
+     *
+     * @author 61990
+     * @updateTime 2018/2/21
+     * @return order 的信息
+     */
+    Order getOrder(int orderid);
+    /**
+     * 更新一个订单信息
+     *
+     * @author 61990
+     * @updateTime 2018/2/21
+     * @return 是否成功
+     */
+    void updateOrder(Order order);
 }

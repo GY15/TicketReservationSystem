@@ -63,5 +63,13 @@ public interface UserService {
      * @updateTime 2018/2/18
      * @return 是否成功
      */
-    double      getDiscount(String email);
+    double getDiscount(String email);
+    /**
+     * 获取venue 信息
+     *
+     * @author 61990
+     * @updateTime 2018/2/18
+     * @return 场馆基本信息
+     */
+    Venue getVenueInfo(int venueid);
 }

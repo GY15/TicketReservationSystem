@@ -31,7 +31,7 @@
                         <form action="/venue/open_plan_detail" method="post">
                             <div class="row">
                                 <input type="text" class="planid" name="planid" hidden value="${plan.planid}"/>
-                                <h5 class="col-md-offset-1 col-md-1 plan_name" style="font-size: 130%">${plan.type}</h5>
+                                <h5 class="col-md-offset-1 col-md-1" style="font-size: 130%">${plan.type}</h5>
                                 <h5 class="col-md-5 plan_name"
                                     style="font-size: 90%;margin-top: 16px">${plan.description}</h5>
                                 <h5 style="font-size: 90%;margin-top: 16px">${plan.seatMaps[0].type[0].value}左右</h5>
@@ -78,46 +78,34 @@
 
 </div>
 
-<div class="modal fade" id="buyTicketModal" tabindex="-1" role="dialog"
+
+<div class="modal fade" id="checkTicketModal" tabindex="-1" role="dialog"
      aria-hidden="true">
-    <div class="modal-dialog" style="margin-top: 30px;height:710px;width: 90%">
+    <div class="modal-dialog" style="margin-top: 130px;height:710px;width: 40%">
         <div class="modal-content">
             <div class="modal-header text-center">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
                 <h4 class="modal-title" style="margin-top: 0px">现场购票</h4>
             </div>
-            <div class="modal-body" style="height: 580px">
-                <div class="row">
-                    <label class="col-md-1 col-md-offset-2 label-font" align="right">区域名称</label>
+            <div class="modal-body" style="margin-top: 70px;margin-bottom: 100px">
+                <div class="row" style="margin-bottom: 10px">
+                    <label class="col-md-5 label-font description" align="right"></label>
+                    <label class="col-md-3 label-font block" align="center"></label>
+                </div>
+                <div class="row" style="margin-bottom: 10px">
+                    <label class="col-md-3 label-font" align="right">检票</label>
+                    <div class="col-md-5">
+                        <input type="text" id="check_order" class="form-control input-style">
+                    </div>
                     <div class="col-md-1">
-                        <input type="text" id="localName" class="form-control input-style" disabled>
-                    </div>
-                    <label class="col-md-1 label-font" align="right">区域说明</label>
-                    <div class="col-md-2">
-                        <input type="text" id="localDescription" class="form-control input-style" disabled>
-                    </div>
-                    <div class="col-md-2 errorMessage"></div>
-                    <div class="col-md-1" style="font-size: 130%;margin-top: 4px;margin-left:115px">选座详情</div>
-                </div>
-                <div class="seat-panel row" style="margin-top: 5px;">
-                    <div class="col-md-8 seat-container col-md-offset-1">
-                        <div id="seat-area">
-                        </div>
-                    </div>
-                    <div class="col-md-3 booking-details">
+                        <button class="btn btn-primary check_btn">确认订单号</button>
                     </div>
                 </div>
+                <div class="errorMessage col-md-offset-3"></div>
             </div>
-            <%--<div class="modal-footer">--%>
-            <%--<div class="login-btn-group">--%>
-            <%--<button type="button" class="btn btn-primary" onclick="saveSeat()">保存</button>--%>
-            <%--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>--%>
-            <%--</div>--%>
-            <%--</div>--%>
         </div>
     </div>
 </div>
-
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="../js/jquery-3.2.1.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -131,14 +119,49 @@
 <script src="../js/icheck.js"></script>
 
 <script>
-    var plans;
-    $(document).ready(function () {
-        $('.selectpicker').selectpicker();
-        plans = JSON.parse('${plansJson}');
-    });
-    $(".check_ticket").bind("click", function () {
-        alert(12);
+    <%--$(document).ready(function () {--%>
+    <%--$('.selectpicker').selectpicker();--%>
+    <%--plans = JSON.parse('${plansJson}');--%>
+    <%--});--%>
+    var planid = "";
+    var block ="";
+    $(".check_ticket").click(function () {
+        $('#checkTicketModal').modal();
+        planid = $(this).parent().parent().parent().find(".planid").eq(0).val();
+        block =$(this).parent().find(".selectpicker").eq(0).val();
+        $(".block").html(block);
+        $(".description").html($(this).parent().parent().parent().find(".plan_name").eq(0).html());
         return false;
+    });
+    $(".check_btn").bind("click", function () {
+        $.ajax({
+            type: "post",
+            async: true,
+            url: "/venue/check_ticket",
+            data: {
+                "orderid": $("#check_order").val(),
+                "planid": planid
+            },
+            success: function (result) {
+                if(result!=""){
+                    $('.errorMessage').html("正在出票  "+result);
+                    setTimeout(function () {
+                        $('.errorMessage').html(" ")
+                    }, 5000);
+                }else {
+                    $('.errorMessage').html("你的订单号有误");
+                    setTimeout(function () {
+                        $('.errorMessage').html(" ")
+                    }, 3000);
+                }
+            },
+            error: function (result) {
+                $('.errorMessage').html("你的订单号有误");
+                setTimeout(function () {
+                    $('.errorMessage').html(" ")
+                }, 3000);
+            }
+        });
     });
 </script>
 

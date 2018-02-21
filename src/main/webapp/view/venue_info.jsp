@@ -30,55 +30,56 @@
 
                     <div class="form-group" style="margin-top: 20px">
                         <label class="col-md-3  form-label" for="reg_venue">帐&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</label>
-                        <div class="col-md-3 input-group" style="margin-left: 0px;left: 15px;">
-                            <input type="text" class="form-control" name="reg_venue" id="reg_venue" style="width: 210px;" disabled>
+                        <div class="col-md-9 input-group" style="margin-left: 0px;left: 15px;">
+                            <input type="text" class="form-control" name="reg_venue" value="${venue.venueid}" id="reg_venue" style="width: 210px;" disabled>
+                            <b class="col-md-1 col-md-offset-2 form-label">营收</b>  <b class="col-md-1  form-label">${venue.balance}</b>
                         </div>
                     </div>
                     <div class="form-group" style="margin-top: 20px">
                         <label class="col-md-3  form-label" for="reg_name">场馆名称</label>
                         <div class="col-md-7">
-                            <input type="text" class="form-control" name="reg_name" id="reg_name"
+                            <input type="text" class="form-control" value="${venue.name}" i name="reg_name" id="reg_name"
                                    placeholder="输入场馆名称">
                         </div>
                     </div>
                     <div class="form-group" style="margin-top: 20px">
-                        <label class="col-md-3  form-label" for="reg_password">旧&nbsp;&nbsp密&nbsp;&nbsp;码</label>
+                        <label class="col-md-3  form-label" for="old_password">旧&nbsp;&nbsp密&nbsp;&nbsp;码</label>
                         <div class="col-md-7">
-                            <input type="password" class="form-control" id="reg_password" name="reg_password"
+                            <input type="password" class="form-control" value="${venue.password}" id="old_password" name="old_password"
                                    placeholder="请输入密码">
                         </div>
                     </div>
                     <div class="form-group" style="margin-top: 20px">
-                        <label class="col-md-3  form-label" for="reg_password">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+                        <label class="col-md-3  form-label" for="new_password">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label>
                         <div class="col-md-7">
-                            <input type="password" class="form-control" id="reg_password" name="reg_password"
+                            <input type="password" class="form-control"  id="new_password" name="reg_password"
                                    placeholder="请输入密码">
                         </div>
                     </div>
                     <div class="form-group" style="margin-top: 20px">
-                        <label class="col-md-3  form-label" for="reg_password2">确认密码</label>
+                        <label class="col-md-3  form-label" for="new_password2">确认密码</label>
                         <div class="col-md-7">
-                            <input type="password" class="form-control" id="reg_password2" name="reg_password2"
+                            <input type="password" class="form-control" id="new_password2" name="reg_password2"
                                    placeholder="请再次输入密码">
                         </div>
                     </div>
                     <div class="form-group" style="margin-top: 20px">
                         <label class="col-md-3  form-label">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址</label>
                         <div class="col-md-1">
-                            <input type="text" class="form-control" id="reg_province" name="reg_province"
+                            <input type="text" class="form-control" id="reg_province" value="${venue.province}"  name="reg_province"
                                    placeholder="省份">
                         </div>
                         <div class="col-md-1">
-                            <input type="text" class="form-control" id="reg_city" name="reg_city"
+                            <input type="text" class="form-control" id="reg_city" value="${venue.city}"  name="reg_city"
                                    placeholder="市">
                         </div>
                         <div class="col-md-5">
-                            <input type="text" class="form-control" id="reg_location" name="reg_location"
+                            <input type="text" class="form-control" id="reg_location" value="${venue.location}"  name="reg_location"
                                    placeholder="详细地址">
                         </div>
                     </div>
                     <div class="form-group" style="margin-top: 20px">
-                        <label class="col-md-3  form-label" for="reg_password2">座位情况</label>
+                        <label class="col-md-3  form-label" >座位情况</label>
                         <div class="col-md-8" style="margin-left: 15px">
                             <div class='seat_set'>
 
