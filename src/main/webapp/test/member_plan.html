@@ -1,5 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!--<%@ page contentType="text/html;charset=UTF-8" language="java" %>-->
+<!--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>-->
 <html>
 <head>
     <meta charset="utf-8">
@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../css/seat-chart.css">
     <link href="../css/flat/green.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/font-awesome.min.css">
-    <link href="../css/venue_plan.css" rel="stylesheet">
+    <link href="../css/member.css" rel="stylesheet">
     <link href="../css/button.css" rel="stylesheet">
     <link href="../css/bootstrap-select.css" rel="stylesheet">
 </head>
@@ -21,12 +21,18 @@
 <body>
 
 <div class="container">
-
-    <jsp:include page="venue_navigation.jsp"></jsp:include>
+    <div class="row navigation">
+        <ul class="nav nav-pills">
+            <li><a href="/member/plan_page">订票</a></li>
+            <li><a href="/member/my_order">我的订单</a></li>
+            <li><a href="/member/my_info">我的信息</a></li>
+        </ul>
+    </div>
+    <!--<jsp:include page="member_navigation.jsp"></jsp:include>-->
     <div class="row">
-        <c:choose>
-            <c:when test="${plans!=null}">
-                <c:forEach items="${plans}" var="plan" varStatus="vs">
+        <!--<c:choose>-->
+            <!--<c:when test="${plans!=null}">-->
+                <!--<c:forEach items="${plans}" var="plan" varStatus="vs">-->
                     <div class="planBlock">
                         <form action="/venue/open_plan_detail" method="post">
                             <div class="row">
@@ -52,9 +58,9 @@
                                         <span class="col-md-4" style="margin-top: 10px;margin-right: -20px">区域 :</span>
                                         <select data-actions-box="true" data-size="10" style="width: 300px"
                                                 class="selectpicker show-tick col-md-8" name="selectpicker">
-                                            <c:forEach items="${plan.seatMaps}" var="seat" varStatus="vs">
+                                            <!--<c:forEach items="${plan.seatMaps}" var="seat" varStatus="vs">-->
                                                 <option>${seat.block}</option>
-                                            </c:forEach>
+                                            <!--</c:forEach>-->
                                         </select>
                                     </div>
                                     <input type="submit" class=" btn btn-sm btn-info buy_ticket" value="现场购票"
@@ -68,12 +74,12 @@
 
 
                     </div>
-                </c:forEach>
-            </c:when>
-            <c:otherwise>
-                <div> 你可以去船舰一个任务</div>
-            </c:otherwise>
-        </c:choose>
+                <!--</c:forEach>-->
+            <!--</c:when>-->
+            <!--<c:otherwise>-->
+                <!--<div> 你可以去船舰一个任务</div>-->
+            <!--</c:otherwise>-->
+        <!--</c:choose>-->
     </div>
 
 </div>

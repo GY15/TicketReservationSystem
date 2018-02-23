@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../css/seat-chart.css">
     <link href="../css/flat/green.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/font-awesome.min.css">
-    <link href="../css/venue_plan.css" rel="stylesheet">
+    <link href="../css/member.css" rel="stylesheet">
     <link href="../css/button.css" rel="stylesheet">
     <link href="../css/bootstrap-select.css" rel="stylesheet">
 </head>
@@ -21,34 +21,33 @@
 <body>
 
 <div class="container">
-
-    <jsp:include page="venue_navigation.jsp"></jsp:include>
+    <jsp:include page="member_navigation.jsp"></jsp:include>
     <div class="row">
         <c:choose>
             <c:when test="${plans!=null}">
                 <c:forEach items="${plans}" var="plan" varStatus="vs">
                     <div class="planBlock">
-                        <form action="/venue/open_plan_detail" method="post">
+                        <form action="/member/open_plan_detail" method="post">
                             <div class="row">
                                 <input type="text" class="planid" name="planid" hidden value="${plan.planid}"/>
                                 <h5 class="col-md-offset-1 col-md-1" style="font-size: 130%">${plan.type}</h5>
-                                <h5 class="col-md-5 plan_name"
-                                    style="font-size: 90%;margin-top: 16px">${plan.description}</h5>
+                                <h5 class="col-md-3 plan_name" style="font-size: 90%;margin-top: 16px">${plan.description}</h5>
+                                <h5 class="col-md-4"  style="font-size: 90%;margin-top: 16px">${plan.province} ${plan.city} ${plan.location}</h5>
                                 <h5 style="font-size: 90%;margin-top: 16px">${plan.seatMaps[0].type[0].value}左右</h5>
                             </div>
                             <div class="row">
-                                <div class="row col-md-5 col-md-offset-1">
+                                <div class="row col-md-4 col-md-offset-1">
                                     <div class="row">
-                                        <span class="col-md-2 col-md-offset-2 plan_font">开始时间</span><span
-                                            class="col-md-8 small">${plan.startTime}</span>
+                                        <span class="col-md-3 col-md-offset-2 plan_font">开始时间</span><span
+                                            class="col-md-7 small">${plan.startTime}</span>
                                     </div>
                                     <div class="row">
-                                        <span class="col-md-2 col-md-offset-2 plan_font">结束时间</span><span
-                                            class="col-md-8 small">${plan.endTime}</span>
+                                        <span class="col-md-3 col-md-offset-2 plan_font">结束时间</span><span
+                                            class="col-md-7 small">${plan.endTime}</span>
                                     </div>
                                 </div>
-                                <div class="row col-md-6">
-                                    <div class="col-md-5">
+                                <div class="row col-md-7">
+                                    <div class="col-md-4">
                                         <span class="col-md-4" style="margin-top: 10px;margin-right: -20px">区域 :</span>
                                         <select data-actions-box="true" data-size="10" style="width: 300px"
                                                 class="selectpicker show-tick col-md-8" name="selectpicker">
@@ -57,10 +56,14 @@
                                             </c:forEach>
                                         </select>
                                     </div>
-                                    <input type="submit" class=" btn btn-sm btn-info buy_ticket" value="现场购票"
+                                    <input type="submit" class=" btn btn-sm btn-info buy_ticket col-md-2" value="选座购票"
                                            style="margin-left: -25px;margin-top: 5px">
-                                    <button class=" btn btn-sm btn-info col-md-offset-1 check_ticket"
-                                            style="margin-top: 5px">检票登记
+                                    <div class="col-md-4 col-md-offset-1 form-group">
+                                        <span class="col-md-7" style="margin-top: 10px;margin-right: -20px">立即购票 :</span>
+                                        <input type="text" class="form-control col-md-offset-2" style="width: 50px;margin-top: 5px" name="ticket_num" id="ticket_num">
+                                    </div>
+                                    <button class=" btn btn-sm btn-info col-md-1 buy_ticket"
+                                            style="margin-top: 8px;margin-left: -45px">确认
                                     </button>
                                 </div>
                             </div>

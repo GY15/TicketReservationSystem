@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import web.dao.PlanDao;
 import web.dao.SeatDao;
 import web.dao.TicketDao;
+import web.dao.UserDao;
 import web.model.*;
 import web.service.PlanService;
 import web.service.SeatService;
@@ -25,6 +26,8 @@ public class PlanServiceImpl implements PlanService {
     TicketService ticketService;
     @Autowired
     PlanDao planDao;
+    @Autowired
+    UserDao userDao;
     /**
      * 发布计划
      *
@@ -47,14 +50,7 @@ public class PlanServiceImpl implements PlanService {
      * @return list
      */
     public List<PlanGeneral> getPlanGeneral(int venueid) {
-        List<PlanGeneral> planGenerals = new ArrayList<>();
-        List<Plan> plans =  planDao.getPlan(venueid);
-        for (Plan plan: plans){
-            List<SeatMap> seatMap = JSON.parseArray(plan.getSeatMaps(),SeatMap.class);
-            List<SeatMapObj> seatMapObjs =SeatMapConvert.StringToObj(seatMap);
-            planGenerals.add(new PlanGeneral(plan.getPlanid(),plan.getStartTime() , plan.getEndTime(), plan.getType(), plan.getDescription(),  seatMapObjs));
-        }
-        return planGenerals;
+        return parsePlan( planDao.getPlan(venueid));
     }
     /**
      * 获得指定id 的计划
@@ -66,8 +62,37 @@ public class PlanServiceImpl implements PlanService {
      */
     public PlanGeneral getPlan(int planid){
         Plan plan = planDao.getOnePlan(planid);
+        Venue venue = userDao.getVenue(plan.getVenueid());
         List<SeatMap> seatMap = JSON.parseArray(plan.getSeatMaps(),SeatMap.class);
         List<SeatMapObj> seatMapObjs =SeatMapConvert.StringToObj(seatMap);
-        return new PlanGeneral(plan.getPlanid(),plan.getStartTime() , plan.getEndTime(), plan.getType(), plan.getDescription(),  seatMapObjs);
+        return new PlanGeneral(plan.getPlanid(),plan.getStartTime() , plan.getEndTime(), plan.getType(), plan.getDescription(),  seatMapObjs,venue.getProvince(),venue.getCity(),venue.getLocation());
+    }
+    /**
+     * 暂时不分页，显示所有的计划
+     *
+     * @author 61990
+     * @updateTime 2018/2/22
+     * @return list
+     */
+    public List<PlanGeneral> getPlanGeneral(){
+        return parsePlan( planDao.getAllPlan());
+    }
+
+    /**
+     * 将计划list转化为可用的形式
+     *
+     * @author 61990
+     * @updateTime 2018/2/22
+     * @return list
+     */
+    public List<PlanGeneral> parsePlan(List<Plan> plans){
+        List<PlanGeneral> planGenerals = new ArrayList<>();
+        for (Plan plan: plans){
+            Venue venue = userDao.getVenue(plan.getVenueid());
+            List<SeatMap> seatMap = JSON.parseArray(plan.getSeatMaps(),SeatMap.class);
+            List<SeatMapObj> seatMapObjs =SeatMapConvert.StringToObj(seatMap);
+            planGenerals.add(new PlanGeneral(plan.getPlanid(),plan.getStartTime() , plan.getEndTime(), plan.getType(), plan.getDescription(),  seatMapObjs,venue.getProvince(),venue.getCity(),venue.getLocation()));
+        }
+        return planGenerals;
     }
 }

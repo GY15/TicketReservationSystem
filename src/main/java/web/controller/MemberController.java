@@ -1,9 +1,13 @@
 package web.controller;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import web.model.Member;
+import web.model.PlanGeneral;
+import web.service.PlanService;
 import web.service.UserService;
 import web.utilities.enums.MemberState;
 import web.utilities.enums.UserType;
@@ -12,6 +16,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/member")
@@ -20,66 +25,55 @@ public class MemberController extends HttpServlet {
     ServletContext Context;
     @Autowired
     private UserService userService;
+    @Autowired
+    private PlanService planService;
 
     @GetMapping(value = "/")
     protected String getHome(HttpServletRequest request) {
 
-        String login="";
+//        String login="";
         HttpSession session = request.getSession(true);
-        Cookie cookie = null;
-
-        Cookie[] cookies = request.getCookies();
-
-        if (null != cookies) {
-            for (int i = 0; i < cookies.length; i++) {
-                cookie = cookies[i];
-                if (cookie.getName().equals("loginID")) {
-                    login=cookie.getValue();
-                    break;
-                }
-            }
-        }
+//        Cookie cookie = null;
+//
+//        Cookie[] cookies = request.getCookies();
+//
+//        if (null != cookies) {
+//            for (int i = 0; i < cookies.length; i++) {
+//                cookie = cookies[i];
+//                if (cookie.getName().equals("loginID")) {
+//                    login=cookie.getValue();
+//                    break;
+//                }
+//            }
+//        }
         session.setAttribute("type","init");
         return "member_login";
     }
 
     @PostMapping(value = "/login")
-    protected String login(HttpServletRequest request, HttpServletResponse response) {
+    protected ModelAndView login(@RequestParam("login_email") String email, @RequestParam("login_password") String password,
+                                 HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession(true);
+//        String remember = request.getParameter("remember");
+//        if (remember != null) {
+//            Cookie myCookie = new Cookie("login_email", email);
+//            response.addCookie(myCookie);
+//            myCookie.setMaxAge(60 * 60 * 24);
+//        }
 
-        String loginID = request.getParameter("id");
-        String remember = request.getParameter("remember");
-
-        HttpSession session = request.getSession(false);
-
-        if (remember != null) {
-            Cookie myCookie = new Cookie("loginID", loginID);
-            response.addCookie(myCookie);
-            myCookie.setMaxAge(60 * 60 * 24);
-        }
-
-        if (userService.login(loginID, request.getParameter("password"), UserType.MEMBER)) {
-            if (session == null) {
-                session = request.getSession(true);
-                session.setAttribute("userID", loginID);
-            } else {
-                session.setAttribute("userID", loginID);
-            }
-
-            int loginCounter = Integer.parseInt((String) Context.getAttribute("loginCounter"));
-            loginCounter++;
-            Context.setAttribute("loginCounter", Integer.toString(loginCounter));
-
-            try {
-                response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/order?curPage=1"));
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if (userService.login(email, password, UserType.MEMBER)) {
+            session.setAttribute("email", email);
+            List<PlanGeneral> planGenerals = planService.getPlanGeneral();
+//            response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/member/plan_page"));
+            ModelAndView mv = new ModelAndView("member_plan");
+            mv.addObject("plans", planGenerals);
+            return mv;
         } else {
-            request.setAttribute("errorMessage", "账号或者密码错误");
-            return "errorPage";
+            ModelAndView mv = new ModelAndView("member_login");
+            session.setAttribute("type", "init");
+            session.setAttribute("errorMessage", "1");
+            return mv;
         }
-        return null;
     }
 
     @GetMapping(value = "/logout")
@@ -121,6 +115,26 @@ public class MemberController extends HttpServlet {
         }else{
             session.setAttribute("type","fail");
         }
-        return "member_home";
+        return "member_login";
     }
+
+    @GetMapping(value = "/plan_page")
+    protected ModelAndView myPlan(HttpServletRequest request, HttpServletResponse response) {
+        List<PlanGeneral> planGenerals = planService.getPlanGeneral();
+        ModelAndView mv = new ModelAndView("member_plan");
+        mv.addObject("plans", planGenerals);
+        return mv;
+    }
+
+    @PostMapping(value = "/open_plan_detail")
+    protected ModelAndView openDetail(@RequestParam("planid") int planid,@RequestParam("selectpicker") String block) {
+        PlanGeneral planGeneral = planService.getPlan(planid);
+        ModelAndView mv = new ModelAndView("member_buy");
+        mv.addObject("planJson", JSON.toJSONString(planGeneral));
+        mv.addObject("plan", planGeneral);
+        mv.addObject("block", block);
+        return mv;
+    }
+
+
 }

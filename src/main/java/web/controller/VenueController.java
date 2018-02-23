@@ -38,29 +38,46 @@ public class VenueController extends HttpServlet {
     @GetMapping(value = "/")
     protected String getHome(HttpServletRequest request) {
         HttpSession session = request.getSession(true);
+        //        String login="";
+//        Cookie cookie = null;
+//        if (null != cookies) {
+//            for (int i = 0; i < cookies.length; i++) {
+//                cookie = cookies[i];
+//                if (cookie.getName().equals("loginID")) {
+//                    login=cookie.getValue();
+//                    break;
+//                }
+//            }
+//        }
         session.setAttribute("type", "init");
+
         return "venue_login";
     }
 
     @PostMapping(value = "/login")
     protected ModelAndView login(@RequestParam("login_id") String venueid, @RequestParam("login_password") String password,
-                           HttpServletRequest request, HttpServletResponse response) {
-        String remember = request.getParameter("remember");
+                           HttpServletRequest request, HttpServletResponse response) throws IOException {
+
         HttpSession session = request.getSession(true);
 
-        if (remember != null) {
-            Cookie myCookie = new Cookie("login_id", venueid);
-            response.addCookie(myCookie);
-            myCookie.setMaxAge(60 * 60 * 24);
-        }
+//        String remember = request.getParameter("remember");
+//        if (remember != null) {
+//            Cookie myCookie = new Cookie("login_id", venueid);
+//            response.addCookie(myCookie);
+//            myCookie.setMaxAge(60 * 60 * 24);
+//        }
+
+
         if (userService.login(venueid, password, UserType.VENUE)) {
             session.setAttribute("venueid", venueid);
             List<PlanGeneral> planGenerals = planService.getPlanGeneral(Integer.parseInt(venueid));
+            response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/venue/my_plan"));
             ModelAndView mv = new ModelAndView("venue_plan");
             mv.addObject("plans", planGenerals);
             return mv;
         } else {
             ModelAndView mv = new ModelAndView("venue_login");
+            session.setAttribute("errorMessage","1");
             return mv;
         }
     }

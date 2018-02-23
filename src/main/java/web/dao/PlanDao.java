@@ -37,4 +37,13 @@ public interface PlanDao extends BaseDao {
      * @return 计划详情
      */
     Plan getOnePlan(int planid);
+
+    /**
+     * 获得指定所有plan
+     *
+     * @author 61990
+     * @updateTime 2018/2/22
+     * @return list<plan>
+     */
+    List<Plan> getAllPlan();
 }

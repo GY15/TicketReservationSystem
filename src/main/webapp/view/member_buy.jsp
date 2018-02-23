@@ -13,16 +13,17 @@
     <link rel="stylesheet" type="text/css" href="../css/seat-chart.css">
     <link href="../css/flat/green.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/font-awesome.min.css">
-    <link href="../css/venue_plan.css" rel="stylesheet">
+    <link href="../css/member.css" rel="stylesheet">
     <link href="../css/button.css" rel="stylesheet">
     <link href="../css/bootstrap-select.css" rel="stylesheet">
 </head>
 
 <body>
 <div class="container">
-    <jsp:include page="venue_navigation.jsp"></jsp:include>
+    <jsp:include page="member_navigation.jsp"></jsp:include>
 </div>
 <jsp:include page="common_buy.jsp"></jsp:include>
+
 
 <div class="modal fade" id="buyTicketModal" tabindex="-1" role="dialog"
      aria-hidden="true">
@@ -33,15 +34,6 @@
                 <h4 class="modal-title" style="margin-top: 0px">现场购票</h4>
             </div>
             <div class="modal-body" style="">
-                <div class="row" style="margin-bottom: 10px">
-                    <label class="col-md-3 label-font" align="right">会员购票</label>
-                    <div class="col-md-6">
-                        <input type="text" id="email" class="form-control input-style">
-                    </div>
-                    <div class="col-md-1">
-                        <button class="btn btn-primary discount_btn">获取折扣</button>
-                    </div>
-                </div>
                 <div class="row" style="margin-bottom: 10px">
                     <label class="col-md-3 label-font" align="right">演出简介</label>
                     <div class="col-md-7">
@@ -62,8 +54,32 @@
                     </div>
                 </div>
                 <div class="row" style="margin-bottom: 10px">
+                    <label class="col-md-3 label-font" align="right">座位价格</label>
+                    <div class="col-md-2">
+                        <h4>￥<b id="ticket_value"></b></h4>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 10px">
+                    <label class="col-md-3 label-font" align="right">会员折扣</label>
+                    <div class="col-md-2">
+                        <h4><b id="discount">0.8</b></h4>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 10px">
+                    <label class="col-md-3 label-font" align="right">选优惠券</label>
+                    <div class="col-md-7">
+                        <select data-actions-box="true" data-size="10" style="width: 300px"
+                                class="selectpicker show-tick" name="selectpicker">
+                            <%--<c:forEach items="${plan.seatMaps}" var="seat" varStatus="vs">--%>
+                                <%--<option>${seat.block}</option>--%>
+                            <%--</c:forEach>--%>
+                                <option>不用优惠</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 10px">
                     <label class="col-md-3 label-font" align="right">订单价格</label>
-                    <div class="col-md-offset-2 col-md-2">
+                    <div class="col-md-offset-1 col-md-2">
                         <h4>￥<b id="sure_value"></b></h4>
                     </div>
                     <div class="col-md-1 col-md-offset-1">
@@ -74,6 +90,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="../js/jquery-3.2.1.min.js"></script>
@@ -95,6 +112,7 @@
     var block_description = "";
     var is_member = false;
     $(document).ready(function () {
+
         plan = JSON.parse('${planJson}');
         planid = plan.planid;
         block = '${block}';
@@ -194,7 +212,7 @@
             "</div>\n" +
             "<div id=\"legend\"></div>")
         $(".sure_seat").bind("click",  function() {
-            $("#sure_value").html($("#total").html());
+            $("#ticket_value").html($("#total").html());
             $("#seatLists").html($("#selected-seats").html());
             $("#buyTicketModal").modal();
         });

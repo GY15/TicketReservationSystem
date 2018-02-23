@@ -37,7 +37,7 @@
             <div class="container text-center">
                 <h1>淘 票</h1>
                 <div class="loginPanel" style="display:none;margin-top: 80px">
-                    <form class="form-horizontal" action="/login" method="POST" role="form">
+                    <form class="form-horizontal" action="/member/login" method="POST" role="form">
                         <div class="form-group" style="margin-top: 50px">
                             <label class="col-md-3 col-md-offset-1 control-label" for="login_email"
                                    style="font-size: 18px;color:whitesmoke">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱</label>
@@ -139,6 +139,13 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        var message = "<%=session.getAttribute("errorMessage")%>";
+        if(message== "1"){
+            $('.errorMessage').html("账号或者密码错误");
+            setTimeout(function () {
+                $('.errorMessage').html(" ")
+            }, 2000);
+        }
         var type = "<%=session.getAttribute("type")%>";
         if (type == "fail") {
             $(".registerPanel").show();

@@ -62,4 +62,21 @@ public class PlanDaoImpl extends BaseDaoImpl implements PlanDao {
     public Plan getOnePlan(int planid){
         return (Plan) super.load(Plan.class, planid);
     }
+    /**
+     * 获得指定所有plan
+     *
+     * @author 61990
+     * @updateTime 2018/2/22
+     * @return list<plan>
+     */
+    public List<Plan> getAllPlan(){
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        String sql = "SELECT * from plan";
+        Query query = session.createSQLQuery(sql).addEntity(Plan.class);
+        List<Plan> plans= query.list();
+        transaction.commit();
+        session.close();
+        return plans;
+    }
 }

@@ -465,7 +465,7 @@
 
     $(".submit-btn").bind("click", function () {
         var ss =JSON.stringify(seats);
-        alert(ss);
+//        alert(ss);
         var s2 = JSON.parse(ss);
         $.ajax({
             type: "post",

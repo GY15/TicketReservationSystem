@@ -38,4 +38,13 @@ public interface PlanService {
      * @return
      */
     PlanGeneral getPlan(int planid);
+
+    /**
+     * 暂时不分页，显示所有的计划
+     *
+     * @author 61990
+     * @updateTime 2018/2/16
+     * @return list
+     */
+    List<PlanGeneral> getPlanGeneral();
 }

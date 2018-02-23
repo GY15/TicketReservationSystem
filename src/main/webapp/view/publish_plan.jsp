@@ -21,7 +21,7 @@
 <body>
 
 <div class="container">
-    <jsp:include page="navigation.jsp"></jsp:include>
+    <jsp:include page="venue_navigation.jsp"></jsp:include>
     <div class="row jumbotron banner-desc2 ">
         <div class="text-center">
 
