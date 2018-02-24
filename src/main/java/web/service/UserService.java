@@ -56,14 +56,7 @@ public interface UserService {
      * @return 是否成功
      */
     boolean modifyVenueMessage(Venue venue);
-    /**
-     * 在场馆购票时，获取指定客户的折扣
-     *
-     * @author 61990
-     * @updateTime 2018/2/18
-     * @return 是否成功
-     */
-    double getDiscount(String email);
+
     /**
      * 获取venue 信息
      *
@@ -72,4 +65,24 @@ public interface UserService {
      * @return 场馆基本信息
      */
     Venue getVenueInfo(int venueid);
+
+    /**
+     * 获取member信息
+     *
+     * @author 61990
+     * @updateTime 2018/2/23
+     * @return  会员基本信息
+     */
+    Member getMember(String email);
+
+    /**
+     * 会员充值
+     *
+     * @author 61990
+     * @updateTime 2018/2/23
+     * @param email 邮箱
+     * @param money 充值金额
+     * @return
+     */
+    void recharge(String email, int money);
 }

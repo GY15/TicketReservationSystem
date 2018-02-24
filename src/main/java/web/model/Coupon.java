@@ -36,6 +36,7 @@ public class Coupon implements Serializable{
     public void setCouponid(int couponid) {
         this.couponid = couponid;
     }
+
     @Column(name="email")
     public String getEmail() {
         return email;

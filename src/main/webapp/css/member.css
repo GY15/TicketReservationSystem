@@ -1,5 +1,5 @@
 .nav-pills li{
-    width: 33%;
+    width: 29%;
     text-align: center;
 }
 .navigation{
@@ -15,8 +15,18 @@
     background: bisque;
     margin-top: 5px;
 }
+.orderBlock{
+    background: bisque;
+    margin-top: 5px;
+    padding-bottom: 10px;
+}
 .plan_font{
     font-size: 85%;font-weight: bold;
+}
+.order_font{
+    margin-top: 2px;
+    font-size: 85%;font-weight: bold;
+    text-align:right;
 }
 .form-label{
     font-size: 18px;

@@ -62,18 +62,22 @@
                 <div class="row" style="margin-bottom: 10px">
                     <label class="col-md-3 label-font" align="right">会员折扣</label>
                     <div class="col-md-2">
-                        <h4><b id="discount">0.8</b></h4>
+                        <h4><b id="discount">${discount}</b></h4>
                     </div>
                 </div>
                 <div class="row" style="margin-bottom: 10px">
                     <label class="col-md-3 label-font" align="right">选优惠券</label>
-                    <div class="col-md-7">
+                    <div class="col-md-7 couponBlock">
                         <select data-actions-box="true" data-size="10" style="width: 300px"
                                 class="selectpicker show-tick" name="selectpicker">
-                            <%--<c:forEach items="${plan.seatMaps}" var="seat" varStatus="vs">--%>
-                                <%--<option>${seat.block}</option>--%>
+                            <option>不用优惠</option>
+                            <option>不用优惠</option>
+                            <%--<c:forEach items="${coupons}" var="coupon" varStatus="vs">--%>
+                                <%--<c:if test="${coupon}">--%>
+
+                                <%--</c:if>--%>
+                                <%--<option value="">${seat.block}</option>--%>
                             <%--</c:forEach>--%>
-                                <option>不用优惠</option>
                         </select>
                     </div>
                 </div>
@@ -83,7 +87,7 @@
                         <h4>￥<b id="sure_value"></b></h4>
                     </div>
                     <div class="col-md-1 col-md-offset-1">
-                        <button class="btn btn-primary pay_btn">确认购买</button>
+                        <button class="btn btn-primary reserve_btn">确认购买</button>
                     </div>
                 </div>
                 <div class="errorMessage col-md-offset-4"></div>
@@ -110,57 +114,29 @@
     var planid = "";
     var block = "";
     var block_description = "";
-    var is_member = false;
+    var venueid;
+    var coupons;
     $(document).ready(function () {
-
         plan = JSON.parse('${planJson}');
+        coupons = JSON.parse('${couponJson}');
         planid = plan.planid;
         block = '${block}';
+        venueid = plan.venueid;
         createTicketArea();
     });
-    $(".discount_btn").bind("click",function () {
-        $.ajax({
-            type: "post",
-            async: true,
-            url: "/venue/getDiscount",
-            data: {
-                "email": $("#email").val()
-            },
-            success: function (result) {
-                $("#sure_value").html(($("#total").html()*result));
-                $('.errorMessage').html("你的折扣为 "+ result*10 +" 折");
-                setTimeout(function () {
-                    $('.errorMessage').html(" ")
-                }, 2000);
-                $("#sure_value").html(($("#total").html()*result));
-                $("#email").attr("disabled", true);
-                is_member = true;
-            },
-            error: function (result) {
-                $('.errorMessage').html("会员账号错误，请重新输入");
-                setTimeout(function () {
-                    $('.errorMessage').html(" ")
-                }, 2000);
-            }
-        });
-    });
-    $(".pay_btn").bind("click",function () {
+
+    $(".reserve_btn").bind("click",function () {
         var booked_seats = [];
         $("#seatLists").find(".selectedSeat").each(function () {
             booked_seats.push($(this).html());
         });
-        var email = "";
-        if(is_member){
-            email = $("#email").val();
-        }
         $.ajax({
             type: "post",
             async: true,
-            url: "/venue/createVenueOrder",
+            url: "/member/createMemberOrder",
             data: {
-                "email" : email,
-                "member": is_member,
                 "planid" : planid,
+                "venueid" : venueid,
                 "block" : block,
                 "seats" : JSON.stringify(booked_seats),
                 "value" :  $("#sure_value").html()
@@ -215,6 +191,46 @@
             $("#ticket_value").html($("#total").html());
             $("#seatLists").html($("#selected-seats").html());
             $("#buyTicketModal").modal();
+            var useful = "";
+            var useless= "";
+            for(var i = 0; i < coupons.length;i++){
+                if(coupons[i].minimum > $('#total').html()){
+                    if(coupons[i].type==1) {
+                        useless+="<option disabled value='"+coupons[i].couponid+"'>满"+coupons[i].minimum+"元减"+coupons[i].discount+"元</option>\n";
+                    }else{
+                        useless+="<option disabled value='"+coupons[i].couponid+"'>满"+coupons[i].minimum+"元打"+coupons[i].discount+"折</option>\n";
+                    }
+                }else{
+                    if(coupons[i].type==1) {
+                        useful+="<option value='"+coupons[i].couponid+"'>满"+coupons[i].minimum+"元减"+coupons[i].discount+"元</option>\n";
+                    }else{
+                        useful+="<option value='"+coupons[i].couponid+"'>满"+coupons[i].minimum+"元打"+coupons[i].discount+"折</option>\n";
+                    }
+                }
+            }
+            $(".couponBlock").html(
+                "<select data-actions-box=\"true\" data-size=\"10\" style=\"width: 300px\"\n" +
+                "              class=\"selectpicker show-tick\" name=\"selectpicker\">\n" +
+                "    <option value='0'>不用优惠</option>\n" +
+                useful + useless +
+                "</select>");
+            $(".selectpicker").selectpicker();
+            $("#sure_value").html($('#ticket_value').html()*${discount});
+            $(".selectpicker").on("changed.bs.select",function () {
+                alert($(this).val());
+                if($(this).val()==0){
+                    $("#sure_value").html($('#ticket_value').html()*${discount});
+                }
+                for(var i = 0; i < coupons.length;i++){
+                    if($(this).val()==coupons[i].couponid){
+                        if(coupons[i].type==1){
+                            $("#sure_value").html($('#ticket_value').html()*${discount}-coupons[i].discount);
+                        }else{
+                            $("#sure_value").html($('#ticket_value').html()*${discount}*coupons[i].discount);
+                        }
+                    }
+                }
+            })
         });
         var seats = {};
         var items = [

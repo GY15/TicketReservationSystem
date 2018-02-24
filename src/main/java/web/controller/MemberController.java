@@ -5,17 +5,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import web.model.Coupon;
 import web.model.Member;
+import web.model.OrderGeneral;
 import web.model.PlanGeneral;
+import web.service.DiscountService;
+import web.service.OrderService;
 import web.service.PlanService;
 import web.service.UserService;
-import web.utilities.enums.MemberState;
+import web.utilities.enums.OrderState;
 import web.utilities.enums.UserType;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 
 @Controller
@@ -27,6 +30,11 @@ public class MemberController extends HttpServlet {
     private UserService userService;
     @Autowired
     private PlanService planService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private DiscountService discountService;
+
 
     @GetMapping(value = "/")
     protected String getHome(HttpServletRequest request) {
@@ -119,22 +127,64 @@ public class MemberController extends HttpServlet {
     }
 
     @GetMapping(value = "/plan_page")
-    protected ModelAndView myPlan(HttpServletRequest request, HttpServletResponse response) {
+    protected ModelAndView searchPlan(HttpServletRequest request, HttpServletResponse response) {
         List<PlanGeneral> planGenerals = planService.getPlanGeneral();
         ModelAndView mv = new ModelAndView("member_plan");
         mv.addObject("plans", planGenerals);
         return mv;
     }
 
+
+
     @PostMapping(value = "/open_plan_detail")
-    protected ModelAndView openDetail(@RequestParam("planid") int planid,@RequestParam("selectpicker") String block) {
+    protected ModelAndView openDetail(@RequestParam("planid") int planid,@RequestParam("selectpicker") String block,HttpServletRequest request) {
+        String email = request.getSession().getAttribute("email").toString();
         PlanGeneral planGeneral = planService.getPlan(planid);
+        List<Coupon> coupons = discountService.getCoupons(email);
+        double discount = discountService.getDiscount(email);
         ModelAndView mv = new ModelAndView("member_buy");
         mv.addObject("planJson", JSON.toJSONString(planGeneral));
         mv.addObject("plan", planGeneral);
         mv.addObject("block", block);
+        mv.addObject("discount",discount);
+        mv.addObject("couponJson",JSON.toJSONString(coupons));
         return mv;
     }
 
+    @PostMapping(value = "/createMemberOrder")
+    protected @ResponseBody
+    String createOrder(@RequestParam("planid") int planid, @RequestParam("venueid") int venueid, @RequestParam("block") String block,
+                       @RequestParam("seats") String seats, @RequestParam("value") double value,HttpServletRequest request){
+        String email = request.getSession().getAttribute("email").toString();
+        List<String> booked_seats = JSON.parseArray(seats,String.class);
+        String result = orderService.createOrder(email,venueid, planid, block,  booked_seats, value, true,OrderState.NOT_PAY);
+        return result;
+    }
 
+
+    @GetMapping(value = "/my_order")
+    protected ModelAndView myOrder(@RequestParam("state") String state,HttpServletRequest request, HttpServletResponse response) {
+        String email = request.getSession().getAttribute("email").toString();
+        List<OrderGeneral> orders = orderService.getOrders(email, OrderState.ALL);
+        ModelAndView mv = new ModelAndView("member_order");
+        mv.addObject("orders",orders);
+        return mv;
+    }
+
+    @GetMapping(value = "/my_info")
+    protected ModelAndView myInfo(HttpServletRequest request, HttpServletResponse response) {
+        String email = request.getSession().getAttribute("email").toString();
+        Member member = userService.getMember(email);
+        List<Coupon> coupons = discountService.getCoupons(email);
+        ModelAndView mv = new ModelAndView("member_info");
+        mv.addObject("member",member);
+        mv.addObject("coupons",coupons);
+        return mv;
+    }
+    @GetMapping(value = "/recharge")
+    protected String recharge(@RequestParam("money")int money,HttpServletRequest request, HttpServletResponse response) {
+        String email = request.getSession().getAttribute("email").toString();
+        userService.recharge(email,money);
+        return "success";
+    }
 }

@@ -28,6 +28,7 @@ public class BaseDaoImpl implements BaseDao {
 			Transaction tx=session.beginTransaction();
 			session.merge(bean);
 			tx.commit();
+			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}  
@@ -39,6 +40,7 @@ public class BaseDaoImpl implements BaseDao {
 			Transaction tx=session.beginTransaction();
 			Object o=session.get(c, id);
 			tx.commit();
+			session.close();
 			return o;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -51,6 +53,7 @@ public class BaseDaoImpl implements BaseDao {
 			Transaction tx=session.beginTransaction();
 			Object o=session.get(c, id);
 			tx.commit();
+			session.close();
 			return o;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -76,7 +79,7 @@ public class BaseDaoImpl implements BaseDao {
 			Transaction tx=session.beginTransaction();
 			session.update(bean);
 			tx.commit();
-
+			session.close();
 		} catch (Exception e) {
 		}
 	}
@@ -88,7 +91,7 @@ public class BaseDaoImpl implements BaseDao {
 			Transaction tx=session.beginTransaction();
 			session.delete(bean);
 			tx.commit();
-
+			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 

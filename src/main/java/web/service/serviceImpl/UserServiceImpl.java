@@ -112,16 +112,6 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 获取指定客户的折扣
-     *
-     * @author 61990
-     * @updateTime 2018/2/18
-     * @return 是否成功
-     */
-    public double getDiscount(String email){
-        return 0.8;
-    }
-    /**
      * 获取venue 信息
      *
      * @author 61990
@@ -130,5 +120,27 @@ public class UserServiceImpl implements UserService {
      */
     public Venue getVenueInfo(int venueid){
         return userDao.getVenue(venueid);
+    }
+    /**
+     * 获取member信息
+     *
+     * @author 61990
+     * @updateTime 2018/2/23
+     * @return  会员基本信息
+     */
+    public Member getMember(String email){
+        return userDao.getMember(email);
+    }
+    /**
+     * 会员充值
+     *
+     * @author 61990
+     * @updateTime 2018/2/23
+     * @param email 邮箱
+     * @param money 充值金额
+     * @return
+     */
+    public void recharge(String email, int money){
+        userDao.recharge(email,money);
     }
 }

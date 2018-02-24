@@ -108,4 +108,18 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
         super.update(venue);
         return true;
     }
+    /**
+     * 会员充值
+     *
+     * @author 61990
+     * @updateTime 2018/2/23
+     * @param email 邮箱
+     * @param money 充值金额
+     * @return
+     */
+    public void recharge(String email, int money){
+        Member member = (Member) super.load(Member.class, email);
+        member.setBalance(member.getBalance()+money);
+        super.update(member);
+    }
 }

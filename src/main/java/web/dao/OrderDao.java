@@ -6,6 +6,7 @@ import web.model.Order;
 import web.model.Plan;
 import web.model.Ticket;
 import web.utilities.HibernateUtil;
+import web.utilities.enums.OrderState;
 
 import java.util.List;
 
@@ -37,4 +38,13 @@ public interface OrderDao extends BaseDao {
      * @return 是否成功
      */
     void updateOrder(Order order);
+
+    /**
+     * 获得一个用户的订单信息
+     *
+     * @author 61990
+     * @updateTime 2018/2/21
+     * @return order 的信息
+     */
+    List<Order> getOrders(String email, OrderState orderState);
 }

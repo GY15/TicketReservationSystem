@@ -21,65 +21,74 @@
 <body>
 
 <div class="container">
-    <div class="row navigation">
-        <ul class="nav nav-pills">
-            <li><a href="/member/plan_page">订票</a></li>
-            <li><a href="/member/my_order">我的订单</a></li>
-            <li><a href="/member/my_info">我的信息</a></li>
-        </ul>
-    </div>
-    <!--<jsp:include page="member_navigation.jsp"></jsp:include>-->
+    <jsp:include page="member_navigation.jsp"></jsp:include>
+    <ul class="nav nav-tabs">
+        <li><a href="/member/my_order?state=ALL">全部订单</a></li>
+        <li><a href="/member/my_order?state=ARRIVE">已出票</a></li>
+        <li><a href="/member/my_order?state=NOT_PAY">未支付</a></li>
+        <li><a href="/member/my_order?state=PAY">已支付</a></li>
+        <li><a href="/member/my_order?state=REFUND">已退票</a></li>
+    </ul>
     <div class="row">
-        <!--<c:choose>-->
-            <!--<c:when test="${plans!=null}">-->
-                <!--<c:forEach items="${plans}" var="plan" varStatus="vs">-->
-                    <div class="planBlock">
-                        <form action="/venue/open_plan_detail" method="post">
+        <c:choose>
+            <c:when test="${orders!=null}">
+                <c:forEach items="${orders}" var="order" varStatus="vs">
+                    <div class="orderBlock">
                             <div class="row">
-                                <input type="text" class="planid" name="planid" hidden value="${plan.planid}"/>
-                                <h5 class="col-md-offset-1 col-md-1" style="font-size: 130%">${plan.type}</h5>
-                                <h5 class="col-md-5 plan_name"
-                                    style="font-size: 90%;margin-top: 16px">${plan.description}</h5>
-                                <h5 style="font-size: 90%;margin-top: 16px">${plan.seatMaps[0].type[0].value}左右</h5>
+                                <h4 class="col-md-offset-1 col-md-3" style="">订单号: <b class="orderid">${order.orderid}</b></h4>
+                                <h5 class=" plan_id" hidden>${order.planid}</h5><h5 class="venue_id" hidden>${order.venueid}</h5>
+                                <h4 class="col-md-offset-9"><b>￥${order.value}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><span style="font-size: 90%">${order.state}</span></h4>
+                            </div>
+                            <div class="row" style="margin-bottom: 4px">
+                                <span class="col-md-2" style="margin-left: 110px"><b class="order_font">场馆:</b>${order.venueName}</span>
+                                <span class="col-md-4 col-md-offset-1" style="margin-left: 70px" ><b class="order_font">地址:&nbsp;&nbsp;&nbsp;&nbsp;</b>${order.province}&nbsp;&nbsp;&nbsp;${order.city}&nbsp;&nbsp;&nbsp;${order.location}</span>
                             </div>
                             <div class="row">
-                                <div class="row col-md-5 col-md-offset-1">
+                                <div class="row col-md-4">
                                     <div class="row">
-                                        <span class="col-md-2 col-md-offset-2 plan_font">开始时间</span><span
-                                            class="col-md-8 small">${plan.startTime}</span>
+                                        <span class="col-md-4 col-md-offset-2 order_font">开始时间</span><span
+                                            class="col-md-5">${order.startTime}</span>
                                     </div>
                                     <div class="row">
-                                        <span class="col-md-2 col-md-offset-2 plan_font">结束时间</span><span
-                                            class="col-md-8 small">${plan.endTime}</span>
+                                        <span class="col-md-4 col-md-offset-2 order_font">结束时间</span><span
+                                            class="col-md-5">${order.endTime}</span>
                                     </div>
                                 </div>
-                                <div class="row col-md-6">
-                                    <div class="col-md-5">
-                                        <span class="col-md-4" style="margin-top: 10px;margin-right: -20px">区域 :</span>
-                                        <select data-actions-box="true" data-size="10" style="width: 300px"
-                                                class="selectpicker show-tick col-md-8" name="selectpicker">
-                                            <!--<c:forEach items="${plan.seatMaps}" var="seat" varStatus="vs">-->
-                                                <option>${seat.block}</option>
-                                            <!--</c:forEach>-->
-                                        </select>
+                                <div class="row col-md-5">
+                                    <div class="row">
+                                        <span class="col-md-2 order_font" >${order.planType}:</span>
+                                        <span>${order.planName}&nbsp;</span>
                                     </div>
-                                    <input type="submit" class=" btn btn-sm btn-info buy_ticket" value="现场购票"
-                                           style="margin-left: -25px;margin-top: 5px">
-                                    <button class=" btn btn-sm btn-info col-md-offset-1 check_ticket"
-                                            style="margin-top: 5px">检票登记
+                                    <div class="row">
+                                        <span class="col-md-2 order_font" >座位: </span>
+                                        <span>${order.block}&nbsp;${order.tickets}</span>
+                                    </div>
+                                </div>
+                                <button class="btn btn-sm btn-info check_ticket">查看订单详情
+                                </button>
+                                <c:if test="${order.state==('已支付')}">
+                                    <button class=" btn btn-sm btn-info check_ticket">退票
                                     </button>
-                                </div>
+                                    <button class=" btn btn-sm btn-info check_ticket">取消订单
+                                    </button>
+                                </c:if>
+                                <c:if test="${order.state==('未支付')}">
+                                    <button class=" btn btn-sm btn-info check_ticket">去支付
+                                    </button>
+                                </c:if>
+                                <c:if test="${order.state==('已支付')}">
+                                    <button class=" btn btn-sm btn-info check_ticket">查看订单详情
+                                    </button>
+                                </c:if>
+
                             </div>
-                        </form>
-
-
                     </div>
-                <!--</c:forEach>-->
-            <!--</c:when>-->
-            <!--<c:otherwise>-->
-                <!--<div> 你可以去船舰一个任务</div>-->
-            <!--</c:otherwise>-->
-        <!--</c:choose>-->
+                </c:forEach>
+            </c:when>
+            <c:otherwise>
+                <div> 你可以去买张票</div>
+            </c:otherwise>
+        </c:choose>
     </div>
 
 </div>

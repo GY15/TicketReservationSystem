@@ -1,6 +1,8 @@
 package web.service;
 
+import web.model.OrderGeneral;
 import web.model.SeatMapObj;
+import web.utilities.enums.OrderState;
 
 import java.util.List;
 
@@ -18,7 +20,7 @@ public interface OrderService {
      * @param seat 选中的seat
      * @return 是否成功
      */
-    String createOrder(String email, int venueid, int planid, String block,List<String> seat,double value,boolean isMember);
+    String createOrder(String email, int venueid, int planid, String block,List<String> seat,double value,boolean isMember,OrderState orderState);
 
     /**
      * 检查订单是否符合计划id和 场馆id
@@ -28,4 +30,15 @@ public interface OrderService {
      * @return 订单的座位信息
      */
     String checkTicket(int planid, int orderid, int venueid);
+
+    /**
+     * 得到用户的订单
+     *
+     * @author 61990
+     * @updateTime 2018/2/21
+     * @param email 用户邮箱
+     * @param orderState 订单状况
+     * @return 订单的座位信息
+     */
+    List<OrderGeneral> getOrders(String email,OrderState orderState);
 }

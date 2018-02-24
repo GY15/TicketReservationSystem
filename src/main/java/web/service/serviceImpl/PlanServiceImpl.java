@@ -65,7 +65,7 @@ public class PlanServiceImpl implements PlanService {
         Venue venue = userDao.getVenue(plan.getVenueid());
         List<SeatMap> seatMap = JSON.parseArray(plan.getSeatMaps(),SeatMap.class);
         List<SeatMapObj> seatMapObjs =SeatMapConvert.StringToObj(seatMap);
-        return new PlanGeneral(plan.getPlanid(),plan.getStartTime() , plan.getEndTime(), plan.getType(), plan.getDescription(),  seatMapObjs,venue.getProvince(),venue.getCity(),venue.getLocation());
+        return new PlanGeneral(plan.getPlanid(),plan.getStartTime() , plan.getEndTime(), plan.getType(), plan.getDescription(),  seatMapObjs,venue.getProvince(),venue.getCity(),venue.getLocation(),venue.getName());
     }
     /**
      * 暂时不分页，显示所有的计划
@@ -91,7 +91,7 @@ public class PlanServiceImpl implements PlanService {
             Venue venue = userDao.getVenue(plan.getVenueid());
             List<SeatMap> seatMap = JSON.parseArray(plan.getSeatMaps(),SeatMap.class);
             List<SeatMapObj> seatMapObjs =SeatMapConvert.StringToObj(seatMap);
-            planGenerals.add(new PlanGeneral(plan.getPlanid(),plan.getStartTime() , plan.getEndTime(), plan.getType(), plan.getDescription(),  seatMapObjs,venue.getProvince(),venue.getCity(),venue.getLocation()));
+            planGenerals.add(new PlanGeneral(plan.getPlanid(),plan.getStartTime() , plan.getEndTime(), plan.getType(), plan.getDescription(),  seatMapObjs,venue.getProvince(),venue.getCity(),venue.getLocation(),venue.getName()));
         }
         return planGenerals;
     }

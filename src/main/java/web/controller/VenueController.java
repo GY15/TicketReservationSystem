@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import web.model.*;
 import web.service.*;
+import web.utilities.enums.OrderState;
 import web.utilities.enums.UserType;
 import web.utilities.format.SeatMapConvert;
 
@@ -34,6 +35,8 @@ public class VenueController extends HttpServlet {
     private TicketService ticketService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private DiscountService discountService;
 
     @GetMapping(value = "/")
     protected String getHome(HttpServletRequest request) {
@@ -169,7 +172,7 @@ public class VenueController extends HttpServlet {
                    @RequestParam("value") double value,HttpServletRequest request){
         List<String> booked_seats = JSON.parseArray(seats,String.class);
         int venueid = Integer.parseInt(request.getSession().getAttribute("venueid").toString());
-        String result = orderService.createOrder(email,venueid, planid, block,  booked_seats, value, member);
+        String result = orderService.createOrder(email,venueid, planid, block,  booked_seats, value, member, OrderState.ARRIVE);
         return result;
     }
 
@@ -183,7 +186,7 @@ public class VenueController extends HttpServlet {
     @PostMapping(value = "/getDiscount")
     protected @ResponseBody
     double getDiscount(@RequestParam("email") String email) {
-        return userService.getDiscount(email);
+        return discountService.getDiscount(email);
     }
 
     //用于现场检票

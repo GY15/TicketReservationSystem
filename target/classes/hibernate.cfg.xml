@@ -17,14 +17,14 @@
         <!-- Hibernate 5不支持 mapping -->
         <!--<mapping class="main.web.model"/>-->
 
-        <property name="connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>
-        <property name="hibernate.c3p0.max_size">20</property>
-        <property name="hibernate.c3p0.min_size">1</property>
-        <property name="hibernate.c3p0.timeout">5000</property>
-        <property name="hibernate.c3p0.max_statements">100</property>
-        <property name="hibernate.c3p0.idle_test_period">3000</property>
-        <property name="hibernate.c3p0.acquire_increment">2</property>
-        <property name="hibernate.c3p0.validate">true</property>
+        <!--<property name="connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>-->
+        <!--<property name="hibernate.c3p0.max_size">2000</property>-->
+        <!--<property name="hibernate.c3p0.min_size">1</property>-->
+        <!--<property name="hibernate.c3p0.timeout">5000</property>-->
+        <!--<property name="hibernate.c3p0.max_statements">100</property>-->
+        <!--<property name="hibernate.c3p0.idle_test_period">3000</property>-->
+        <!--<property name="hibernate.c3p0.acquire_increment">2</property>-->
+        <!--<property name="hibernate.c3p0.validate">true</property>-->
 
     </session-factory>
 </hibernate-configuration>
