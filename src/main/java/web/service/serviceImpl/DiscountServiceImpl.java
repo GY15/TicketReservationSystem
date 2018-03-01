@@ -7,6 +7,7 @@ import web.dao.*;
 import web.model.*;
 import web.service.DiscountService;
 import web.service.OrderService;
+import web.utilities.RankUtil;
 import web.utilities.enums.OrderState;
 
 import java.util.ArrayList;
@@ -18,8 +19,6 @@ public class DiscountServiceImpl implements DiscountService {
     CouponDao couponDao;
     @Autowired
     UserDao userDao;
-//    0-7级的会员所享受的优惠
-    Double[] discount = new Double[]{1.0,0.95,0.9,0.85,0.8,0.8,0.75,0.7};
     /**
      * 获得一个用户的所有用户劵
      *
@@ -40,6 +39,6 @@ public class DiscountServiceImpl implements DiscountService {
      */
     public double getDiscount(String email){
         Member member = userDao.getMember(email);
-        return discount[member.getRank()];
+        return RankUtil.discount[member.getRank()];
     }
 }

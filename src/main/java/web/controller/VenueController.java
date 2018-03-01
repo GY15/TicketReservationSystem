@@ -172,7 +172,7 @@ public class VenueController extends HttpServlet {
                    @RequestParam("value") double value,HttpServletRequest request){
         List<String> booked_seats = JSON.parseArray(seats,String.class);
         int venueid = Integer.parseInt(request.getSession().getAttribute("venueid").toString());
-        String result = orderService.createOrder(email,venueid, planid, block,  booked_seats, value, member, OrderState.ARRIVE);
+        String result = orderService.createOrder(email,venueid, planid, block,  booked_seats, value, member, OrderState.ARRIVE,0);
         return result;
     }
 

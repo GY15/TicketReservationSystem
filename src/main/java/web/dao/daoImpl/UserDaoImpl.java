@@ -10,6 +10,7 @@ import web.model.ValidUser;
 import web.model.Venue;
 import web.utilities.FormatValid;
 import web.utilities.HibernateUtil;
+import web.utilities.RankUtil;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -28,6 +29,19 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
         Member member = (Member) super.load(Member.class, email);
         return member;
     }
+    /**
+     * 更新会员信息
+     *
+     * @param email 用户email
+     * @author 61990
+     * @updateTime 2017/3/1
+     * @return 是否更新用户成功
+     */
+    public void updateMember(Member member){
+        member.setRank(RankUtil.updateRank(member.getCredit()));
+        super.update(member);
+    }
+
     /**
      * 获取会员信息
      *

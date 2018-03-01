@@ -15,7 +15,7 @@ public class Member implements Serializable{
     private String nickname;
     private double balance;
     private int grade;
-    private int rank_grade;
+    private int credit;
     private int rank;
 
     public Member(){
@@ -29,7 +29,7 @@ public class Member implements Serializable{
         this.balance = 0;
         this.grade = 0;
         this.rank = 1;
-        this.rank_grade = 0;
+        this.credit = 0;
     }
 
     @Id
@@ -98,12 +98,12 @@ public class Member implements Serializable{
         this.rank = rank;
     }
 
-    public int getRank_grade() {
-        return rank_grade;
+    @Column(name="credit")
+    public int getCredit() {
+        return credit;
     }
 
-    @Column(name="rank_grade")
-    public void setRank_grade(int rank_grade) {
-        this.rank_grade = rank_grade;
+    public void setCredit(int credit) {
+        this.credit = credit;
     }
 }

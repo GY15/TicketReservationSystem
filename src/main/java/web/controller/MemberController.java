@@ -19,6 +19,9 @@ import web.utilities.enums.UserType;
 import javax.servlet.ServletContext;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -34,6 +37,7 @@ public class MemberController extends HttpServlet {
     private OrderService orderService;
     @Autowired
     private DiscountService discountService;
+
 
 
     @GetMapping(value = "/")
@@ -114,7 +118,7 @@ public class MemberController extends HttpServlet {
         HttpSession session = request.getSession();
         if(!reg_password.equals(reg_password2)||reg_password.length()<6||valid_word.length()!=6||reg_nickname.length()==0){
             session.setAttribute("type","fail");
-            return "member_home";
+            return "/";
         }
         Member member = new Member(reg_email,reg_nickname,reg_password);
         if (userService.registerMember(member,valid_word)){
@@ -154,11 +158,32 @@ public class MemberController extends HttpServlet {
     @PostMapping(value = "/createMemberOrder")
     protected @ResponseBody
     String createOrder(@RequestParam("planid") int planid, @RequestParam("venueid") int venueid, @RequestParam("block") String block,
-                       @RequestParam("seats") String seats, @RequestParam("value") double value,HttpServletRequest request){
+                       @RequestParam("seats") String seats, @RequestParam("value") double value,@RequestParam("couponid") int couponid,HttpServletRequest request){
         String email = request.getSession().getAttribute("email").toString();
         List<String> booked_seats = JSON.parseArray(seats,String.class);
-        String result = orderService.createOrder(email,venueid, planid, block,  booked_seats, value, true,OrderState.NOT_PAY);
+        String result = orderService.createOrder(email,venueid, planid, block,  booked_seats, value, true,OrderState.NOT_PAY,couponid);
         return result;
+    }
+    @GetMapping(value = "/goto_pay")
+    protected @ResponseBody
+    ModelAndView gotoPay(@RequestParam("orderid") int orderid,HttpServletRequest request) throws ParseException {
+        String email = request.getSession().getAttribute("email").toString();
+        OrderGeneral orderGeneral = orderService.getOrder(email,orderid);
+        ModelAndView mv = new ModelAndView("member_pay");
+        mv.addObject("order",orderGeneral);
+        Date now = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date createTime= sdf.parse(orderGeneral.getCreateTime());
+        int second = (int)((createTime.getTime()-now.getTime()) / 1000 + 900);
+        mv.addObject("second",second);
+        return mv;
+    }
+
+    @PostMapping(value = "/pay")
+    protected @ResponseBody
+    String pay(@RequestParam("orderid") int orderid,HttpServletRequest request) throws ParseException {
+        String email = request.getSession().getAttribute("email").toString();
+        return orderService.pay(orderid, email);
     }
 
 
@@ -181,10 +206,38 @@ public class MemberController extends HttpServlet {
         mv.addObject("coupons",coupons);
         return mv;
     }
-    @GetMapping(value = "/recharge")
+    @PostMapping(value = "/recharge")
     protected String recharge(@RequestParam("money")int money,HttpServletRequest request, HttpServletResponse response) {
         String email = request.getSession().getAttribute("email").toString();
         userService.recharge(email,money);
         return "success";
+    }
+    @PostMapping(value = "/cancel_member")
+    protected String cancelMember(HttpServletRequest request, HttpServletResponse response) {
+        String email = request.getSession().getAttribute("email").toString();
+        userService.cancelMember(email);
+        return "success";
+    }
+
+    @PostMapping(value = "/modify_name")
+    protected String modifyName(@RequestParam("nickname") String reg_nickname,
+                                    HttpServletRequest request, HttpServletResponse response) {
+        String email = request.getSession().getAttribute("email").toString();
+        Member member = userService.getMember(email);
+        member.setNickname(reg_nickname);
+        return "success";
+    }
+    @PostMapping(value = "/modify_password")
+    protected String modifyPassword(@RequestParam("old_password") String old,@RequestParam("new_password") String password,
+                                @RequestParam("new_password2") String password2,
+                                HttpServletRequest request, HttpServletResponse response) {
+        String email = request.getSession().getAttribute("email").toString();
+        Member member = userService.getMember(email);
+        if(member.getPassword().equals(old)&&password.equals(password2)) {
+            member.setPassword(password);
+            userService.modifyMemberMessage(member);
+            return "success";
+        }
+        return "fail";
     }
 }

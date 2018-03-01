@@ -58,6 +58,15 @@ public interface UserService {
     boolean modifyVenueMessage(Venue venue);
 
     /**
+     * 修改会员信息
+     *
+     * @author 61990
+     * @updateTime 2018/2/12
+     * @return 是否成功
+     */
+    boolean modifyMemberMessage(Member member);
+
+    /**
      * 获取venue 信息
      *
      * @author 61990
@@ -85,4 +94,13 @@ public interface UserService {
      * @return
      */
     void recharge(String email, int money);
+    /**
+     * 取消会员资格
+     *
+     * @author 61990
+     * @updateTime 2018/3/1
+     * @param email 邮箱
+     * @return null
+     */
+    void cancelMember(String email);
 }

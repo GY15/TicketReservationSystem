@@ -21,12 +21,13 @@ public class PlanGeneral implements Serializable{
     private String description;
     private SeatMapObj[] seatMaps;
 
+    private int venueid;
     private String venueName;
     private String province;
     private String city;
     private String location;
 
-    public PlanGeneral(int planid, Date startTime, Date endTime, String type, String description, List<SeatMapObj> seatMapObjs,String province, String city, String location,String name){
+    public PlanGeneral(int planid, Date startTime, Date endTime, String type, String description, List<SeatMapObj> seatMapObjs,String province, String city, String location,String name,int venueid){
         this.planid = planid;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         this.startTime = sdf.format(startTime);
@@ -38,6 +39,7 @@ public class PlanGeneral implements Serializable{
         this.city = city;
         this.location = location;
         this.venueName = name ;
+        this.venueid = venueid;
     }
 
 
@@ -111,5 +113,21 @@ public class PlanGeneral implements Serializable{
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public int getVenueid() {
+        return venueid;
+    }
+
+    public void setVenueid(int venueid) {
+        this.venueid = venueid;
+    }
+
+    public String getVenueName() {
+        return venueName;
+    }
+
+    public void setVenueName(String venueName) {
+        this.venueName = venueName;
     }
 }

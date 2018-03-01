@@ -114,8 +114,9 @@
     var planid = "";
     var block = "";
     var block_description = "";
-    var venueid;
+    var venueid="";
     var coupons;
+    var couponid = 0;
     $(document).ready(function () {
         plan = JSON.parse('${planJson}');
         coupons = JSON.parse('${couponJson}');
@@ -139,7 +140,8 @@
                 "venueid" : venueid,
                 "block" : block,
                 "seats" : JSON.stringify(booked_seats),
-                "value" :  $("#sure_value").html()
+                "value" : $("#sure_value").html(),
+                "couponid" : couponid
             },
             success: function (result) {
                 if(result == "fail"){
@@ -149,11 +151,11 @@
                         location.reload();
                     }, 2000);
                 }else{
-                    $('.errorMessage').html("成功购票，正在打印");
+                    $('.errorMessage').html("正在跳转支付界面");
                     setTimeout(function () {
                         $('.errorMessage').html(" ");
-                        location.reload();
-                    }, 4000);
+                        window.location.href="/member/goto_pay?orderid="+result;
+                    }, 2000);
                 }
             },
             error: function (result) {
@@ -217,7 +219,8 @@
             $(".selectpicker").selectpicker();
             $("#sure_value").html($('#ticket_value').html()*${discount});
             $(".selectpicker").on("changed.bs.select",function () {
-                alert($(this).val());
+//                alert($(this).val());
+                couponid = $(this).val();
                 if($(this).val()==0){
                     $("#sure_value").html($('#ticket_value').html()*${discount});
                 }

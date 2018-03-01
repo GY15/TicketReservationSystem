@@ -112,6 +112,18 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 修改会员信息
+     *
+     * @author 61990
+     * @updateTime 2018/2/12
+     * @return 是否成功
+     */
+    public boolean modifyMemberMessage(Member member){
+        userDao.updateMember(member);
+        return true;
+    }
+
+    /**
      * 获取venue 信息
      *
      * @author 61990
@@ -142,5 +154,18 @@ public class UserServiceImpl implements UserService {
      */
     public void recharge(String email, int money){
         userDao.recharge(email,money);
+    }
+    /**
+     * 取消会员资格
+     *
+     * @author 61990
+     * @updateTime 2018/3/1
+     * @param email 邮箱
+     * @return null
+     */
+    public void cancelMember(String email){
+        Member member = userDao.getMember(email);
+        member.setValid(false);
+        userDao.updateMember(member);
     }
 }

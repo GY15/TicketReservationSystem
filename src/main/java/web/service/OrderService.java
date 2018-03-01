@@ -20,7 +20,7 @@ public interface OrderService {
      * @param seat 选中的seat
      * @return 是否成功
      */
-    String createOrder(String email, int venueid, int planid, String block,List<String> seat,double value,boolean isMember,OrderState orderState);
+    String createOrder(String email, int venueid, int planid, String block,List<String> seat,double value,boolean isMember,OrderState orderState,int couponid);
 
     /**
      * 检查订单是否符合计划id和 场馆id
@@ -41,4 +41,26 @@ public interface OrderService {
      * @return 订单的座位信息
      */
     List<OrderGeneral> getOrders(String email,OrderState orderState);
+
+    /**
+     * 得到用户的订单
+     *
+     * @author 61990
+     * @updateTime 2018/2/24
+     * @param email 用户邮箱
+     * @param orderid 订单id
+     * @return 订单的座位信息
+     */
+    OrderGeneral getOrder(String email,int orderid);
+
+    /**
+     * 支付‘未支付’的订单
+     *
+     * @author 61990
+     * @updateTime 2018/2/25
+     * @param email 用户邮箱
+     * @param orderid 订单id
+     * @return 订单的座位信息
+     */
+    String pay(int orderid, String email);
 }

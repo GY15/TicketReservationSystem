@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>修改会员信息</title>
 
-    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <link href="../css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../css/jquery.seat-charts.css">
     <link rel="stylesheet" type="text/css" href="../css/seat-chart.css">
@@ -28,23 +27,23 @@
                 <div class="form-horizontal">
 
                     <div class="form-group" style="margin-top: 20px">
-                        <label class="col-md-3  form-label" for="email">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱</label>
+                        <label class="col-md-3  form-label" for="email">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱</label>
                         <div class="col-md-9 input-group" style="margin-left: 0px;left: 15px;">
                             <input type="text" class="form-control" name="email" value="${member.email}" id="email"
                                    style="width: 210px;" disabled>
-                            <button class="col-md-1 btn btn-danger" style="margin-left: 10px">注销</button>
+                            <button class="col-md-1 btn btn-danger" id="cancelMember" style="margin-left: 10px">注销</button>
                             <b class="col-md-1 col-md-offset-1 form-label">余额</b>
                             <b class="col-md-1  form-label">${member.balance}</b>
-                            <button class=" col-md-1 btn btn-primary recharge" style="margin-left: 15px">充值100块</button>
+                            <button class=" btn btn-primary recharge" style="margin-left: -175px">充值100块</button>
                         </div>
                     </div>
                     <div class="form-group" style="margin-top: 20px">
-                        <label class="col-md-3  form-label" for="reg_name">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</label>
-                        <div class="col-md-7">
+                        <label class="col-md-3  form-label" for="reg_name">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</label>
+                        <div class="col-md-6">
                             <input type="text" class="form-control" value="${member.nickname}" name="reg_name"
-                                   id="reg_name"
-                                   placeholder="给自己起个名字吧">
+                                   id="reg_name" placeholder="给自己起个名字吧">
                         </div>
+                        <div class="col-md-2" style="margin-left: -50px"><button class="btn btn-primary modify-name">修改昵称</button></div>
                     </div>
                     <div class="form-group" style="margin-top: 20px">
                         <label class="col-md-3  form-label" for="old_password">旧&nbsp;&nbsp密&nbsp;&nbsp;码</label>
@@ -55,7 +54,7 @@
                         </div>
                     </div>
                     <div class="form-group" style="margin-top: 20px">
-                        <label class="col-md-3  form-label" for="new_password">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+                        <label class="col-md-3  form-label" for="new_password">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label>
                         <div class="col-md-7">
                             <input type="password" class="form-control" id="new_password" name="new_password"
                                    placeholder="请输入密码">
@@ -69,10 +68,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <button type="submit" class="btn btn-primary col-md-2 col-md-offset-5"
-                                style="margin-top: 15px;margin-bottom: 15px">
-                            修&nbsp;&nbsp;&nbsp;&nbsp;改
-                        </button>
+                        <button  class="btn btn-primary col-md-2 col-md-offset-5" id="modify-password"
+                                style="margin-top: 15px;margin-bottom: 15px">修改密码</button>
                     </div>
                 </div>
             </div>
@@ -84,7 +81,7 @@
         <div class="text-center">
             <div class="form-horizontal">
                 <div class="form-group" style="margin-top: 20px">
-                    <label class="col-md-3  form-label">积&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分</label>
+                    <label class="col-md-3  form-label">积&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分</label>
                     <b class="col-md-1  form-label">${member.grade}</b>
                     <button class="col-md-1 btn btn-primary" style="margin-left: 50px">换优惠券</button>
                     <label class="col-md-3  form-label">等&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级</label>
@@ -122,6 +119,28 @@
     </div>
 </div>
 
+<div class="modal fade" id="sureModal" tabindex="-1" role="dialog"
+     aria-hidden="true">
+    <div class="modal-dialog" style="margin-top: 330px;height:300px;width: 20%">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
+                <h4 class="modal-title" style="margin-top: 0px">重要提示</h4>
+            </div>
+            <div class="modal-body" style="margin-top: 70px;margin-bottom: 100px">
+                <div class="row" style="margin-bottom: 10px">
+                    你的会员一旦注销后将无法恢复！
+                </div>
+                <div class="row" style="margin-bottom: 10px">
+                    <div class="col-md-1">
+                        <button class="btn btn-primary sure-btn">确认注销</button>
+                    </div>
+                </div>
+                <div class="errorMessage col-md-offset-3"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="../js/jquery-3.2.1.min.js"></script>
@@ -129,28 +148,90 @@
 <script src="../js/bootstrap.js"></script>
 <script src="../js/format-valid.js"></script>
 <script src="../js/icheck.js"></script>
-
 <!--<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>-->
 <script src="../js/jquery.seat-charts.js"></script>
 <script src="../js/icheck.js"></script>
-    
+
 <script>
     $(".recharge").bind("click",function () {
+        var money = 100;
         $.ajax({
             type: "post",
             async: true,
             url: "/member/recharge",
             data: {
-                "money": 100
+                "money": money
             },
             success: function (result) {
                 window.location.reload();
             },
             error: function (result) {
-                $('.errorMessage').html("你的订单号有误");
+                window.location.reload();
+            }
+        });
+    });
+    $("#cancelMember").bind("click",function () {
+        $("#sureModal").modal();
+    });
+    $(".sure-btn").bind("click",function () {
+        $.ajax({
+            type: "post",
+            async: true,
+            url: "/member/cancel_member",
+
+            success: function (result) {
+                window.href="/member/";
+            },
+            error: function (result) {
+                $('.errorMessage').html("不知道出了什么错误");
                 setTimeout(function () {
                     $('.errorMessage').html(" ")
-                }, 3000);
+                }, 2000);
+            }
+        });
+    });
+    $(".modify-name").bind("click",function () {
+        $.ajax({
+            type: "post",
+            async: true,
+            url: "/member/cancel_member",
+            data: {
+                "nickname":  $("#reg_name").val()
+            },
+            success: function (result) {
+                window.location.reload();
+            },
+            error: function (result) {
+                $('.errorMessage').html("不知道出了什么错误");
+                setTimeout(function () {
+                    $('.errorMessage').html(" ")
+                }, 2000);
+            }
+        });
+    });
+    $("#modify-password").bind("click",function () {
+
+        $.ajax({
+            type: "post",
+            async: true,
+            url: "/member/cancel_member",
+            data: {
+                "old_password":  $("#old_password").val(),
+                "new_password":  $("#new_password").val(),
+                "new_password2":  $("#new_password2").val(),
+            },
+            success: function (result) {
+                if(result=="success"){
+                    alert("成功")
+                }else {
+                    alert(result);
+                }
+            },
+            error: function (result) {
+                $('.errorMessage').html("不知道出了什么错误");
+                setTimeout(function () {
+                    $('.errorMessage').html(" ")
+                }, 2000);
             }
         });
     });

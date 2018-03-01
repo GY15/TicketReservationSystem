@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="row col-md-7">
                                     <div class="col-md-4">
-                                        <span class="col-md-4" style="margin-top: 10px;margin-right: -20px">区域 :</span>
+                                        <span class="col-md-4" style="margin-top: 10px;margin-right: -20px">区域:</span>
                                         <select data-actions-box="true" data-size="10" style="width: 300px"
                                                 class="selectpicker show-tick col-md-8" name="selectpicker">
                                             <c:forEach items="${plan.seatMaps}" var="seat" varStatus="vs">
@@ -62,9 +62,7 @@
                                         <span class="col-md-7" style="margin-top: 10px;margin-right: -20px">立即购票 :</span>
                                         <input type="text" class="form-control col-md-offset-2" style="width: 50px;margin-top: 5px" name="ticket_num" id="ticket_num">
                                     </div>
-                                    <button class=" btn btn-sm btn-info col-md-1 buy_ticket"
-                                            style="margin-top: 8px;margin-left: -45px">确认
-                                    </button>
+                                    <button class=" btn btn-sm btn-info col-md-1 buy_ticket" style="margin-top: 8px;margin-left: -45px">确认</button>
                                 </div>
                             </div>
                         </form>

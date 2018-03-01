@@ -11,11 +11,21 @@ public interface UserDao extends BaseDao {
      * 获取会员信息
      *
      * @param email 用户email
-     * @return 指定email的数据
      * @author 61990
      * @updateTime 2017/2/13
+     * @return 指定email的数据
      */
     Member getMember(String email);
+
+    /**
+     * 更新会员信息
+     *
+     * @param email 用户email
+     * @author 61990
+     * @updateTime 2017/3/1
+     * @return 是否更新用户成功
+     */
+    void updateMember(Member member);
 
     /**
      * 获取场馆信息

@@ -141,11 +141,7 @@
     var planid = "";
     var block ="";
     $(".check_ticket").click(function () {
-        $('#checkTicketModal').modal();
-        planid = $(this).parent().parent().parent().find(".planid").eq(0).val();
-        block =$(this).parent().find(".selectpicker").eq(0).val();
-        $(".block").html(block);
-        $(".description").html($(this).parent().parent().parent().find(".plan_name").eq(0).html());
+        window.location.href = "/member/goto_pay?orderid="+$(this).parent().parent().find(".orderid").eq(0).html()
         return false;
     });
     $(".check_btn").bind("click", function () {
