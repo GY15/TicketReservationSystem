@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>查看计划</title>
+    <title>查看我的订单</title>
 
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <link href="../css/bootstrap.css" rel="stylesheet">
@@ -66,21 +66,16 @@
                                 </div>
                                 <button class="btn btn-sm btn-info check_ticket">查看订单详情
                                 </button>
-                                <c:if test="${order.state==('已支付')}">
+                                <c:choose>
+                                <c:when test="${order.state==('已支付')}">
                                     <button class=" btn btn-sm btn-info check_ticket">退票
                                     </button>
-                                    <button class=" btn btn-sm btn-info check_ticket">取消订单
-                                    </button>
-                                </c:if>
-                                <c:if test="${order.state==('未支付')}">
+                                </c:when>
+                                <c:when test="${order.state==('未支付')}">
                                     <button class=" btn btn-sm btn-info check_ticket">去支付
                                     </button>
-                                </c:if>
-                                <c:if test="${order.state==('已支付')}">
-                                    <button class=" btn btn-sm btn-info check_ticket">查看订单详情
-                                    </button>
-                                </c:if>
-
+                                </c:when>
+                                </c:choose>
                             </div>
                     </div>
                 </c:forEach>

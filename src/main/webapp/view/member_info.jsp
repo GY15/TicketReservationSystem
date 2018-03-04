@@ -178,7 +178,8 @@
             type: "post",
             async: true,
             url: "/member/cancel_member",
-
+            data: {
+            },
             success: function (result) {
                 window.href="/member/";
             },
@@ -191,15 +192,19 @@
         });
     });
     $(".modify-name").bind("click",function () {
+        alert($("#reg_name").val());
         $.ajax({
             type: "post",
             async: true,
-            url: "/member/cancel_member",
+            url: "/member/modify_name",
             data: {
                 "nickname":  $("#reg_name").val()
             },
             success: function (result) {
-                window.location.reload();
+                $('.errorMessage').html("昵称修改成功");
+                setTimeout(function () {
+                    $('.errorMessage').html(" ")
+                }, 2000);
             },
             error: function (result) {
                 $('.errorMessage').html("不知道出了什么错误");
@@ -210,11 +215,10 @@
         });
     });
     $("#modify-password").bind("click",function () {
-
         $.ajax({
             type: "post",
             async: true,
-            url: "/member/cancel_member",
+            url: "/member/modify_password",
             data: {
                 "old_password":  $("#old_password").val(),
                 "new_password":  $("#new_password").val(),
@@ -222,15 +226,24 @@
             },
             success: function (result) {
                 if(result=="success"){
-                    alert("成功")
+                    $('.errorMessage').html("密码修改成功");
+                    setTimeout(function () {
+                        $('.errorMessage').html(" ")
+                        window.location.reload();
+                    }, 2000);
                 }else {
-                    alert(result);
+                    $('.errorMessage').html("密码修改失败，请重新输入");
+                    setTimeout(function () {
+                        $('.errorMessage').html(" ")
+                        window.location.reload();
+                    }, 2000);
                 }
             },
             error: function (result) {
-                $('.errorMessage').html("不知道出了什么错误");
+                $('.errorMessage').html("密码修改失败");
                 setTimeout(function () {
-                    $('.errorMessage').html(" ")
+                    $('.errorMessage').html(" ");
+                    window.location.reload();
                 }, 2000);
             }
         });

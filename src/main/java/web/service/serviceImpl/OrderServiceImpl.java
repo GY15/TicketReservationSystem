@@ -106,11 +106,14 @@ public class OrderServiceImpl implements OrderService {
      * @param orderid 订单id
      * @return 是否支付成功
      */
-    public String pay(int orderid, String email){
+    public String payOrder(int orderid, String email){
         Order order = orderDao.getOrder(orderid);
         Member member = userDao.getMember(email);
-        if ((!order.getState().equals(OrderState.NOT_PAY.getRepre()))||member.getBalance()<order.getValue()){
-            return "fail";
+        if (member.getBalance()<order.getValue()){
+            return "账户余额不足";
+        }
+        if (!order.getState().equals(OrderState.NOT_PAY.getRepre())){
+            return "支付失败，订单已经取消";
         }
         order.setState(OrderState.PAY.getRepre());
         orderDao.updateOrder(order);

@@ -26,7 +26,7 @@
         <div class="col-md-offset-1" style="margin-top: 30px">倒计时：<span id="time">${second}</span>s</div>
         <div class="col-md-7 col-md-offset-4">
             <div class="row">
-                <h4 class="col-md-offset-1" style="">订单号: <b>${order.orderid}</b></h4>
+                <h4 class="col-md-offset-1" style="">订单号: <b class="orderid">${order.orderid}</b></h4>
             </div>
             <div class="row">
                 <h4 class="col-md-offset-1" style="">开始时间: <b>${order.startTime}</b></h4>
@@ -44,8 +44,9 @@
                 <h4 class="col-md-offset-1" style="">订单价格: <b>￥${order.value}</b></h4>
             </div>
             <div class="col-md-offset-2" style="margin-top: 20px">
-                <button class="btn col-md-2 btn-info check_ticket">支付</button>
+                <button class="btn col-md-2 btn-info pay_order">支付</button>
             </div>
+            <div class="errorMessage col-md-offset-3"></div>
         </div>
     </div>
 </div>
@@ -60,43 +61,41 @@
 <script src="../js/format-valid.js"></script>
 <script src="../js/icheck.js"></script>
 
-<!--<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>-->
-<script src="../js/jquery.seat-charts.js"></script>
+
 <script src="../js/bootstrap-select.js"></script>
 <script src="../js/icheck.js"></script>
 
 <script>
-    var n=5;
     function sum() {
         $("#time").html( $("#time").html()-1)
         setTimeout( "sum();", 1000 );
     }
     sum();
 
-    $(".check_btn").bind("click", function () {
+    $(".pay_order").bind("click", function () {
         $.ajax({
             type: "post",
             async: true,
-            url: "/venue/check_ticket",
+            url: "/member/pay_order",
             data: {
-                "orderid": $("#check_order").val(),
-                "planid": planid
+                "orderid": $(".orderid").html(),
             },
             success: function (result) {
-                if (result != "") {
-                    $('.errorMessage').html("正在出票  " + result);
+                if (result == "success") {
+                    $('.errorMessage').html("支付成功");
                     setTimeout(function () {
                         $('.errorMessage').html(" ")
-                    }, 5000);
+                        window.location.href="/member/plan_page";
+                    }, 1000);
                 } else {
-                    $('.errorMessage').html("你的订单号有误");
+                    $('.errorMessage').html(result);
                     setTimeout(function () {
                         $('.errorMessage').html(" ")
                     }, 3000);
                 }
             },
             error: function (result) {
-                $('.errorMessage').html("你的订单号有误");
+                $('.errorMessage').html("你的订单有误");
                 setTimeout(function () {
                     $('.errorMessage').html(" ")
                 }, 3000);

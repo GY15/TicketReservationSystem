@@ -179,25 +179,21 @@ public class MemberController extends HttpServlet {
         return mv;
     }
 
-    @PostMapping(value = "/pay")
-    protected @ResponseBody
-    String pay(@RequestParam("orderid") int orderid,HttpServletRequest request) throws ParseException {
-        String email = request.getSession().getAttribute("email").toString();
-        return orderService.pay(orderid, email);
-    }
 
 
     @GetMapping(value = "/my_order")
-    protected ModelAndView myOrder(@RequestParam("state") String state,HttpServletRequest request, HttpServletResponse response) {
+    protected  @ResponseBody
+    ModelAndView myOrder(@RequestParam("state") String state,HttpServletRequest request, HttpServletResponse response) {
         String email = request.getSession().getAttribute("email").toString();
-        List<OrderGeneral> orders = orderService.getOrders(email, OrderState.ALL);
+        List<OrderGeneral> orders = orderService.getOrders(email, OrderState.getEnum(state));
         ModelAndView mv = new ModelAndView("member_order");
         mv.addObject("orders",orders);
         return mv;
     }
 
     @GetMapping(value = "/my_info")
-    protected ModelAndView myInfo(HttpServletRequest request, HttpServletResponse response) {
+    protected  @ResponseBody
+    ModelAndView myInfo(HttpServletRequest request, HttpServletResponse response) {
         String email = request.getSession().getAttribute("email").toString();
         Member member = userService.getMember(email);
         List<Coupon> coupons = discountService.getCoupons(email);
@@ -207,28 +203,33 @@ public class MemberController extends HttpServlet {
         return mv;
     }
     @PostMapping(value = "/recharge")
-    protected String recharge(@RequestParam("money")int money,HttpServletRequest request, HttpServletResponse response) {
+    protected  @ResponseBody
+    String recharge(@RequestParam("money")int money,HttpServletRequest request, HttpServletResponse response) {
         String email = request.getSession().getAttribute("email").toString();
         userService.recharge(email,money);
         return "success";
     }
     @PostMapping(value = "/cancel_member")
-    protected String cancelMember(HttpServletRequest request, HttpServletResponse response) {
+    protected  @ResponseBody
+    String cancelMember(HttpServletRequest request, HttpServletResponse response) {
         String email = request.getSession().getAttribute("email").toString();
         userService.cancelMember(email);
         return "success";
     }
 
     @PostMapping(value = "/modify_name")
-    protected String modifyName(@RequestParam("nickname") String reg_nickname,
+    protected  @ResponseBody
+    String modifyName(@RequestParam("nickname") String nickname,
                                     HttpServletRequest request, HttpServletResponse response) {
         String email = request.getSession().getAttribute("email").toString();
         Member member = userService.getMember(email);
-        member.setNickname(reg_nickname);
+        member.setNickname(nickname);
+        userService.modifyMemberMessage(member);
         return "success";
     }
     @PostMapping(value = "/modify_password")
-    protected String modifyPassword(@RequestParam("old_password") String old,@RequestParam("new_password") String password,
+    protected  @ResponseBody
+    String modifyPassword(@RequestParam("old_password") String old,@RequestParam("new_password") String password,
                                 @RequestParam("new_password2") String password2,
                                 HttpServletRequest request, HttpServletResponse response) {
         String email = request.getSession().getAttribute("email").toString();
@@ -239,5 +240,12 @@ public class MemberController extends HttpServlet {
             return "success";
         }
         return "fail";
+    }
+
+    @PostMapping(value = "/pay_order")
+    protected @ResponseBody
+    String payOrder(@RequestParam("orderid") int orderid,HttpServletRequest request) {
+        String email = request.getSession().getAttribute("email").toString();
+        return orderService.payOrder(orderid,email);
     }
 }

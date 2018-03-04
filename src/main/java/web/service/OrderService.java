@@ -59,8 +59,9 @@ public interface OrderService {
      * @author 61990
      * @updateTime 2018/2/25
      * @param email 用户邮箱
+     * @param planid 计划id
      * @param orderid 订单id
-     * @return 订单的座位信息
+     * @return 是否成功的信息
      */
-    String pay(int orderid, String email);
+    String payOrder(int orderid, String email);
 }
