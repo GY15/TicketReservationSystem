@@ -1,15 +1,12 @@
 package web.service.serviceImpl;
 
-import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import web.dao.PlanDao;
-import web.dao.SeatDao;
 import web.dao.TicketDao;
+import web.model.SeatType;
+import web.entity.Ticket;
 import web.model.*;
-import web.service.PlanService;
 import web.service.TicketService;
-import web.utilities.format.SeatMapConvert;
 
 import java.util.ArrayList;
 import java.util.HashMap;

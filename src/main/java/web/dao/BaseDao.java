@@ -3,7 +3,7 @@ package web.dao;
 import java.util.List;
 
 
-public interface BaseDao {
+public interface BaseDao{
 
 	public void flush();
 

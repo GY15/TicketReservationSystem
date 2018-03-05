@@ -1,8 +1,6 @@
 package web.dao;
 
-import web.model.Plan;
-import web.model.PlanGeneral;
-import web.model.SeatMap;
+import web.entity.Plan;
 
 import java.util.List;
 

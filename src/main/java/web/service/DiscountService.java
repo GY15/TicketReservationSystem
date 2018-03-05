@@ -1,8 +1,6 @@
 package web.service;
 
-import web.model.Coupon;
-import web.model.OrderGeneral;
-import web.utilities.enums.OrderState;
+import web.entity.Coupon;
 
 import java.util.List;
 

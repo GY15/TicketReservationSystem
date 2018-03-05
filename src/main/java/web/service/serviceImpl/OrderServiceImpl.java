@@ -1,19 +1,21 @@
 package web.service.serviceImpl;
 
 import com.alibaba.fastjson.JSON;
-import com.sun.org.apache.xpath.internal.operations.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import web.dao.*;
+import web.entity.*;
 import web.model.*;
+import web.service.DiscountService;
 import web.service.OrderService;
-import web.service.SeatService;
-import web.service.TicketService;
+import web.service.PlanService;
+import web.service.UserService;
+import web.utilities.RefundUtil;
 import web.utilities.enums.OrderState;
-import web.utilities.format.SeatMapConvert;
+import web.utilities.enums.ReservationState;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -28,6 +30,12 @@ public class OrderServiceImpl implements OrderService {
     PlanDao planDao;
     @Autowired
     CouponDao couponDao;
+    @Autowired
+    PlanService planService;
+    @Autowired
+    DiscountService discountService;
+    @Autowired
+    UserService userService;
     /**
      * 下订单，生成订单
      *
@@ -46,6 +54,7 @@ public class OrderServiceImpl implements OrderService {
         if(isMember == true){
             Order order = new Order(email, planid, JSON.toJSONString(tickets), venueid, orderState.getRepre(), value, JSON.toJSONString(seat),block);
             if (coupinid != 0){
+                //todo 尚未实现
                 couponDao.delete(Coupon.class,coupinid+"");
             }
             return ""+orderDao.createOrder(order);
@@ -96,6 +105,17 @@ public class OrderServiceImpl implements OrderService {
         return parseOrder(orderDao.getOrder(orderid));
     }
 
+    /**
+     * 得到用户的预购订单
+     *
+     * @author 61990
+     * @updateTime 2018/3/5
+     * @param email 用户邮箱
+     * @return 订单的座位信息
+     */
+    public List<Reservation> getReservation(String email){
+        return orderDao.getReservation(email);
+    }
 
     /**
      * 支付‘未支付’的订单
@@ -108,6 +128,7 @@ public class OrderServiceImpl implements OrderService {
      */
     public String payOrder(int orderid, String email){
         Order order = orderDao.getOrder(orderid);
+        //TODO 之后优化这里
         Member member = userDao.getMember(email);
         if (member.getBalance()<order.getValue()){
             return "账户余额不足";
@@ -121,6 +142,95 @@ public class OrderServiceImpl implements OrderService {
         userDao.updateMember(member);
         return "success";
     }
+    /**
+     * 检查超过十五分钟的订单失效
+     *
+     * @author 61990
+     * @updateTime 2018/3/5
+     * @return null
+     */
+    public void checkOvertime(){
+        orderDao.checkOvertime();
+    }
+    /**
+     * 定期的快速购票
+     *
+     * @author 61990
+     * @updateTime 2018/3/5
+     * @return null
+     */
+    public void autoDistributeTicket(){
+        List<Reservation> reservations = orderDao.getReservationOrder();
+        for (Reservation reservation : reservations){
+            Plan plan = planDao.getOnePlan(reservation.getPlanid());
+            if(plan.getStartTime().getTime()-new Date().getTime() <= 12*1000*3600*24) {
+                List<Ticket> tickets = ticketDao.autoChooseTickets(reservation.getPlanid(), reservation.getNumber(),reservation.getBlock());
+                if (tickets == null) {
+                    userService.refund(reservation.getEmail(),reservation.getValue());
+                    reservation.setState(ReservationState.ALLOCATE_FAIL.getRepre());
+                    orderDao.updateReservation(reservation);
+                } else {
+                    List<String> seats = new ArrayList<>();
+                    for (Ticket ticket : tickets) {
+                        String[] temp =  ticket.getTicketid().split("_");
+                        seats.add(temp[2]+"_"+temp[3]);
+                    }
+                    createOrder(reservation.getEmail(), reservation.getVenueid(), reservation.getPlanid(), reservation.getBlock(),seats,reservation.getValue(),true,OrderState.PAY,0);
+                    reservation.setState(ReservationState.ALLOCATE_SUCCESS.getRepre());
+                    orderDao.updateReservation(reservation);
+                }
+            }
+        }
+    }
+
+    /**
+     * 生成一条预购订单
+     *
+     * @author 61990
+     * @updateTime 2018/3/5
+     * @return 是否生成预购成功
+     */
+    public boolean createReservation(Reservation reservation){
+        double ticketValue= planService.getBlockValue(reservation.getPlanid(),reservation.getBlock());
+        double orderValue = ticketValue*reservation.getNumber()*discountService.getDiscount(reservation.getEmail());
+        if (userService.getBalance(reservation.getEmail()) < orderValue){
+            return false;
+        }else {
+            reservation.setValue(orderValue);
+            userService.consume(reservation.getEmail(),orderValue);
+            orderDao.createReservation(reservation);
+        }
+        return true;
+    }
+
+
+    /**
+     * 申请退款
+     *
+     * @author 61990
+     * @updateTime 2018/3/5
+     * @return 退款金额
+     */
+    public boolean refundOrder(int orderid){
+        Order order = orderDao.getOrder(orderid);
+        order.setState(OrderState.REFUND.getRepre());
+        orderDao.updateOrder(order);
+        //todo 退票的其他事宜
+        return true;
+    }
+    /**
+     * 获得退款的利率
+     *
+     * @author 61990
+     * @updateTime 2018/3/5
+     * @return 订单退款利率
+     */
+    public double getPoundageRate(int orderid){
+        Order order = orderDao.getOrder(orderid);
+        Plan plan = planDao.getOnePlan(order.getPlanid());
+        return RefundUtil.getPoundageRate(plan.getStartTime());
+    }
+
 
     /**
      * 将订单list转化为可用的形式

@@ -28,6 +28,7 @@
         <li><a href="/member/my_order?state=NOT_PAY">未支付</a></li>
         <li><a href="/member/my_order?state=PAY">已支付</a></li>
         <li><a href="/member/my_order?state=REFUND">已退票</a></li>
+        <li><a href="/member/my_quick_order">快速订票查看</a></li>
     </ul>
     <div class="row">
         <c:choose>
@@ -37,7 +38,7 @@
                             <div class="row">
                                 <h4 class="col-md-offset-1 col-md-3" style="">订单号: <b class="orderid">${order.orderid}</b></h4>
                                 <h5 class=" plan_id" hidden>${order.planid}</h5><h5 class="venue_id" hidden>${order.venueid}</h5>
-                                <h4 class="col-md-offset-9"><b>￥${order.value}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><span style="font-size: 90%">${order.state}</span></h4>
+                                <h4 class="col-md-offset-9"><b>￥<span class="order_value">${order.value}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><span style="font-size: 90%">${order.state}</span></h4>
                             </div>
                             <div class="row" style="margin-bottom: 4px">
                                 <span class="col-md-2" style="margin-left: 110px"><b class="order_font">场馆:</b>${order.venueName}</span>
@@ -64,15 +65,15 @@
                                         <span>${order.block}&nbsp;${order.tickets}</span>
                                     </div>
                                 </div>
-                                <button class="btn btn-sm btn-info check_ticket">查看订单详情
+                                <button class="btn btn-sm btn-info detail">查看订单详情
                                 </button>
                                 <c:choose>
                                 <c:when test="${order.state==('已支付')}">
-                                    <button class=" btn btn-sm btn-info check_ticket">退票
+                                    <button class=" btn btn-sm btn-info refund">退票
                                     </button>
                                 </c:when>
                                 <c:when test="${order.state==('未支付')}">
-                                    <button class=" btn btn-sm btn-info check_ticket">去支付
+                                    <button class=" btn btn-sm btn-info goto_pay">去支付
                                     </button>
                                 </c:when>
                                 </c:choose>
@@ -89,13 +90,13 @@
 </div>
 
 
-<div class="modal fade" id="checkTicketModal" tabindex="-1" role="dialog"
+<div class="modal fade" id="refundModal" tabindex="-1" role="dialog"
      aria-hidden="true">
     <div class="modal-dialog" style="margin-top: 130px;height:710px;width: 40%">
         <div class="modal-content">
             <div class="modal-header text-center">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
-                <h4 class="modal-title" style="margin-top: 0px">现场购票</h4>
+                <h4 class="modal-title" style="margin-top: 0px">退票</h4>
             </div>
             <div class="modal-body" style="margin-top: 70px;margin-bottom: 100px">
                 <div class="row" style="margin-bottom: 10px">
@@ -103,12 +104,9 @@
                     <label class="col-md-3 label-font block" align="center"></label>
                 </div>
                 <div class="row" style="margin-bottom: 10px">
-                    <label class="col-md-3 label-font" align="right">检票</label>
-                    <div class="col-md-5">
-                        <input type="text" id="check_order" class="form-control input-style">
-                    </div>
+                    <label class="col-md-5 col-md-offset-1 label-font order_id" align="right"></label>
                     <div class="col-md-1">
-                        <button class="btn btn-primary check_btn">确认订单号</button>
+                        <button class="btn btn-primary sure_refund">确认退票</button>
                     </div>
                 </div>
                 <div class="errorMessage col-md-offset-3"></div>
@@ -129,40 +127,54 @@
 <script src="../js/icheck.js"></script>
 
 <script>
-    <%--$(document).ready(function () {--%>
-    <%--$('.selectpicker').selectpicker();--%>
-    <%--plans = JSON.parse('${plansJson}');--%>
-    <%--});--%>
-    var planid = "";
-    var block ="";
-    $(".check_ticket").click(function () {
+
+    $(".goto_pay").click(function () {
         window.location.href = "/member/goto_pay?orderid="+$(this).parent().parent().find(".orderid").eq(0).html()
         return false;
     });
-    $(".check_btn").bind("click", function () {
+    var orderid;
+    $(".refund").bind("click", function () {
+        $('#refundModal').modal();
+        orderid = $(this).parent().parent().find(".orderid").eq(0).html();
+        var value = $(this).parent().parent().find(".order_value").eq(0).html()
         $.ajax({
             type: "post",
             async: true,
-            url: "/venue/check_ticket",
+            url: "/member/get_refund_rate",
             data: {
-                "orderid": $("#check_order").val(),
-                "planid": planid
+                "orderid": orderid,
             },
             success: function (result) {
-                if(result!=""){
-                    $('.errorMessage').html("正在出票  "+result);
-                    setTimeout(function () {
-                        $('.errorMessage').html(" ")
-                    }, 5000);
-                }else {
-                    $('.errorMessage').html("你的订单号有误");
-                    setTimeout(function () {
-                        $('.errorMessage').html(" ")
-                    }, 3000);
-                }
+                $('.order_id').html("订单可以退款 " + result*value+" 元");
             },
             error: function (result) {
-                $('.errorMessage').html("你的订单号有误");
+                $('.errorMessage').html("刷新后重试");
+                setTimeout(function () {
+                    $('.errorMessage').html(" ")
+                }, 3000);
+            }
+        });
+    });
+
+    $(".sure_refund").bind("click", function () {
+        $('.errorMessage').html("正在退票");
+        alert(123);
+        $.ajax({
+            type: "post",
+            async: true,
+            url: "/member/refund",
+            data: {
+                "orderid":  orderid,
+            },
+            success: function (result) {
+                    $('.errorMessage').html("退票成功,退款"+result+"元");
+                    setTimeout(function () {
+                        $('.errorMessage').html(" ")
+                        window.location.reload();
+                    }, 1000);
+            },
+            error: function (result) {
+                $('.errorMessage').html("退票失败，刷新后重试");
                 setTimeout(function () {
                     $('.errorMessage').html(" ")
                 }, 3000);

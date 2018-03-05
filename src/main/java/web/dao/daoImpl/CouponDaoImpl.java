@@ -5,9 +5,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import web.dao.CouponDao;
-import web.dao.PlanDao;
-import web.model.Coupon;
-import web.model.Plan;
+import web.entity.Coupon;
 import web.utilities.HibernateUtil;
 
 import java.util.List;

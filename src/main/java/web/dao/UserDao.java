@@ -1,7 +1,7 @@
 package web.dao;
 
-import web.model.Member;
-import web.model.Venue;
+import web.entity.Member;
+import web.entity.Venue;
 
 /**
  * Created by 61990 on 2017/12/19.

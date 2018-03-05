@@ -5,9 +5,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import web.dao.SeatDao;
-import web.model.Plan;
-import web.model.SeatMap;
-import web.model.Venue;
+import web.entity.SeatMap;
 import web.utilities.HibernateUtil;
 
 import java.util.List;
@@ -29,9 +27,9 @@ public class SeatDaoImpl extends BaseDaoImpl implements SeatDao {
         int venueid = seatMaps.get(0).getVenueid();
         String sql = "DELETE from seat_map WHERE venueid = "+venueid;
         Query query = session.createNativeQuery(sql);
-
         transaction.commit();
         session.close();
+
         for(SeatMap seatMap  : seatMaps){
             super.save(seatMap);
         }

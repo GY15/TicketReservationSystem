@@ -1,16 +1,13 @@
 package web.utilities.enums;
 
-public enum OrderState {
-    NOT_PAY("未支付"),
-    PAY("已支付"),
-    REFUND("已退票"),
-    ARRIVE("已出票"),
-    INVALID("已失效"),
-    ALL("全部");
+public enum ReservationState {
+    ALLOCATE_FAIL("配票失败"),
+    ALLOCATE_SUCCESS("配票成功"),
+    RESERVATION("等待配票");
 
     private String repre;
 
-    OrderState(String repre) {
+    ReservationState(String repre) {
         this.repre = repre;
     }
 
@@ -31,16 +28,16 @@ public enum OrderState {
      * String TO enum
      * 便于从数据库读入
      */
-    public static OrderState getName(String a) {
-        for (OrderState thisEnum : OrderState.values()){
+    public static ReservationState getName(String a) {
+        for (ReservationState thisEnum : ReservationState.values()){
             if (thisEnum.name().equals(a)){
                 return thisEnum;
             }
         }
         return null;
     }
-    public static OrderState getEnum(String a) {
-        for (OrderState thisEnum : OrderState.values()){
+    public static ReservationState getEnum(String a) {
+        for (ReservationState thisEnum : ReservationState.values()){
             if (thisEnum.getRepre().equals(a)){
                 return thisEnum;
             }

@@ -3,9 +3,8 @@ package web.service.serviceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import web.dao.UserDao;
-import web.dao.daoImpl.UserDaoImpl;
-import web.model.Member;
-import web.model.Venue;
+import web.entity.Member;
+import web.entity.Venue;
 import web.service.UserService;
 import web.utilities.MailUtil;
 import web.utilities.enums.MemberState;
@@ -167,5 +166,48 @@ public class UserServiceImpl implements UserService {
         Member member = userDao.getMember(email);
         member.setValid(false);
         userDao.updateMember(member);
+    }
+    /**
+     * 会员消费
+     *
+     * @author 61990
+     * @updateTime 2018/3/1
+     * @param email 邮箱
+     * @param money 消费金额
+     * @return null
+     */
+    public void consume(String email, double money){
+        Member member = userDao.getMember(email);
+        member.setBalance(member.getBalance()-money);
+        member.setCredit(member.getCredit()+ new Double(money).intValue());
+        member.setGrade(member.getGrade()+ new Double(money).intValue());
+        userDao.updateMember(member);
+    }
+    /**
+     * 余额退款
+     *
+     * @author 61990
+     * @updateTime 2018/3/1
+     * @param email 邮箱
+     * @param money 消费金额
+     * @return null
+     */
+    public void refund(String email, double money){
+        Member member = userDao.getMember(email);
+        member.setBalance(member.getBalance() + money);
+        member.setCredit(member.getCredit() - new Double(money).intValue());
+        member.setGrade(member.getGrade() - new Double(money).intValue());
+        userDao.updateMember(member);
+    }
+    /**
+     * 获得账户余额
+     *
+     * @author 61990
+     * @updateTime 2018/3/1
+     * @param email 邮箱
+     * @return null
+     */
+    public double getBalance(String email){
+        return userDao.getMember(email).getBalance();
     }
 }

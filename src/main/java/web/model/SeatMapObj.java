@@ -1,6 +1,7 @@
 package web.model;
 
 import com.alibaba.fastjson.JSON;
+import web.entity.SeatMap;
 
 import java.io.Serializable;
 import java.util.List;

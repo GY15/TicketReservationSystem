@@ -1,5 +1,6 @@
 package web.service;
 
+import web.entity.Reservation;
 import web.model.OrderGeneral;
 import web.model.SeatMapObj;
 import web.utilities.enums.OrderState;
@@ -54,6 +55,16 @@ public interface OrderService {
     OrderGeneral getOrder(String email,int orderid);
 
     /**
+     * 得到用户的订单
+     *
+     * @author 61990
+     * @updateTime 2018/3/5
+     * @param email 用户邮箱
+     * @return 订单的座位信息
+     */
+    List<Reservation> getReservation(String email);
+
+    /**
      * 支付‘未支付’的订单
      *
      * @author 61990
@@ -64,4 +75,46 @@ public interface OrderService {
      * @return 是否成功的信息
      */
     String payOrder(int orderid, String email);
+
+    /**
+     * 检查超过十五分钟的订单失效
+     *
+     * @author 61990
+     * @updateTime 2018/3/5
+     * @return null
+     */
+    void checkOvertime();
+
+    /**
+     * 定期的快速购票
+     *
+     * @author 61990
+     * @updateTime 2018/3/5
+     * @return null
+     */
+    void autoDistributeTicket();
+    /**
+     * 生成一条预购订单
+     *
+     * @author 61990
+     * @updateTime 2018/3/5
+     * @return 是否生成预购成功
+     */
+     boolean createReservation(Reservation reservation);
+    /**
+     * 申请退款
+     *
+     * @author 61990
+     * @updateTime 2018/3/5
+     * @return 退款金额
+     */
+    boolean refundOrder(int orderid);
+    /**
+     * 获得退款的利率
+     *
+     * @author 61990
+     * @updateTime 2018/3/5
+     * @return 订单退款利率
+     */
+    double getPoundageRate(int orderid);
 }

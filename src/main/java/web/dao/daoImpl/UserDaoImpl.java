@@ -2,18 +2,14 @@ package web.dao.daoImpl;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import web.dao.UserDao;
-import web.model.Member;
-import web.model.ValidUser;
-import web.model.Venue;
+import web.entity.Member;
+import web.entity.ValidUser;
+import web.entity.Venue;
 import web.utilities.FormatValid;
 import web.utilities.HibernateUtil;
 import web.utilities.RankUtil;
-
-import javax.persistence.TypedQuery;
-import java.util.List;
 
 @Repository
 public class UserDaoImpl extends BaseDaoImpl implements UserDao {
@@ -103,12 +99,12 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
         Transaction transaction = session.beginTransaction();
         String sql = "select max(v.venueid) from venue v";
         int id = (Integer)session.createNativeQuery(sql).uniqueResult()+1;
+        transaction.commit();
+        session.close();
         Venue venue = new Venue();
         venue.setVenueid(id);
         venue.setValid(false);
         super.save(venue);
-        transaction.commit();
-        session.close();
         return id;
     }
     /**

@@ -5,15 +5,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import web.model.Coupon;
-import web.model.Member;
+import web.entity.Coupon;
+import web.entity.Member;
+import web.entity.Reservation;
+import web.entity.Ticket;
 import web.model.OrderGeneral;
 import web.model.PlanGeneral;
 import web.service.DiscountService;
 import web.service.OrderService;
 import web.service.PlanService;
 import web.service.UserService;
+import web.utilities.RefundUtil;
 import web.utilities.enums.OrderState;
+import web.utilities.enums.ReservationState;
 import web.utilities.enums.UserType;
 
 import javax.servlet.ServletContext;
@@ -185,11 +189,22 @@ public class MemberController extends HttpServlet {
     protected  @ResponseBody
     ModelAndView myOrder(@RequestParam("state") String state,HttpServletRequest request, HttpServletResponse response) {
         String email = request.getSession().getAttribute("email").toString();
-        List<OrderGeneral> orders = orderService.getOrders(email, OrderState.getEnum(state));
+        List<OrderGeneral> orders = orderService.getOrders(email, OrderState.getName(state));
         ModelAndView mv = new ModelAndView("member_order");
         mv.addObject("orders",orders);
         return mv;
     }
+
+    @GetMapping(value = "/my_quick_order")
+    protected  @ResponseBody
+    ModelAndView myReservation(HttpServletRequest request, HttpServletResponse response) {
+        String email = request.getSession().getAttribute("email").toString();
+        List<Reservation> orders = orderService.getReservation(email);
+        ModelAndView mv = new ModelAndView("member_reservation");
+        mv.addObject("orders",orders);
+        return mv;
+    }
+
 
     @GetMapping(value = "/my_info")
     protected  @ResponseBody
@@ -247,5 +262,24 @@ public class MemberController extends HttpServlet {
     String payOrder(@RequestParam("orderid") int orderid,HttpServletRequest request) {
         String email = request.getSession().getAttribute("email").toString();
         return orderService.payOrder(orderid,email);
+    }
+    @PostMapping(value = "/quick_order")
+    protected @ResponseBody
+    boolean quickOrder(@RequestParam("planid") int planid,@RequestParam("venueid") int venueid,@RequestParam("number") int number,@RequestParam("block") String block,
+                      HttpServletRequest request) {
+        String email = request.getSession().getAttribute("email").toString();
+        Reservation reservation = new Reservation(email, planid, venueid, number, ReservationState.RESERVATION.getRepre(),block);
+        return orderService.createReservation(reservation);
+    }
+    @PostMapping(value = "/refund")
+    protected @ResponseBody
+    boolean refund(@RequestParam("orderid") int orderid,HttpServletRequest request) {
+        return orderService.refundOrder(orderid);
+    }
+    @PostMapping(value = "/get_refund_rate")
+    protected @ResponseBody
+    double getRefundRate(@RequestParam("orderid") int orderid,HttpServletRequest request) {
+        String email = request.getSession().getAttribute("email").toString();
+        return orderService.getPoundageRate(orderid);
     }
 }

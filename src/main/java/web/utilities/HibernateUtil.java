@@ -5,10 +5,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-import web.model.*;
+import web.entity.*;
 
 public class HibernateUtil {
-    private static SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory = getSessionFactory();
 
     public static SessionFactory getSessionFactory() {
         try {
@@ -23,6 +23,7 @@ public class HibernateUtil {
             config.addAnnotatedClass(Ticket.class);
             config.addAnnotatedClass(Order.class);
             config.addAnnotatedClass(Coupon.class);
+            config.addAnnotatedClass(Reservation.class);
             serviceRegistry = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
             sessionFactory = config.buildSessionFactory(serviceRegistry);
             return sessionFactory;
@@ -36,7 +37,7 @@ public class HibernateUtil {
      * gerCurrentSession
      */
     public static Session getSession() {
-        return getSessionFactory().getCurrentSession();
+        return sessionFactory.getCurrentSession();
     }
 
 

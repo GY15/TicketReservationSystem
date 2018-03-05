@@ -1,9 +1,6 @@
 package web.service;
 
-import web.model.Plan;
-import web.model.PlanGeneral;
 import web.model.SeatMapObj;
-import web.model.Ticket;
 
 import java.util.List;
 
@@ -22,6 +19,7 @@ public interface TicketService {
      * @return 是否成功
      */
     String[] getBookedArray(int planid,String block);
+    
     /**
      * 由seatMapObjs 生成tickets
      *

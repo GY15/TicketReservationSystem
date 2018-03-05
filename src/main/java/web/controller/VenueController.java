@@ -6,13 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import web.entity.Plan;
+import web.entity.SeatMap;
+import web.entity.Venue;
 import web.model.*;
 import web.service.*;
 import web.utilities.enums.OrderState;
 import web.utilities.enums.UserType;
 import web.utilities.format.SeatMapConvert;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.ServletContext;
 import javax.servlet.http.*;
 import java.io.IOException;
@@ -171,6 +173,7 @@ public class VenueController extends HttpServlet {
                    @RequestParam("block") String block, @RequestParam("seats") String seats,
                    @RequestParam("value") double value,HttpServletRequest request){
         List<String> booked_seats = JSON.parseArray(seats,String.class);
+        System.out.println(booked_seats);
         int venueid = Integer.parseInt(request.getSession().getAttribute("venueid").toString());
         String result = orderService.createOrder(email,venueid, planid, block,  booked_seats, value, member, OrderState.ARRIVE,0);
         return result;

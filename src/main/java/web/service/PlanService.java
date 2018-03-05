@@ -1,8 +1,9 @@
 package web.service;
 
-import web.model.Plan;
+import web.entity.Plan;
 import web.model.PlanGeneral;
-import web.model.SeatMap;
+import web.model.SeatMapObj;
+import web.model.SeatType;
 
 import java.util.List;
 
@@ -47,4 +48,15 @@ public interface PlanService {
      * @return list
      */
     List<PlanGeneral> getPlanGeneral();
+
+    /**
+     * 计算获得某一计划某一区域的票价预估
+     * 用于快速购票
+     *
+     * @author 61990
+     * @updateTime 2018/3/5
+     * @return list
+     */
+    double getBlockValue(int planid,String block);
+
 }

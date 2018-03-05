@@ -5,17 +5,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import web.dao.PlanDao;
 import web.dao.SeatDao;
-import web.dao.TicketDao;
 import web.dao.UserDao;
+import web.entity.Plan;
+import web.entity.SeatMap;
+import web.entity.Venue;
 import web.model.*;
 import web.service.PlanService;
-import web.service.SeatService;
 import web.service.TicketService;
 import web.utilities.format.SeatMapConvert;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -77,6 +76,29 @@ public class PlanServiceImpl implements PlanService {
     public List<PlanGeneral> getPlanGeneral(){
         return parsePlan( planDao.getAllPlan());
     }
+
+    /**
+     * 计算获得某一计划某一区域的票价预估
+     * 用于快速购票
+     *
+     * @author 61990
+     * @updateTime 2018/3/5
+     * @return list
+     */
+    public double getBlockValue(int planid,String block) {
+        PlanGeneral planGeneral = getPlan(planid);
+        double value =10000000;
+        for (SeatMapObj seatMap : planGeneral.getSeatMaps()) {
+            if (seatMap.getBlock().equals(block)) {
+                SeatType[] seatTypes = seatMap.getType();
+                for (SeatType seatType :seatTypes){
+                    value = Math.min(seatType.getValue(),value);
+                }
+            }
+        }
+        return value;
+    }
+
 
     /**
      * 将计划list转化为可用的形式

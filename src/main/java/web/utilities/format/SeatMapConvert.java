@@ -1,6 +1,6 @@
 package web.utilities.format;
 
-import web.model.SeatMap;
+import web.entity.SeatMap;
 import web.model.SeatMapObj;
 
 import java.util.ArrayList;

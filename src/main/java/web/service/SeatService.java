@@ -1,10 +1,6 @@
 package web.service;
 
-import web.model.Member;
-import web.model.Plan;
-import web.model.SeatMap;
-import web.model.Venue;
-import web.utilities.enums.MemberState;
+import web.entity.SeatMap;
 
 import java.util.List;
 

@@ -75,12 +75,13 @@ public class BaseDaoImpl implements BaseDao {
 
 	public void update(Object bean) {
 		try {
-			Session session =HibernateUtil.getSession() ;
+			Session session = HibernateUtil.getSession() ;
 			Transaction tx=session.beginTransaction();
 			session.update(bean);
 			tx.commit();
 			session.close();
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -98,7 +99,15 @@ public class BaseDaoImpl implements BaseDao {
 	}
 
 	public void delete(Class c, String id) {
-
+		try {
+			Session session =HibernateUtil.getSession() ;
+			Transaction tx=session.beginTransaction();
+//			session.delete(,id);
+			tx.commit();
+			session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void delete(Class c, String[] ids) {

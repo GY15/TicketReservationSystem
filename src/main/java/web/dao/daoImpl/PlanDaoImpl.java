@@ -5,9 +5,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import web.dao.PlanDao;
-import web.dao.SeatDao;
-import web.model.Plan;
-import web.model.SeatMap;
+import web.entity.Plan;
 import web.utilities.HibernateUtil;
 
 import java.util.List;
@@ -29,8 +27,9 @@ public class PlanDaoImpl extends BaseDaoImpl implements PlanDao {
         String sql = "select max(p.planid) from plan p";
         int id = (Integer)session.createNativeQuery(sql).uniqueResult()+1;
         plan.setPlanid(id);
-        super.save(plan);
         transaction.commit();
+        session.close();
+        super.save(plan);
         return id;
     }
     /**

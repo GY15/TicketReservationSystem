@@ -1,9 +1,5 @@
 package web.model;
 
-import com.alibaba.fastjson.JSON;
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,6 +22,7 @@ public class PlanGeneral implements Serializable{
     private String province;
     private String city;
     private String location;
+    private int valid;
 
     public PlanGeneral(int planid, Date startTime, Date endTime, String type, String description, List<SeatMapObj> seatMapObjs,String province, String city, String location,String name,int venueid){
         this.planid = planid;
@@ -40,6 +37,13 @@ public class PlanGeneral implements Serializable{
         this.location = location;
         this.venueName = name ;
         this.venueid = venueid;
+        Date date  =  new Date();
+        if(startTime.getTime() < date.getTime()){
+            valid = 0;
+        }else{
+            valid = 1;
+        }
+
     }
 
 
@@ -129,5 +133,13 @@ public class PlanGeneral implements Serializable{
 
     public void setVenueName(String venueName) {
         this.venueName = venueName;
+    }
+
+    public int getValid() {
+        return valid;
+    }
+
+    public void setValid(int valid) {
+        this.valid = valid;
     }
 }

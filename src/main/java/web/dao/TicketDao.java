@@ -1,9 +1,6 @@
 package web.dao;
 
-import web.dao.BaseDao;
-import web.model.Plan;
-import web.model.SeatMap;
-import web.model.Ticket;
+import web.entity.Ticket;
 
 import java.util.List;
 
@@ -41,4 +38,24 @@ public interface TicketDao extends BaseDao {
      * @return 是否成功
      */
     List<String> bookTicket(int planid,String block,List<String> seat);
+
+    /**
+     * 随机选择指定数的票的id
+     *
+     * @author 61990
+     * @updateTime 2018/3/5
+     * @param number 选择的票数
+     * @return list<ticket>
+     */
+    List<Ticket> autoChooseTickets(int planid,int number,String block);
+
+    /**
+     * 退票退座位
+     *
+     * @author 61990
+     * @updateTime 2018/3/5
+     * @param tickets 退票的id
+     * @return 是否成功
+     */
+    boolean refundTickets(List<String> tickets);
 }

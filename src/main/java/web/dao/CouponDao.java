@@ -1,9 +1,6 @@
 package web.dao;
 
-import web.dao.BaseDao;
-import web.model.Coupon;
-import web.model.Order;
-import web.utilities.enums.OrderState;
+import web.entity.Coupon;
 
 import java.util.List;
 

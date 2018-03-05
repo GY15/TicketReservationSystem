@@ -4,12 +4,11 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
-import web.dao.SeatDao;
 import web.dao.TicketDao;
-import web.model.Plan;
-import web.model.SeatMap;
-import web.model.Ticket;
+import web.entity.Reservation;
+import web.entity.Ticket;
 import web.utilities.HibernateUtil;
+import web.utilities.enums.ReservationState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,13 +25,9 @@ public class TicketDaoImpl extends BaseDaoImpl implements TicketDao {
      * @updateTime 2018/2/15
      */
     public boolean addTicket(List<Ticket> tickets) {
-        Session session = HibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
         for (Ticket ticket : tickets) {
-            session.save(ticket);
+            super.save(ticket);
         }
-        transaction.commit();
-        session.close();
         return true;
     }
     /**
@@ -75,21 +70,61 @@ public class TicketDaoImpl extends BaseDaoImpl implements TicketDao {
         String sql = "SELECT * from ticket WHERE planid = " + planid + " AND block = '" + block + "' AND " + rowAndCol;
         Query query = session.createSQLQuery(sql).addEntity(Ticket.class);
         List<Ticket> tickets= query.list();
+        transaction.commit();
+        session.close();
+
         List<String> list = new ArrayList<>();
         for (Ticket ticket : tickets){
             list.add(ticket.getTicketid());
             if(!ticket.getState().equals("未出售")){
-                transaction.commit();
-                session.close();
                 return null;
             }
         }
+
         for (Ticket ticket : tickets){
-            ticket.setState("已预定");
-            super.update(seat);
+            ticket.setState("已预订");
+            super.update(ticket);
         }
-        transaction.commit();
-        session.close();
         return list;
     }
+
+    /**
+     * 随机选择指定数的票的id
+     *
+     * @author 61990
+     * @updateTime 2018/2/18
+     * @param number 选择的票数
+     * @return list<ticket>
+     */
+    public List<Ticket> autoChooseTickets(int planid,int number, String block){
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        String sql = "SELECT * from ticket WHERE planid = "+ planid +" AND state = '未出售' and block = '"+block+"' LIMIT " + number;
+        Query query = session.createSQLQuery(sql).addEntity(Ticket.class);
+        List<Ticket> tickets= query.list();
+        transaction.commit();
+        session.close();
+        if (tickets.size() < number ){
+            return null;
+        }
+        return tickets;
+    }
+
+    /**
+     * 退票退座位
+     *
+     * @author 61990
+     * @updateTime 2018/3/5
+     * @param tickets 退票的id
+     * @return 是否成功
+     */
+    public boolean refundTickets(List<String> tickets){
+        for (String ticketid : tickets){
+            Ticket ticket = (Ticket) super.load(Ticket.class, ticketid);
+            ticket.setState(ReservationState.ALLOCATE_FAIL.getRepre());
+            super.update(ticket);
+        }
+        return true;
+    }
+
 }

@@ -1,7 +1,7 @@
 package web.service;
 
-import web.model.Member;
-import web.model.Venue;
+import web.entity.Member;
+import web.entity.Venue;
 import web.utilities.enums.MemberState;
 import web.utilities.enums.UserType;
 
@@ -103,4 +103,37 @@ public interface UserService {
      * @return null
      */
     void cancelMember(String email);
+
+    /**
+     * 会员消费
+     *
+     * @author 61990
+     * @updateTime 2018/3/1
+     * @param email 邮箱
+     * @param money 消费金额
+     * @return null
+     */
+    void consume(String email, double money);
+
+    /**
+     * 余额退款
+     *
+     * @author 61990
+     * @updateTime 2018/3/1
+     * @param email 邮箱
+     * @param money 消费金额
+     * @return null
+     */
+    void refund(String email, double money);
+
+    /**
+     * 获得账户余额
+     *
+     * @author 61990
+     * @updateTime 2018/3/1
+     * @param email 邮箱
+     * @param money 消费金额
+     * @return null
+     */
+    double getBalance(String email);
 }

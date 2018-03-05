@@ -1,9 +1,6 @@
 package web.dao;
 
-import web.model.Member;
-import web.model.Plan;
-import web.model.SeatMap;
-import web.model.Venue;
+import web.entity.SeatMap;
 
 import java.util.List;
 
