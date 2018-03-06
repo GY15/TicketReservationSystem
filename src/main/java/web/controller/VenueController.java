@@ -91,7 +91,9 @@ public class VenueController extends HttpServlet {
     @GetMapping(value = "/logout")
     protected String logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(false);//防止创建Session
-        return "";
+        session.removeAttribute("venueid");
+        response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/venue/"));
+        return null;
     }
 
     @PostMapping(value = "/valid", produces = "text/html;charset=UTF-8;")
@@ -113,12 +115,27 @@ public class VenueController extends HttpServlet {
         return "success";
     }
 
+    @PostMapping(value = "/modify_info")
+    protected @ResponseBody
+    String register(@RequestParam("name") String name, @RequestParam("password") String password,
+                    @RequestParam("province") String province, @RequestParam("city") String city, @RequestParam("location") String location,
+                    @RequestParam("seat_info") String seat_info, HttpServletRequest request, HttpServletResponse response) {
+        int venueid = Integer.parseInt(request.getSession().getAttribute("venueid").toString());
+        Venue venue = new Venue(venueid, password, name, province, city, location);
+        userService.modifyVenueMessage(venue);
+        List<SeatMap> seats = JSON.parseArray(seat_info,SeatMap.class);
+        seatService.submitSeatMap(seats);
+        return "success";
+    }
+
     @GetMapping(value = "/open_publish")
     protected ModelAndView openPublish(HttpServletRequest request, HttpServletResponse response) {
         int venueid = Integer.parseInt(request.getSession().getAttribute("venueid").toString());
         List<SeatMap> seatMaps = seatService.getSeatMap(venueid);
         List<SeatMapObj> seatMapObjs = SeatMapConvert.StringToObj(seatMaps);
+        Venue venue = userService.getVenueInfo(venueid);
         ModelAndView mv = new ModelAndView("publish_plan");
+        mv.addObject("valid", venue.isValid());
         mv.addObject("seatMaps", seatMapObjs);
         mv.addObject("seatMapsJson", JSON.toJSONString(seatMapObjs));
         return mv;
@@ -149,8 +166,11 @@ public class VenueController extends HttpServlet {
     protected ModelAndView myInfo(HttpServletRequest request, HttpServletResponse response) {
         int venueid = Integer.parseInt(request.getSession().getAttribute("venueid").toString());
         Venue venue = userService.getVenueInfo(venueid);
+        List<SeatMapObj> seatMapObjs = SeatMapConvert.StringToObj(seatService.getSeatMap(venueid));
         ModelAndView mv = new ModelAndView("venue_info");
         mv.addObject("venue", venue);
+        mv.addObject("seatMaps", seatMapObjs);
+        mv.addObject("seatMapsJson", JSON.toJSONString(seatMapObjs));
         return mv;
     }
 

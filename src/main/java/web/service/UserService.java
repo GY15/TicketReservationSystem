@@ -1,5 +1,6 @@
 package web.service;
 
+import web.entity.Coupon;
 import web.entity.Member;
 import web.entity.Venue;
 import web.utilities.enums.MemberState;
@@ -136,4 +137,15 @@ public interface UserService {
      * @return null
      */
     double getBalance(String email);
+
+    /**
+     * 积分兑换优惠券
+     *
+     * @author 61990
+     * @updateTime 2018/3/6
+     * @param coupon 优惠券信息
+     * @param grade 所需要的积分
+     * @return 是否兑换成功
+     */
+    boolean switchCoupon(Coupon coupon, int grade);
 }

@@ -31,8 +31,10 @@
                     <div class="form-group" style="margin-top: 20px">
                         <label class="col-md-3  form-label" for="reg_venue">帐&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</label>
                         <div class="col-md-9 input-group" style="margin-left: 0px;left: 15px;">
-                            <input type="text" class="form-control" name="reg_venue" value="${venue.venueid}" id="reg_venue" style="width: 210px;" disabled>
-                            <b class="col-md-1 col-md-offset-2 form-label">营收</b>  <b class="col-md-1  form-label">${venue.balance}</b>
+                            <input type="text" class="form-control" name="reg_venue" value="${venue.venueid}"
+                                   id="reg_venue" style="width: 210px;" disabled>
+                            <b class="col-md-1 col-md-offset-2 form-label">营收</b> <b
+                                class="col-md-1  form-label">${venue.balance}</b>
                         </div>
                     </div>
                     <div class="form-group" style="margin-top: 20px">
@@ -43,78 +45,119 @@
                         </div>
                     </div>
                     <div class="form-group" style="margin-top: 20px">
-                        <label class="col-md-3  form-label" for="old_password">旧&nbsp;&nbsp密&nbsp;&nbsp;码</label>
+                        <label class="col-md-3  form-label" >密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label>
                         <div class="col-md-7">
-                            <input type="password" class="form-control" value="${venue.password}" id="old_password" name="old_password"
+                            <input type="password" class="form-control" id="password" name="password" value="${venue.password}"
                                    placeholder="请输入密码">
                         </div>
                     </div>
-                    <div class="form-group" style="margin-top: 20px">
-                        <label class="col-md-3  form-label" for="new_password">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label>
-                        <div class="col-md-7">
-                            <input type="password" class="form-control"  id="new_password" name="new_password"
-                                   placeholder="请输入密码">
-                        </div>
-                    </div>
-                    <div class="form-group" style="margin-top: 20px">
-                        <label class="col-md-3  form-label" for="new_password2">确认密码</label>
-                        <div class="col-md-7">
-                            <input type="password" class="form-control" id="new_password2" name="new_password2"
-                                   placeholder="请再次输入密码">
-                        </div>
-                    </div>
+
                     <div class="form-group" style="margin-top: 20px">
                         <label class="col-md-3  form-label">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址</label>
                         <div class="col-md-1">
-                            <input type="text" class="form-control" id="reg_province" value="${venue.province}"  name="reg_province"
+                            <input type="text" class="form-control" id="reg_province" value="${venue.province}"
+                                   name="reg_province"
                                    placeholder="省份">
                         </div>
                         <div class="col-md-1">
-                            <input type="text" class="form-control" id="reg_city" value="${venue.city}"  name="reg_city"
+                            <input type="text" class="form-control" id="reg_city" value="${venue.city}" name="reg_city"
                                    placeholder="市">
                         </div>
                         <div class="col-md-5">
-                            <input type="text" class="form-control" id="reg_location" value="${venue.location}"  name="reg_location"
+                            <input type="text" class="form-control" id="reg_location" value="${venue.location}"
+                                   name="reg_location"
                                    placeholder="详细地址">
                         </div>
                     </div>
                     <div class="form-group" style="margin-top: 20px">
-                        <label class="col-md-3  form-label" >座位情况</label>
+                        <label class="col-md-3  form-label">座位情况</label>
                         <div class="col-md-8" style="margin-left: 15px">
                             <div class='seat_set'>
+                                <c:choose>
+                                    <c:when test="${seatMaps!=null}">
+                                        <c:forEach items="${seatMaps}" var="seatMap" varStatus="vs">
 
+                                            <div class="row seat_general">
+                                                <div class="seat_local_name col-md-2">${seatMap.block}</div>
+                                                <div class="seat_local_description col-md-6">
+                                                   ${seatMap.description}
+                                                </div>
+                                                <div class="col-md-offset-2">
+                                                    <button class="button button-royal  button-circle button-tiny deleteBlock">
+                                                        <i class="icon-minus"></i></button>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </c:when>
+                                </c:choose>
                             </div>
-                            <button class="button button-primary button-circle button-small" style="margin: 10px" id="add_seat_btn"><i class="icon-plus"></i></button>
+                            <button class="button button-primary button-circle button-small"
+                                    style="margin: 10px"
+                                    id="add_seat_btn"><i class="icon-plus"></i></button>
                         </div>
+                        <button class="btn btn-primary col-md-4 col-md-offset-4 submit-btn" style="margin-top: 30px">
+                            申&nbsp;&nbsp;&nbsp;请&nbsp;&nbsp;&nbsp;修&nbsp;&nbsp;&nbsp;改
+                        </button>
                     </div>
-                    <button type="submit" class="btn btn-primary col-md-4 col-md-offset-4" style="margin-top: 30px">
-                        申&nbsp;&nbsp;&nbsp;请&nbsp;&nbsp;&nbsp;修&nbsp;&nbsp;&nbsp;改
-                    </button>
                 </div>
-            </div>
-            <div class="col-md-12 errorMessage">
+                <div class="col-md-12 errorMessage">
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
+    <jsp:include page="venue_modify.jsp"></jsp:include>
 
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/format-valid.js"></script>
+    <script src="../js/icheck.js"></script>
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="../js/jquery-3.2.1.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../js/bootstrap.js"></script>
-<script src="../js/format-valid.js"></script>
-<script src="../js/icheck.js"></script>
+    <!--<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>-->
+    <script src="../js/jquery.seat-charts.js"></script>
+    <script src="../js/icheck.js"></script>
+    <script src="../js/seat-create.js"></script>
 
-<!--<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>-->
-<script src="../js/jquery.seat-charts.js"></script>
-<script src="../js/icheck.js"></script>
+    <script>
+        $(document).ready(function(){
+            var seatMaps = JSON.parse('${seatMapsJson}');
+            initSeats(seatMaps);
+        });
 
-<script>
+        $(".submit-btn").bind("click", function () {
+            $.ajax({
+                type: "post",
+                async: true,
+                url: "/venue/modify_info",
+                data: {
+                    "password": $('#password').val(),
+                    "name": $('#reg_name').val(),
+                    "province": $('#reg_province').val(),
+                    "city": $('#reg_city').val(),
+                    "location": $('#reg_location').val(),
+                    "seat_info": JSON.stringify(seats)
+                },
 
-</script>
+                success: function (result) {
+                    $('.errorMessage').html("修改成功");
+                    setTimeout(function () {
+                        $('.errorMessage').html(" ")
+                        window.location.reload();
+                    }, 4000);
+                },
+                error: function (result) {
+                    $('.errorMessage').html("修改失败，请重新填写");
+                    setTimeout(function () {
+                        $('.errorMessage').html(" ")
+                        window.location.reload();
+                    }, 2000);
+                }
+            });
+        })
+    </script>
 
 </body>
 </html>

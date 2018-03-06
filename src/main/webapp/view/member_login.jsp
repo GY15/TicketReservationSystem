@@ -123,7 +123,7 @@
                 </div>
                 <div class="col-md-12 errorMessage">
                 </div>
-                <a class="loginBt" style="position: absolute;right:20px;bottom: 10px">场馆登录</a>
+                <a class="loginBt" href="/venue/" style="position: absolute;right:20px;bottom: 10px">场馆登录</a>
             </div>
         </div>
     </div>

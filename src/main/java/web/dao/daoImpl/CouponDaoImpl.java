@@ -31,4 +31,37 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDao {
         session.close();
         return coupons;
     }
+    /**
+     * 更新优惠券状态
+     *
+     * @author 61990
+     * @updateTime 2018/3/6
+     * @param couponid 优惠券id
+     * @return coupon 的信息
+     */
+    public boolean updateCoupon(int couponid,boolean state){
+        Coupon coupon = (Coupon) super.load(Coupon.class, couponid);
+        coupon.setValid(state);
+        super.update(coupon);
+        return true;
+    }
+    /**
+     * 生成一个优惠券
+     *
+     * @author 61990
+     * @updateTime 2018/3/6
+     * @param coupon 优惠券信息
+     * @return 是否生成成功
+     */
+    public boolean create(Coupon coupon){
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        String sql = "select max(c.couponid) from coupon c";
+        int id = (Integer)session.createNativeQuery(sql).uniqueResult()+1;
+        transaction.commit();
+        session.close();
+        coupon.setCouponid(id);
+        super.save(coupon);
+        return true;
+    }
 }

@@ -6,10 +6,7 @@ import org.springframework.stereotype.Service;
 import web.dao.*;
 import web.entity.*;
 import web.model.*;
-import web.service.DiscountService;
-import web.service.OrderService;
-import web.service.PlanService;
-import web.service.UserService;
+import web.service.*;
 import web.utilities.RefundUtil;
 import web.utilities.enums.OrderState;
 import web.utilities.enums.ReservationState;
@@ -36,6 +33,8 @@ public class OrderServiceImpl implements OrderService {
     DiscountService discountService;
     @Autowired
     UserService userService;
+    @Autowired
+    TicketService ticketService;
     /**
      * 下订单，生成订单
      *
@@ -54,8 +53,7 @@ public class OrderServiceImpl implements OrderService {
         if(isMember == true){
             Order order = new Order(email, planid, JSON.toJSONString(tickets), venueid, orderState.getRepre(), value, JSON.toJSONString(seat),block);
             if (coupinid != 0){
-                //todo 尚未实现
-                couponDao.delete(Coupon.class,coupinid+"");
+                couponDao.updateCoupon(coupinid,false);
             }
             return ""+orderDao.createOrder(order);
         }
@@ -215,8 +213,9 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderDao.getOrder(orderid);
         order.setState(OrderState.REFUND.getRepre());
         orderDao.updateOrder(order);
-        //todo 退票的其他事宜
-        return true;
+        userService.refund(order.getEmail(),order.getValue()*getPoundageRate(orderid));
+//        if(order.ge)
+        return ticketService.refundTickets(JSON.parseArray(order.getTickets(),String.class));
     }
     /**
      * 获得退款的利率

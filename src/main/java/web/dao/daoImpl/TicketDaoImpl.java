@@ -121,7 +121,7 @@ public class TicketDaoImpl extends BaseDaoImpl implements TicketDao {
     public boolean refundTickets(List<String> tickets){
         for (String ticketid : tickets){
             Ticket ticket = (Ticket) super.load(Ticket.class, ticketid);
-            ticket.setState(ReservationState.ALLOCATE_FAIL.getRepre());
+            ticket.setState("未出售");
             super.update(ticket);
         }
         return true;

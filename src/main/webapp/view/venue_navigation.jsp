@@ -6,5 +6,6 @@
         <li><a href="/venue/open_publish">发布一个计划</a></li>
         <li><a href="/venue/my_info">查看统计信息</a></li>
         <li><a href="/venue/my_info">查看场馆信息</a></li>
+        <li><a href="/venue/logout">退出登录</a></li>
     </ul>
 </div>

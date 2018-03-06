@@ -158,7 +158,6 @@
 
     $(".sure_refund").bind("click", function () {
         $('.errorMessage').html("正在退票");
-        alert(123);
         $.ajax({
             type: "post",
             async: true,

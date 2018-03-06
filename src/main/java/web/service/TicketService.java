@@ -30,4 +30,14 @@ public interface TicketService {
      * @return ticket list
      */
     String createTickets(int planid , List<SeatMapObj> seatMapObjs);
+
+    /**
+     * 退订单的座位
+     *
+     * @author 61990
+     * @updateTime 2018/3/5
+     * @param tickets 退票的id
+     * @return 是否成功
+     */
+    boolean refundTickets(List<String> tickets);
 }

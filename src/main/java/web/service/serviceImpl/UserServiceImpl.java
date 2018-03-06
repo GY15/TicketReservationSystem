@@ -2,7 +2,9 @@ package web.service.serviceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import web.dao.CouponDao;
 import web.dao.UserDao;
+import web.entity.Coupon;
 import web.entity.Member;
 import web.entity.Venue;
 import web.service.UserService;
@@ -14,6 +16,8 @@ import web.utilities.enums.UserType;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserDao userDao;
+    @Autowired
+    CouponDao couponDao;
     /**
      * 用户登录
      *
@@ -210,4 +214,25 @@ public class UserServiceImpl implements UserService {
     public double getBalance(String email){
         return userDao.getMember(email).getBalance();
     }
+    /**
+     * 积分兑换优惠券
+     *
+     * @author 61990
+     * @updateTime 2018/3/6
+     * @param coupon 优惠券信息
+     * @param grade 所需要的积分
+     * @return 是否兑换成功
+     */
+    public boolean switchCoupon(Coupon coupon, int grade){
+        Member member = userDao.getMember(coupon.getEmail());
+        if (member.getGrade()<grade){
+            return false;
+        }else {
+            member.setGrade(member.getGrade()-grade);
+            userDao.updateMember(member);
+            couponDao.create(coupon);
+            return true;
+        }
+    }
 }
+

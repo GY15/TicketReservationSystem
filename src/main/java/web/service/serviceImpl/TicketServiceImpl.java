@@ -67,5 +67,15 @@ public class TicketServiceImpl implements TicketService {
         return ticketDao.addTicket(tickets)?"success":"fail";
     }
 
-
+    /**
+     * 退订单的座位
+     *
+     * @author 61990
+     * @updateTime 2018/3/5
+     * @param tickets 退票的id
+     * @return 是否成功
+     */
+    public boolean refundTickets(List<String> tickets){
+        return ticketDao.refundTickets(tickets);
+    }
 }

@@ -26,77 +26,84 @@
         <div class="text-center">
 
             <div>
-                <div class="form-horizontal">
+                <c:if test="${valid == true}">
+                    <div class="form-horizontal">
 
-                    <div class="form-group" style="margin-top: 20px">
-                        <label class="col-md-3  form-label">开始时间</label>
-                        <div class='input-group date col-md-7' id='datetimeStart' style="width:170px">
-                            <input id="startDate" type='text' style="margin-left: 15px;width: 170px"
-                                   class="form-control"/>
-                            <span class="input-group-addon">
+                        <div class="form-group" style="margin-top: 20px">
+                            <label class="col-md-3  form-label">开始时间</label>
+                            <div class='input-group date col-md-7' id='datetimeStart' style="width:170px">
+                                <input id="startDate" type='text' style="margin-left: 15px;width: 170px"
+                                       class="form-control"/>
+                                <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group" style="margin-top: 20px">
-                        <label class="col-md-3  form-label">结束时间</label>
-                        <div class='input-group date col-md-7' id='datetimeEnd' style="width:170px">
-                            <input id="endDate" type='text' style="margin-left: 15px;width: 170px"
-                                   class="form-control"/>
-                            <span class="input-group-addon">
+                        <div class="form-group" style="margin-top: 20px">
+                            <label class="col-md-3  form-label">结束时间</label>
+                            <div class='input-group date col-md-7' id='datetimeEnd' style="width:170px">
+                                <input id="endDate" type='text' style="margin-left: 15px;width: 170px"
+                                       class="form-control"/>
+                                <span class="input-group-addon">
                                   <span class="glyphicon glyphicon-calendar"></span>
                             </span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group" style="margin-top: 20px">
-                        <label class="col-md-3  form-label">类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型</label>
-                        <div class="col-md-7">
-                            <input type="text" class="form-control" id="plan_type" name="plan_type"
-                                   placeholder="输入类型">
+                        <div class="form-group" style="margin-top: 20px">
+                            <label class="col-md-3  form-label">类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" id="plan_type" name="plan_type"
+                                       placeholder="输入类型">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group" style="margin-top: 20px">
-                        <label class="col-md-3  form-label" for="plan_description">描&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;述</label>
-                        <div class="col-md-7">
-                            <input type="text" class="form-control" id="plan_description" name="plan_description"
-                                   placeholder="输入演出描述">
+                        <div class="form-group" style="margin-top: 20px">
+                            <label class="col-md-3  form-label" for="plan_description">描&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;述</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" id="plan_description" name="plan_description"
+                                       placeholder="输入演出描述">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group" style="margin-top: 20px">
-                        <label class="col-md-3  form-label">座位价格</label>
-                        <div class="col-md-8" style="margin-left: 15px">
-                            <c:choose>
-                                <c:when test="${seatMaps!=null}">
-                                    <c:forEach items="${seatMaps}" var="seatMap" varStatus="vs">
-                                        <div class="seat-block"
-                                             style="background-color:rgb(230,230,230);color: indigo;margin-bottom: 10px;text-align: left;">
-                                            <div class="row">
-                                                <div class="col-md-offset-1">区域: <span class="col-md-offset-1">${seatMap.block}</span></div>
-                                            </div>
-                                            <c:forEach items="${seatMap.type}" var="seatType" varStatus="vs">
-                                                <div class='seat_set'style="margin-top:10px;margin-bottom: 3px">
-                                                    <div class="form-group row">
-                                                        <div class="seat-char" hidden>${seatType.type}</div>
-                                                        <label class="col-md-2 col-md-offset-2 form-label-sm">${seatType.name}</label>
-                                                        <div class="col-md-4">
-                                                            <input type="text" class="form-control seat_value"
-                                                                   placeholder="输入座位价格" value="${seatType.value}">
+                        <div class="form-group" style="margin-top: 20px">
+                            <label class="col-md-3  form-label">座位价格</label>
+                            <div class="col-md-8" style="margin-left: 15px">
+                                <c:choose>
+                                    <c:when test="${seatMaps!=null}">
+                                        <c:forEach items="${seatMaps}" var="seatMap" varStatus="vs">
+                                            <div class="seat-block"
+                                                 style="background-color:rgb(230,230,230);color: indigo;margin-bottom: 10px;text-align: left;">
+                                                <div class="row">
+                                                    <div class="col-md-offset-1">区域: <span class="col-md-offset-1">${seatMap.block}</span></div>
+                                                </div>
+                                                <c:forEach items="${seatMap.type}" var="seatType" varStatus="vs">
+                                                    <div class='seat_set'style="margin-top:10px;margin-bottom: 3px">
+                                                        <div class="form-group row">
+                                                            <div class="seat-char" hidden>${seatType.type}</div>
+                                                            <label class="col-md-2 col-md-offset-2 form-label-sm">${seatType.name}</label>
+                                                            <div class="col-md-4">
+                                                                <input type="text" class="form-control seat_value"
+                                                                       placeholder="输入座位价格" value="${seatType.value}">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </c:forEach>
-                                        </div>
-                                    </c:forEach>
-                                </c:when>
-                            </c:choose>
+                                                </c:forEach>
+                                            </div>
+                                        </c:forEach>
+                                    </c:when>
+                                </c:choose>
+                            </div>
                         </div>
+                        <button class="btn btn-primary col-md-4 col-md-offset-4" id="publish_btn" style="margin-top: 30px">
+                            发&nbsp;&nbsp;&nbsp;布&nbsp;&nbsp;&nbsp;计&nbsp;&nbsp;&nbsp;划
+                        </button>
                     </div>
-                    <button class="btn btn-primary col-md-4 col-md-offset-4" id="publish_btn" style="margin-top: 30px">
-                        发&nbsp;&nbsp;&nbsp;布&nbsp;&nbsp;&nbsp;计&nbsp;&nbsp;&nbsp;划
-                    </button>
-                </div>
+                </c:if>
+                <c:if test="${valid == false}">
+                    <div class="row">
+                        <div class="">你的信息没有过审，不能发布计划</div>
+                    </div>
+                </c:if>
             </div>
             <div class="col-md-12 errorMessage">
             </div>

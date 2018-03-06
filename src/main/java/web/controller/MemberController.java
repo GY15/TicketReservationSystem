@@ -95,15 +95,8 @@ public class MemberController extends HttpServlet {
     @GetMapping(value = "/logout")
     protected String logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(false);//防止创建Session
-        if(session!=null) {
-            if (session.getAttribute("userID") != null) {
-                int counter = Integer.parseInt((String) Context.getAttribute("loginCounter"));
-                counter--;
-                Context.setAttribute("loginCounter", Integer.toString(counter));
-            }
-        }
-        session.removeAttribute("userID");
-        response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/home"));
+        session.removeAttribute("email");
+        response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/member/"));
         return null;
     }
 
@@ -229,6 +222,8 @@ public class MemberController extends HttpServlet {
     String cancelMember(HttpServletRequest request, HttpServletResponse response) {
         String email = request.getSession().getAttribute("email").toString();
         userService.cancelMember(email);
+        HttpSession session = request.getSession(false);
+        session.removeAttribute("email");
         return "success";
     }
 
@@ -281,5 +276,13 @@ public class MemberController extends HttpServlet {
     double getRefundRate(@RequestParam("orderid") int orderid,HttpServletRequest request) {
         String email = request.getSession().getAttribute("email").toString();
         return orderService.getPoundageRate(orderid);
+    }
+
+    @PostMapping(value = "/switch_coupon")
+    protected @ResponseBody
+    String switchCoupon(@RequestParam("type") int type,@RequestParam("minimum") int minimum,@RequestParam("grade") int grade,@RequestParam("discount") double discount,HttpServletRequest request) {
+        String email = request.getSession().getAttribute("email").toString();
+        Coupon coupon = new Coupon(email,type,minimum,discount);
+        return userService.switchCoupon(coupon,grade)?"success":"fail";
     }
 }

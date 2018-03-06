@@ -19,11 +19,17 @@ public class Coupon implements Serializable{
     private int minimum;
     private double discount;
 
-    public Coupon(){
-
+    public Coupon() {
     }
 
 
+    public Coupon(String email, int type, int minimum, double discount) {
+        this.email = email;
+        this.type = type;
+        this.minimum = minimum;
+        this.discount = discount;
+        this.valid = true;
+    }
 
     @Id
     @GenericGenerator(name = "myGenerator", strategy = "assigned")

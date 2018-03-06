@@ -22,14 +22,10 @@ public class SeatDaoImpl extends BaseDaoImpl implements SeatDao {
      * @return 是否成功
      */
     public boolean addSeatMaps(List<SeatMap> seatMaps){
-        Session session = HibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
-        int venueid = seatMaps.get(0).getVenueid();
-        String sql = "DELETE from seat_map WHERE venueid = "+venueid;
-        Query query = session.createNativeQuery(sql);
-        transaction.commit();
-        session.close();
-
+        List<SeatMap> seatMaps1 = getSeatMap(seatMaps.get(0).getVenueid());
+        for (SeatMap seatMap:seatMaps1){
+            super.delete(seatMap);
+        }
         for(SeatMap seatMap  : seatMaps){
             super.save(seatMap);
         }
