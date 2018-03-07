@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" import="web.model.SeatMapObj" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../css/seat-chart.css">
     <link href="../css/flat/green.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/font-awesome.min.css">
-    <link href="../css/venue_plan.css" rel="stylesheet">
+    <link href="../css/venue.css" rel="stylesheet">
     <link href="../css/button.css" rel="stylesheet">
     <link href="../css/bootstrap-datetimepicker.css" rel="stylesheet">
 </head>

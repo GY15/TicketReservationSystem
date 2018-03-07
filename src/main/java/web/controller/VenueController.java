@@ -55,7 +55,6 @@ public class VenueController extends HttpServlet {
 //            }
 //        }
         session.setAttribute("type", "init");
-
         return "venue_login";
     }
 
@@ -75,11 +74,8 @@ public class VenueController extends HttpServlet {
 
         if (userService.login(venueid, password, UserType.VENUE)) {
             session.setAttribute("venueid", venueid);
-            List<PlanGeneral> planGenerals = planService.getPlanGeneral(Integer.parseInt(venueid));
             response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/venue/my_plan"));
-            ModelAndView mv = new ModelAndView("venue_plan");
-            mv.addObject("plans", planGenerals);
-            return mv;
+            return null;
         } else {
             ModelAndView mv = new ModelAndView("venue_login");
             session.setAttribute("errorMessage","1");
@@ -121,7 +117,8 @@ public class VenueController extends HttpServlet {
                     @RequestParam("province") String province, @RequestParam("city") String city, @RequestParam("location") String location,
                     @RequestParam("seat_info") String seat_info, HttpServletRequest request, HttpServletResponse response) {
         int venueid = Integer.parseInt(request.getSession().getAttribute("venueid").toString());
-        Venue venue = new Venue(venueid, password, name, province, city, location);
+        Venue temp = userService.getVenueInfo(venueid);
+        Venue venue = new Venue(temp,venueid, password, name, province, city, location);
         userService.modifyVenueMessage(venue);
         List<SeatMap> seats = JSON.parseArray(seat_info,SeatMap.class);
         seatService.submitSeatMap(seats);

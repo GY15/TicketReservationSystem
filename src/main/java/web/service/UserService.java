@@ -1,10 +1,13 @@
 package web.service;
 
 import web.entity.Coupon;
+import web.entity.Manager;
 import web.entity.Member;
 import web.entity.Venue;
 import web.utilities.enums.MemberState;
 import web.utilities.enums.UserType;
+
+import java.util.List;
 
 /**
  * 管理用户登录
@@ -77,6 +80,22 @@ public interface UserService {
     Venue getVenueInfo(int venueid);
 
     /**
+     * 获取为过审核venue信息
+     *
+     * @author 61990
+     * @updateTime 2018/3/7
+     * @return 场馆基本信息
+     */
+    List<Venue> getInvalidVenues();
+    /**
+     * 获取过审核venue信息
+     *
+     * @author 61990
+     * @updateTime 2018/3/7
+     * @return 场馆基本信息
+     */
+     List<Venue> getValidVenues();
+    /**
      * 获取member信息
      *
      * @author 61990
@@ -84,6 +103,15 @@ public interface UserService {
      * @return  会员基本信息
      */
     Member getMember(String email);
+
+    /**
+     * 获取合法的会员信息
+     *
+     * @author 61990
+     * @updateTime 2018/3/7
+     * @return 会员基本信息
+     */
+    List<Member> getValidMembers();
 
     /**
      * 会员充值
@@ -148,4 +176,34 @@ public interface UserService {
      * @return 是否兑换成功
      */
     boolean switchCoupon(Coupon coupon, int grade);
+
+    /**
+     * 获取场馆信息
+     *
+     * @author 61990
+     * @updateTime 2017/2/13
+     * @param manager 经理的账号
+     * @return 经理的信息
+     */
+    Manager getManager(String manager);
+
+    /**
+     * 处理结算
+     *
+     * @author 61990
+     * @updateTime 2017/2/13
+     * @param manager 经理的账号
+     * @param money 充值金额
+     * @return 经理获得的收益
+     */
+    double settleBalance(String manager,int venueid,double rate);
+    /**
+     * 通过场馆审核
+     *
+     * @author 61990
+     * @updateTime 2017/2/13
+     * @param venueid 场馆的账户
+     * @return 是否充值成功
+     */
+    void verifyVenue(int venueid);
 }

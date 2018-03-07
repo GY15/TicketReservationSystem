@@ -5,12 +5,15 @@ import org.springframework.stereotype.Service;
 import web.dao.CouponDao;
 import web.dao.UserDao;
 import web.entity.Coupon;
+import web.entity.Manager;
 import web.entity.Member;
 import web.entity.Venue;
 import web.service.UserService;
 import web.utilities.MailUtil;
 import web.utilities.enums.MemberState;
 import web.utilities.enums.UserType;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -43,7 +46,11 @@ public class UserServiceImpl implements UserService {
             }
             realPassword = venue.getPassword();
         }else{
-
+            Manager manager = userDao.getManager(userID);
+            if (manager==null){
+                return false;
+            }
+            realPassword = manager.getPassword();
         }
         if (realPassword == ""||!realPassword.equals(password)) {
             return false;
@@ -136,6 +143,29 @@ public class UserServiceImpl implements UserService {
     public Venue getVenueInfo(int venueid){
         return userDao.getVenue(venueid);
     }
+
+    /**
+     * 获取为过审核venue信息
+     *
+     * @author 61990
+     * @updateTime 2018/3/7
+     * @return 场馆基本信息
+     */
+    public List<Venue> getInvalidVenues(){
+        return userDao.getInvalidVenues();
+    }
+
+    /**
+     * 获取过审核venue信息
+     *
+     * @author 61990
+     * @updateTime 2018/3/7
+     * @return 场馆基本信息
+     */
+    public List<Venue> getValidVenues(){
+        return userDao.getValidVenues();
+    }
+
     /**
      * 获取member信息
      *
@@ -146,6 +176,17 @@ public class UserServiceImpl implements UserService {
     public Member getMember(String email){
         return userDao.getMember(email);
     }
+    /**
+     * 获取合法的会员信息
+     *
+     * @author 61990
+     * @updateTime 2018/3/7
+     * @return 会员基本信息
+     */
+    public List<Member> getValidMembers(){
+       return userDao.getValidMembers();
+    }
+
     /**
      * 会员充值
      *
@@ -233,6 +274,54 @@ public class UserServiceImpl implements UserService {
             couponDao.create(coupon);
             return true;
         }
+    }
+
+    /**
+     * 获取场馆信息
+     *
+     * @author 61990
+     * @updateTime 2017/2/13
+     * @param manager 经理的账号
+     * @return 经理的信息
+     */
+    public Manager getManager(String manager){
+        return userDao.getManager(manager);
+    }
+
+    /**
+     * 处理结算
+     *
+     * @author 61990
+     * @updateTime 2017/2/13
+     * @param manager 经理的账号
+     * @param money 充值金额
+     * @return 是否充值成功
+     */
+    public double settleBalance(String manager,int venueid,double rate){
+        Manager manager1 =  userDao.getManager(manager);
+        Venue venue = getVenueInfo(venueid);
+        double profit =venue.getUnliquidated()*(1-rate);
+        venue.setBalance(venue.getBalance()+venue.getUnliquidated()-profit);
+        venue.setUnliquidated(0);
+        manager1.setBalance(manager1.getBalance()+profit);
+        if(userDao.updateVenue(venue)&& userDao.updateManager(manager1)){
+            return rate;
+        }else {
+            return 0;
+        }
+    }
+    /**
+     * 通过场馆审核
+     *
+     * @author 61990
+     * @updateTime 2017/2/13
+     * @param venueid 场馆的账户
+     * @return 是否充值成功
+     */
+    public void verifyVenue(int venueid){
+        Venue venue = userDao.getVenue(venueid);
+        venue.setValid(true);
+        userDao.updateVenue(venue);
     }
 }
 

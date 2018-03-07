@@ -18,6 +18,7 @@ public class Venue implements Serializable{
     private boolean valid;
     private double unliquidated;
     private double balance;
+    private double earning;
     public Venue(){
 
     }
@@ -31,6 +32,18 @@ public class Venue implements Serializable{
         this.location = location;
         this.unliquidated = 0;
         this.balance = 0;
+        this.earning = 0;
+    }
+    public Venue(Venue venue,int venueid, String password, String name, String province, String city, String location) {
+        this.venueid = venueid;
+        this.password = password;
+        this.name = name;
+        this.province = province;
+        this.city = city;
+        this.location = location;
+        this.unliquidated = venue.getUnliquidated();
+        this.balance = venue.getBalance();
+        this.earning = venue.getEarning();
     }
 
     @Id
@@ -115,5 +128,14 @@ public class Venue implements Serializable{
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    @Column(name="earning")
+    public double getEarning() {
+        return earning;
+    }
+
+    public void setEarning(double earning) {
+        this.earning = earning;
     }
 }

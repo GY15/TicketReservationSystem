@@ -2,14 +2,18 @@ package web.dao.daoImpl;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import web.dao.UserDao;
+import web.entity.Manager;
 import web.entity.Member;
 import web.entity.ValidUser;
 import web.entity.Venue;
 import web.utilities.FormatValid;
 import web.utilities.HibernateUtil;
 import web.utilities.RankUtil;
+
+import java.util.List;
 
 @Repository
 public class UserDaoImpl extends BaseDaoImpl implements UserDao {
@@ -26,9 +30,27 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
         return member;
     }
     /**
+     * 获取合法的会员信息
+     *
+     * @author 61990
+     * @updateTime 2018/3/7
+     * @return 会员基本信息
+     */
+    public List<Member> getValidMembers(){
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        String sql = "SELECT * from member where valid = 1";
+        Query query = session.createSQLQuery(sql).addEntity(Member.class);
+        List<Member> members= query.list();
+        transaction.commit();
+        session.close();
+        return members;
+    }
+
+    /**
      * 更新会员信息
      *
-     * @param email 用户email
+     * @param member 用户
      * @author 61990
      * @updateTime 2017/3/1
      * @return 是否更新用户成功
@@ -43,13 +65,76 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
      *
      * @author 61990
      * @updateTime 2017/2/13
-     * @param venueid venueid
+     * @param venueid 场馆id
      * @return 指定venue的数据
      */
     public Venue getVenue(int venueid){
         Venue venue = (Venue) super.load(Venue.class, venueid);
         return venue;
     }
+
+    /**
+     * 获取场馆未过审核的信息
+     *
+     * @author 61990
+     * @updateTime 2017/3/7
+     * @param
+     * @return 指定venue的数据
+     */
+    public List<Venue> getInvalidVenues(){
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        String sql = "SELECT * from venue where valid = 0";
+        Query query = session.createSQLQuery(sql).addEntity(Venue.class);
+        List<Venue> venues= query.list();
+        transaction.commit();
+        session.close();
+        return venues;
+    }
+
+    /**
+     * 获取过审核venue信息
+     *
+     * @author 61990
+     * @updateTime 2018/3/7
+     * @return 场馆基本信息
+     */
+    public List<Venue> getValidVenues(){
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        String sql = "SELECT * from venue where valid = 1";
+        Query query = session.createSQLQuery(sql).addEntity(Venue.class);
+        List<Venue> venues= query.list();
+        transaction.commit();
+        session.close();
+        return venues;
+    }
+    /**
+     * 获取场馆信息
+     *
+     * @author 61990
+     * @updateTime 2017/2/13
+     * @param manager 经理的账号
+     * @return 经理的信息
+     */
+    public Manager getManager(String manager){
+        return (Manager) super.load(Manager.class, manager);
+    }
+
+    /**
+
+     * 更新经理信息
+     *
+     * @author 61990
+     * @updateTime 2017/2/13
+     * @param manager 经理的信息
+     * @return 是否充值成功
+     */
+    public boolean updateManager(Manager manager){
+        super.update(manager);
+        return true;
+    }
+
     /**
      * 保存验证信息
      *

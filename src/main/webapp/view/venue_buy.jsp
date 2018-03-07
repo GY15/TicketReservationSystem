@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../css/seat-chart.css">
     <link href="../css/flat/green.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/font-awesome.min.css">
-    <link href="../css/venue_plan.css" rel="stylesheet">
+    <link href="../css/venue.css" rel="stylesheet">
     <link href="../css/button.css" rel="stylesheet">
     <link href="../css/bootstrap-select.css" rel="stylesheet">
 </head>

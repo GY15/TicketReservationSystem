@@ -126,46 +126,6 @@
 <script src="../js/icheck.js"></script>
 
 <script>
-//    var planid = "";
-//    var block ="";
-//    $(".check_ticket").click(function () {
-//        $('#checkTicketModal').modal();
-//        planid = $(this).parent().parent().parent().find(".planid").eq(0).val();
-//        block =$(this).parent().find(".selectpicker").eq(0).val();
-//        $(".block").html(block);
-//        $(".description").html($(this).parent().parent().parent().find(".plan_name").eq(0).html());
-//        return false;
-//    });
-//    $(".check_btn").bind("click", function () {
-//        $.ajax({
-//            type: "post",
-//            async: true,
-//            url: "/venue/check_ticket",
-//            data: {
-//                "orderid": $("#check_order").val(),
-//                "planid": planid
-//            },
-//            success: function (result) {
-//                if(result!=""){
-//                    $('.errorMessage').html("正在出票  "+result);
-//                    setTimeout(function () {
-//                        $('.errorMessage').html(" ")
-//                    }, 5000);
-//                }else {
-//                    $('.errorMessage').html("你的订单号有误");
-//                    setTimeout(function () {
-//                        $('.errorMessage').html(" ")
-//                    }, 3000);
-//                }
-//            },
-//            error: function (result) {
-//                $('.errorMessage').html("你的订单号有误");
-//                setTimeout(function () {
-//                    $('.errorMessage').html(" ")
-//                }, 3000);
-//            }
-//        });
-//    });
 
 
     $(".quick_ticket").click( function () {

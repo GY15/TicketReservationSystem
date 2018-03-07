@@ -1,0 +1,18 @@
+.venueBlock{
+    background: bisque;
+    margin-top: 5px;
+    padding-bottom: 10px;
+}
+.form-label{
+    font-size: 18px;
+    padding-top: 7px;
+    margin-bottom: 0;
+    text-align: right;
+    color:#31b0d5;
+}
+.form-label-sm{
+    font-size: 14px;
+    padding-top: 7px;
+    margin-bottom: 0;
+    color:#b1b7ba;
+}
