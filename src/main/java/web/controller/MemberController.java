@@ -11,10 +11,7 @@ import web.entity.Reservation;
 import web.entity.Ticket;
 import web.model.OrderGeneral;
 import web.model.PlanGeneral;
-import web.service.DiscountService;
-import web.service.OrderService;
-import web.service.PlanService;
-import web.service.UserService;
+import web.service.*;
 import web.utilities.RefundUtil;
 import web.utilities.enums.OrderState;
 import web.utilities.enums.ReservationState;
@@ -41,6 +38,8 @@ public class MemberController extends HttpServlet {
     private OrderService orderService;
     @Autowired
     private DiscountService discountService;
+    @Autowired
+    private RecordService recordService;
 
 
 
@@ -80,10 +79,8 @@ public class MemberController extends HttpServlet {
         if (userService.login(email, password, UserType.MEMBER)) {
             session.setAttribute("email", email);
             List<PlanGeneral> planGenerals = planService.getPlanGeneral();
-//            response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/member/plan_page"));
-            ModelAndView mv = new ModelAndView("member_plan");
-            mv.addObject("plans", planGenerals);
-            return mv;
+            response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/member/plan_page"));
+            return null;
         } else {
             ModelAndView mv = new ModelAndView("member_login");
             session.setAttribute("type", "init");
@@ -208,6 +205,7 @@ public class MemberController extends HttpServlet {
         ModelAndView mv = new ModelAndView("member_info");
         mv.addObject("member",member);
         mv.addObject("coupons",coupons);
+        mv.addObject("records",JSON.toJSONString(recordService.getMemberConsumeRecords(email)));
         return mv;
     }
     @PostMapping(value = "/recharge")
@@ -268,14 +266,14 @@ public class MemberController extends HttpServlet {
     }
     @PostMapping(value = "/refund")
     protected @ResponseBody
-    boolean refund(@RequestParam("orderid") int orderid,HttpServletRequest request) {
-        return orderService.refundOrder(orderid);
+    double refund(@RequestParam("orderid") int orderid,HttpServletRequest request) {
+        return Double.parseDouble(String.format("%.2f",orderService.refundOrder(orderid)));
     }
     @PostMapping(value = "/get_refund_rate")
     protected @ResponseBody
     double getRefundRate(@RequestParam("orderid") int orderid,HttpServletRequest request) {
         String email = request.getSession().getAttribute("email").toString();
-        return orderService.getPoundageRate(orderid);
+        return Double.parseDouble(String.format("%.2f", orderService.getPoundageRate(orderid)));
     }
 
     @PostMapping(value = "/switch_coupon")

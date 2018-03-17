@@ -108,7 +108,7 @@ public interface OrderService {
      * @updateTime 2018/3/5
      * @return 退款金额
      */
-    boolean refundOrder(int orderid);
+    double refundOrder(int orderid);
     /**
      * 获得退款的利率
      *

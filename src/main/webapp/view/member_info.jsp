@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../css/font-awesome.min.css">
     <link href="../css/member.css" rel="stylesheet">
     <link href="../css/button.css" rel="stylesheet">
+    <link href="../css/bootstrap-table.css" rel="stylesheet">
     <style type="text/css">
         .couponBlock {
             margin-top: 15px;
@@ -130,6 +131,25 @@
             </div>
         </div>
     </div>
+    <div class="row jumbotron banner-desc2 ">
+        <div class="text-center">
+            <div class="form-horizontal">
+                <div class="form-group" style="margin-top: 20px">
+                    <div class="row">
+                    <label class="col-md-3  form-label">我的消费记录</label>
+                    </div>
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col-md-offset-2 col-md-9">
+                            <table id="my_table"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 errorMessage2">
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="sureModal" tabindex="-1" role="dialog"
@@ -214,7 +234,55 @@
 <script src="../js/jquery.seat-charts.js"></script>
 <script src="../js/icheck.js"></script>
 
+<script src="../js/bootstrap-table-zh-CN.js"></script>
+<script src="../js/bootstrap-table.js"></script>
+<script src="../js/bootstrap-table-editable.js"></script>
+
+
 <script>
+    $(document).ready(function () {
+        var datas = JSON.parse('${records}');
+        var columns =[
+            {
+                title: "交易时间",
+                field: "handleTime",
+                sortable: true,//是否可排序
+                order: "desc"//默认排序方式
+            },
+            {
+                title: "场馆",
+                field: "venueid",
+                sortable: true,//是否可排序
+                order: "desc"//默认排序方式
+            },
+            {
+                title: "类型",
+                field: "type",
+                sortable: true,
+                order: "desc"//默认排序方式
+            },
+            {
+                field: "value",
+                title: "交易金额",
+                sortable: true,
+                order: "desc"//默认排序方式
+            }];
+        $('#my_table').bootstrapTable({
+            columns: columns,
+            data: datas,
+            search: true,//是否搜索
+            pagination: true,//是否分页
+            pageSize: 15,//单页记录数
+            pageList: [5, 10, 20, 50],//分页步进值
+            sidePagination: "client",//服务端分页
+            height : 500,
+            searchOnEnterKey: false,//回车搜索
+            showColumns: true,//列选择按钮
+            buttonsAlign: "left",//按钮对齐方式
+            singleSelect: true,
+            // locale: "zh-CN"//中文支持,
+        });
+    });
     $(".recharge").bind("click", function () {
         var money = 100;
         $.ajax({

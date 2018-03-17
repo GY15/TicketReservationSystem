@@ -25,6 +25,8 @@ public class HibernateUtil {
             config.addAnnotatedClass(Coupon.class);
             config.addAnnotatedClass(Reservation.class);
             config.addAnnotatedClass(Manager.class);
+            config.addAnnotatedClass(SettleRecord.class);
+            config.addAnnotatedClass(ConsumeRecord.class);
             serviceRegistry = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
             sessionFactory = config.buildSessionFactory(serviceRegistry);
             return sessionFactory;

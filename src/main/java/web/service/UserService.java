@@ -34,7 +34,7 @@ public interface UserService {
      */
     MemberState validEmail(String email);
     /**
-     * 查看是否已经注册，否则生成并发送验证码
+     * 注册
      *
      * @author 61990
      * @updateTime 2018/2/8
@@ -139,10 +139,11 @@ public interface UserService {
      * @author 61990
      * @updateTime 2018/3/1
      * @param email 邮箱
+     * @param venueid 场馆id
      * @param money 消费金额
-     * @return null
+     * @return 是否订单成功
      */
-    void consume(String email, double money);
+    boolean consume(String email,int venueid, double money);
 
     /**
      * 余额退款
@@ -150,10 +151,11 @@ public interface UserService {
      * @author 61990
      * @updateTime 2018/3/1
      * @param email 邮箱
+     * @param venueid 场馆id
      * @param money 消费金额
      * @return null
      */
-    void refund(String email, double money);
+    void refund(String email,int venueid, double money);
 
     /**
      * 获得账户余额

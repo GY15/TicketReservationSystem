@@ -102,7 +102,8 @@ $('#addType').bind("click", function () {
             checkboxClass: 'icheckbox_flat-green',
             radioClass: 'iradio_flat-green'
         });
-        $(".removeType").click(function () {
+        $(".removeType").unbind("click")
+        $(".removeType").bind("click",function () {
             var deleteType = $(this).parent().parent().find('.theType').eq(0).val();
             seat_kind.push(deleteType);
             $(this).parent().parent().remove();

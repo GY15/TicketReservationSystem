@@ -3,11 +3,10 @@ package web.service.serviceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import web.dao.CouponDao;
+import web.dao.RecordDao;
 import web.dao.UserDao;
-import web.entity.Coupon;
-import web.entity.Manager;
-import web.entity.Member;
-import web.entity.Venue;
+import web.entity.*;
+import web.service.RecordService;
 import web.service.UserService;
 import web.utilities.MailUtil;
 import web.utilities.enums.MemberState;
@@ -21,6 +20,8 @@ public class UserServiceImpl implements UserService {
     UserDao userDao;
     @Autowired
     CouponDao couponDao;
+    @Autowired
+    RecordService recordService;
     /**
      * 用户登录
      *
@@ -32,10 +33,10 @@ public class UserServiceImpl implements UserService {
      * @return 是否成功
      */
     public boolean login(String userID, String password, UserType userType){
-        String realPassword = "";
+        String realPassword;
         if(userType.equals(UserType.MEMBER)){
             Member member = userDao.getMember(userID);
-            if (member==null){
+            if (member==null||!member.isValid()){
                 return false;
             }
             realPassword = member.getPassword();
@@ -89,7 +90,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 查看是否已经注册，否则生成并发送验证码
+     * 注册
      *
      * @author 61990
      * @updateTime 2018/2/8
@@ -219,14 +220,10 @@ public class UserServiceImpl implements UserService {
      * @updateTime 2018/3/1
      * @param email 邮箱
      * @param money 消费金额
-     * @return null
+     * @return 是否订单成功
      */
-    public void consume(String email, double money){
-        Member member = userDao.getMember(email);
-        member.setBalance(member.getBalance()-money);
-        member.setCredit(member.getCredit()+ new Double(money).intValue());
-        member.setGrade(member.getGrade()+ new Double(money).intValue());
-        userDao.updateMember(member);
+    public boolean consume(String email,int venueid, double money){
+        return handleBalance(email,venueid,money,false);
     }
     /**
      * 余额退款
@@ -237,13 +234,38 @@ public class UserServiceImpl implements UserService {
      * @param money 消费金额
      * @return null
      */
-    public void refund(String email, double money){
-        Member member = userDao.getMember(email);
-        member.setBalance(member.getBalance() + money);
-        member.setCredit(member.getCredit() - new Double(money).intValue());
-        member.setGrade(member.getGrade() - new Double(money).intValue());
-        userDao.updateMember(member);
+    public void refund(String email,int venueid ,double money){
+        handleBalance(email,venueid,money,true);
     }
+    /**
+     * 处理退款和订单支付
+     *
+     * @author 61990
+     * @updateTime 2018/3/1
+     * @param email 邮箱
+     * @param money 消费金额
+     * @return null
+     */
+    private boolean handleBalance(String email, int venueid, double money, boolean isFund){
+        money = isFund ? -money : money;
+        Member member = userDao.getMember(email);
+        Venue venue = userDao.getVenue(venueid);
+        if( (!isFund) && member.getBalance() < money ){
+            return false;
+        }
+        else {
+            member.setBalance(member.getBalance()-money);
+            member.setCredit(member.getCredit()+ new Double(money).intValue());
+            member.setGrade(member.getGrade()+ new Double(money).intValue());
+            userDao.updateMember(member);
+            venue.setUnliquidated(venue.getUnliquidated()+money);
+            venue.setUnliquidated(venue.getEarning()+money);
+            userDao.updateVenue(venue);
+            recordService.createConsumeRecord(new ConsumeRecord(email,venueid,Math.abs(money),isFund));
+            return true;
+        }
+    }
+
     /**
      * 获得账户余额
      *
@@ -294,7 +316,8 @@ public class UserServiceImpl implements UserService {
      * @author 61990
      * @updateTime 2017/2/13
      * @param manager 经理的账号
-     * @param money 充值金额
+     * @param venueid 场馆id
+     * @param rate 结算比例
      * @return 是否充值成功
      */
     public double settleBalance(String manager,int venueid,double rate){
@@ -304,6 +327,7 @@ public class UserServiceImpl implements UserService {
         venue.setBalance(venue.getBalance()+venue.getUnliquidated()-profit);
         venue.setUnliquidated(0);
         manager1.setBalance(manager1.getBalance()+profit);
+        recordService.createSettleRecord(new SettleRecord(manager,venueid,rate,profit));
         if(userDao.updateVenue(venue)&& userDao.updateManager(manager1)){
             return rate;
         }else {

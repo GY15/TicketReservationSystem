@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import web.entity.Member;
-import web.entity.Plan;
-import web.entity.SeatMap;
-import web.entity.Venue;
+import web.entity.*;
 import web.model.PlanGeneral;
 import web.model.SeatMapObj;
 import web.service.*;
@@ -34,6 +31,8 @@ public class ManagerController extends HttpServlet {
     ServletContext Context;
     @Autowired
     private UserService userService;
+    @Autowired
+    private RecordService recordService;
 
     @GetMapping(value = "/")
     protected String getHome(HttpServletRequest request) {
@@ -104,6 +103,13 @@ public class ManagerController extends HttpServlet {
         List<Member> memebers = userService.getValidMembers();
         ModelAndView mv = new ModelAndView("manager/member_statistics");
         mv.addObject("members",JSON.toJSONString(memebers));
+        return mv;
+    }
+    @GetMapping(value = "/tickets_statistics")
+    protected ModelAndView ticketsStatistics(HttpServletRequest request, HttpServletResponse response) {
+        List<SettleRecord> settleRecords = recordService.getAllSettleRecords();
+        ModelAndView mv = new ModelAndView("manager/tickets_statistics");
+        mv.addObject("records",JSON.toJSONString(settleRecords));
         return mv;
     }
 }

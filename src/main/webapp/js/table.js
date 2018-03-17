@@ -12,7 +12,7 @@ function initTable(columns,datas) {
         showColumns: true,//列选择按钮
         buttonsAlign: "left",//按钮对齐方式
         singleSelect: true,
-        locale: "zh-CN"//中文支持,
+        // locale: "zh-CN"//中文支持,
     });
 
 }

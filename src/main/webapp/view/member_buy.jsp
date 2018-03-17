@@ -237,13 +237,13 @@
         });
         var seats = {};
         var items = [
-            ['a', 'unavailable', '不可预定']
+            ['s', 'unavailable', '不可预定']
         ]
         for (var i = 0; i < seatType.length; i++) {
             var item = [];
             item.push(seatType[i].type);
             item.push('available');
-            item.push(seatType[i].name);
+            item.push(seatType[i].name+ " （"+seatType[i].value+"元）");
             items.push(item);
             switch (seatType[i].type) {
                 case "a":
