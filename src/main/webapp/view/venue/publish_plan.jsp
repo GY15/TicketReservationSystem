@@ -8,14 +8,14 @@
     <title>发布计划</title>
 
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-    <link href="../css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../css/jquery.seat-charts.css">
-    <link rel="stylesheet" type="text/css" href="../css/seat-chart.css">
-    <link href="../css/flat/green.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/font-awesome.min.css">
-    <link href="../css/venue.css" rel="stylesheet">
-    <link href="../css/button.css" rel="stylesheet">
-    <link href="../css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <link href="../../css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../css/jquery.seat-charts.css">
+    <link rel="stylesheet" type="text/css" href="../../css/seat-chart.css">
+    <link href="../../css/flat/green.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css">
+    <link href="../../css/venue.css" rel="stylesheet">
+    <link href="../../css/button.css" rel="stylesheet">
+    <link href="../../css/bootstrap-datetimepicker.css" rel="stylesheet">
 </head>
 
 <body>
@@ -113,18 +113,18 @@
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../../js/jquery-3.2.1.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../js/bootstrap.js"></script>
-<script src="../js/format-valid.js"></script>
-<script src="../js/icheck.js"></script>
+<script src="../../js/bootstrap.js"></script>
+<script src="../../js/format-valid.js"></script>
+<script src="../../js/icheck.js"></script>
 
 <!--<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>-->
-<script src="../js/jquery.seat-charts.js"></script>
-<script src="../js/icheck.js"></script>
-<script src="../js/bootstrap-datetimepicker.js"></script>
-<script src="../js/dbDatePicker.js"></script>
-<script src="../js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="../../js/jquery.seat-charts.js"></script>
+<script src="../../js/icheck.js"></script>
+<script src="../../js/bootstrap-datetimepicker.js"></script>
+<script src="../../js/dbDatePicker.js"></script>
+<script src="../../js/bootstrap-datetimepicker.zh-CN.js"></script>
 
 <script>
     var maps = "";

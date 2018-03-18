@@ -80,10 +80,11 @@
 <script>
     $(document).ready(function () {
         var message = "<%=session.getAttribute("errorMessage")%>";
-        if(message=="1"){
-            $('.errorMessage').html("账号或者密码错误");
+        if(message!=null&&message!= "0"){
+            $('.errorMessage').html(message);
             setTimeout(function () {
-                $('.errorMessage').html(" ")
+                $('.errorMessage').html(" ");
+                <%session.setAttribute("errorMessage","0");%>
             }, 2000);
         }
     });

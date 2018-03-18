@@ -20,7 +20,7 @@ public class RecordGeneral {
         this.venueName = venueName;
         this.value = value;
         this.isFund = isFund;
-        this.type = isFund?"退款":"支出";
+        this.type = isFund?"会员退款":"会员支付";
     }
 
     public String getHandleTime() {

@@ -124,7 +124,7 @@
 								if (newStyle == oldStyle) {
 									return oldStyle;
 								}
-								
+
 								//focused is a special style which is not associated with status
 								fn.settings.status = newStyle != 'focused' ? newStyle : fn.settings.status;
 								fn.settings.$node
@@ -134,7 +134,7 @@
 								seatChartsSettings.animate ?
 									fn.settings.$node.switchClass(oldStyle, newStyle, 200) :
 									fn.settings.$node.removeClass(oldStyle).addClass(newStyle);
-									
+
 								return fn.settings.style = newStyle;
 							})(arguments[0]) : fn.settings.style;
 					};
@@ -161,7 +161,7 @@
 									seatCharts.attr('aria-activedescendant', seat.settings.id);
 									seat.node().focus();
 								}
-							
+
 								/*
 								 * User can pass his own callback function, so we have to first check if it exists
 								 * and if not, use our default callback.
@@ -467,12 +467,9 @@
 			if (fn.attr('aria-activedescendant')) {
 				seats[fn.attr('aria-activedescendant')].blur();
 			}
-				
-			fn.find('.seatCharts-seat:not(.seatCharts-space):first').focus();
-			seats[seatIds[0]].focus();
-
+			fn.find('.seatCharts-container').focus();
 		});
-	
+
 		//public methods of seatCharts
 		fn.data('seatCharts', {
 			seats   : seats,

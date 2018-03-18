@@ -20,10 +20,10 @@ public class Schedule {
     private OrderService orderService;
     @Scheduled(cron = "0/20 * * * * ?")
     public void handleOvertimeOrder() {
-//        orderService.checkOvertime();
+        orderService.checkOvertime();
     }
     @Scheduled(cron =  "0 0/5 * * * ?")
     public void autoDistributeTicket() {
-     //   orderService.autoDistributeTicket();
+        orderService.autoDistributeTicket();
     }
 }

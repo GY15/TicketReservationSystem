@@ -1,5 +1,6 @@
 div.seatCharts-container {
 	/*min-width: 700px;*/
+	outline: none;
 }
 div.seatCharts-cell {
 
@@ -48,6 +49,7 @@ div.seatCharts-seat.selected {
 
 div.seatCharts-seat.focused {
 	background-color: #6db131;
+	outline: none;
 }
 
 div.seatCharts-seat.available {

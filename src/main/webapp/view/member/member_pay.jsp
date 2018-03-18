@@ -8,14 +8,14 @@
     <title>订单支付</title>
 
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-    <link href="../css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../css/jquery.seat-charts.css">
-    <link rel="stylesheet" type="text/css" href="../css/seat-chart.css">
-    <link href="../css/flat/green.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/font-awesome.min.css">
-    <link href="../css/member.css" rel="stylesheet">
-    <link href="../css/button.css" rel="stylesheet">
-    <link href="../css/bootstrap-select.css" rel="stylesheet">
+    <link href="../../css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../css/jquery.seat-charts.css">
+    <link rel="stylesheet" type="text/css" href="../../css/seat-chart.css">
+    <link href="../../css/flat/green.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css">
+    <link href="../../css/member.css" rel="stylesheet">
+    <link href="../../css/button.css" rel="stylesheet">
+    <link href="../../css/bootstrap-select.css" rel="stylesheet">
 </head>
 
 <body>
@@ -55,15 +55,15 @@
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../../js/jquery-3.2.1.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../js/bootstrap.js"></script>
-<script src="../js/format-valid.js"></script>
-<script src="../js/icheck.js"></script>
+<script src="../../js/bootstrap.js"></script>
+<script src="../../js/format-valid.js"></script>
+<script src="../../js/icheck.js"></script>
 
 
-<script src="../js/bootstrap-select.js"></script>
-<script src="../js/icheck.js"></script>
+<script src="../../js/bootstrap-select.js"></script>
+<script src="../../js/icheck.js"></script>
 
 <script>
     function sum() {

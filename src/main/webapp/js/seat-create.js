@@ -64,6 +64,10 @@ function saveSeat() {
         var seat = {}
         seat.type = $(this).parent().find('.theType').eq(0).val();
         seat.name = $(this).val();
+        if(seat.name == "" ||seat.name == null){
+            alert("座位类型不能为空");
+            return false;
+        }
         seat.value= 0.00;
         seat_type.push(seat);
     });
@@ -96,7 +100,7 @@ $('#addType').bind("click", function () {
         $('#seat_type').append("<div class=\"seat-choose\">\n" +
             "                                <input type=\"radio\" class=\"col-md-2 theType\" name=\"iCheck\"  value='" + type + "'>\n" +
             "                                <input type=\"text\" class='typeName' style=\"width: 100px\" value=\"\">\n" +
-            "                                <button >  <i class=\"removeType icon-minus\" \"></i></button>\n" +
+            "                                <button class='button button-caution button-circle button-tiny' >  <i class=\"removeType icon-minus\" \"></i></button>\n" +
             "                            </div>")
         $('input').iCheck({
             checkboxClass: 'icheckbox_flat-green',

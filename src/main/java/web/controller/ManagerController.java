@@ -12,6 +12,9 @@ import web.model.SeatMapObj;
 import web.service.*;
 import web.utilities.enums.OrderState;
 import web.utilities.enums.UserType;
+import web.utilities.exceptions.MemberInvalidExistException;
+import web.utilities.exceptions.PasswordWrongException;
+import web.utilities.exceptions.UserNotExistException;
 import web.utilities.format.SeatMapConvert;
 
 import javax.servlet.ServletContext;
@@ -41,18 +44,18 @@ public class ManagerController extends HttpServlet {
     }
 
     @PostMapping(value = "/login")
-    protected ModelAndView login(@RequestParam("login_id") String manager, @RequestParam("login_password") String password,
+    protected void login(@RequestParam("login_id") String manager, @RequestParam("login_password") String password,
                            HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(true);
-        if (userService.login(manager, password, UserType.MANAGER)) {
+        try {
+            userService.login(manager, password, UserType.MANAGER);
             session.setAttribute("manager",  manager);
-            ModelAndView mv = new ModelAndView("manager/manager_verify");
             response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/manage/verify"));
-//            mv.addObject("plans", );
-            return mv;
-        } else {
+        } catch (UserNotExistException | PasswordWrongException e) {
+            session.setAttribute("errorMessage",e.getMessage());
             response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/manage/"));
-            return null;
+        }  catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -8,14 +8,14 @@
     <title>查看计划</title>
 
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-    <link href="../css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../css/jquery.seat-charts.css">
-    <link rel="stylesheet" type="text/css" href="../css/seat-chart.css">
-    <link href="../css/flat/green.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/font-awesome.min.css">
-    <link href="../css/venue.css" rel="stylesheet">
-    <link href="../css/button.css" rel="stylesheet">
-    <link href="../css/bootstrap-select.css" rel="stylesheet">
+    <link href="../../css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../css/jquery.seat-charts.css">
+    <link rel="stylesheet" type="text/css" href="../../css/seat-chart.css">
+    <link href="../../css/flat/green.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css">
+    <link href="../../css/venue.css" rel="stylesheet">
+    <link href="../../css/button.css" rel="stylesheet">
+    <link href="../../css/bootstrap-select.css" rel="stylesheet">
 </head>
 
 <body>
@@ -57,8 +57,14 @@
                                             </c:forEach>
                                         </select>
                                     </div>
+                                    <c:if test="${plan.valid == 1}">
                                     <input type="submit" class=" btn btn-sm btn-info buy_ticket" value="现场购票"
                                            style="margin-left: -25px;margin-top: 5px">
+                                    </c:if>
+                                    <c:if test="${plan.valid == 0}">
+                                        <input type="submit" class=" btn btn-sm btn-info buy_ticket" disabled value="现场购票"
+                                               style="margin-left: -25px;margin-top: 5px">
+                                    </c:if>
                                     <button class=" btn btn-sm btn-info col-md-offset-1 check_ticket"
                                             style="margin-top: 5px">检票登记
                                     </button>
@@ -107,17 +113,20 @@
     </div>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../../js/jquery-3.2.1.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../js/bootstrap.js"></script>
-<script src="../js/format-valid.js"></script>
-<script src="../js/icheck.js"></script>
+<script src="../../js/bootstrap.js"></script>
+<script src="../../js/format-valid.js"></script>
+<script src="../../js/icheck.js"></script>
 
 <!--<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>-->
-<script src="../js/jquery.seat-charts.js"></script>
-<script src="../js/bootstrap-select.js"></script>
-<script src="../js/icheck.js"></script>
-
+<script src="../../js/jquery.seat-charts.js"></script>
+<script src="../../js/bootstrap-select.js"></script>
+<script src="../../js/icheck.js"></script>
+<script src="../../js/bootstrap-table-zh-CN.js"></script>
+<script src="../../js/bootstrap-table.js"></script>
+<script src="../../js/bootstrap-table-editable.js"></script>
+<script src="../../js/table.js"></script>
 <script>
     <%--$(document).ready(function () {--%>
     <%--$('.selectpicker').selectpicker();--%>

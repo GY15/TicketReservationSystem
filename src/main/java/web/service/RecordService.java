@@ -55,5 +55,5 @@ public interface RecordService {
      * @updateTime 2017/3/8
      * @return 场馆所有的记录
      */
-    List<ConsumeRecord> getVenueConsumeRecords(int venueid);
+    List<RecordGeneral> getVenueConsumeRecords(int venueid);
 }

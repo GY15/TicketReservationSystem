@@ -3,7 +3,6 @@ package web.service.serviceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import web.dao.CouponDao;
-import web.dao.RecordDao;
 import web.dao.UserDao;
 import web.entity.*;
 import web.service.RecordService;
@@ -11,6 +10,10 @@ import web.service.UserService;
 import web.utilities.MailUtil;
 import web.utilities.enums.MemberState;
 import web.utilities.enums.UserType;
+import web.utilities.exceptions.MemberInvalidExistException;
+import web.utilities.exceptions.PasswordWrongException;
+import web.utilities.exceptions.UserNotExistException;
+
 
 import java.util.List;
 
@@ -32,29 +35,32 @@ public class UserServiceImpl implements UserService {
      * @param userType 登录类型
      * @return 是否成功
      */
-    public boolean login(String userID, String password, UserType userType){
+    public boolean login(String userID, String password, UserType userType) throws UserNotExistException, MemberInvalidExistException, PasswordWrongException {
         String realPassword;
         if(userType.equals(UserType.MEMBER)){
             Member member = userDao.getMember(userID);
-            if (member==null||!member.isValid()){
-                return false;
+            if (member==null){
+                throw new UserNotExistException();
+            }
+            if (!member.isValid()){
+                throw new MemberInvalidExistException();
             }
             realPassword = member.getPassword();
         }else if(userType.equals(UserType.VENUE)){
             Venue venue = userDao.getVenue(Integer.parseInt(userID));
             if (venue==null){
-                return false;
+                throw new UserNotExistException();
             }
             realPassword = venue.getPassword();
         }else{
             Manager manager = userDao.getManager(userID);
             if (manager==null){
-                return false;
+                throw new UserNotExistException();
             }
             realPassword = manager.getPassword();
         }
         if (realPassword == ""||!realPassword.equals(password)) {
-            return false;
+            throw new PasswordWrongException();
         } else {
            return true;
         }
@@ -259,7 +265,7 @@ public class UserServiceImpl implements UserService {
             member.setGrade(member.getGrade()+ new Double(money).intValue());
             userDao.updateMember(member);
             venue.setUnliquidated(venue.getUnliquidated()+money);
-            venue.setUnliquidated(venue.getEarning()+money);
+            venue.setEarning(venue.getEarning()+money);
             userDao.updateVenue(venue);
             recordService.createConsumeRecord(new ConsumeRecord(email,venueid,Math.abs(money),isFund));
             return true;

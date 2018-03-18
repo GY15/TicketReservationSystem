@@ -65,12 +65,7 @@ public class RecordServiceImpl implements RecordService {
      */
     public List<RecordGeneral> getMemberConsumeRecords(String email){
         List<ConsumeRecord> records = recordDao.getMemberConsumeRecords(email);
-        List<RecordGeneral> recordGenerals = new ArrayList<>();
-        for (ConsumeRecord record: records){
-            Venue venue = userDao.getVenue(record.getVenueid());
-            recordGenerals.add(new RecordGeneral(record.getHandleTime(),record.getEmail(),record.getVenueid(),venue.getName(),record.getValue(),record.isFund()));
-        }
-        return recordGenerals;
+        return parseRecord(records);
     }
 
     /**
@@ -80,8 +75,18 @@ public class RecordServiceImpl implements RecordService {
      * @updateTime 2017/3/8
      * @return 场馆所有的记录
      */
-    public List<ConsumeRecord> getVenueConsumeRecords(int venueid){
-        return recordDao.getVenueConsumeRecords(venueid);
+    public List<RecordGeneral> getVenueConsumeRecords(int venueid){
+        List<ConsumeRecord> records = recordDao.getVenueConsumeRecords(venueid);
+        return parseRecord(records);
+    }
+
+    public List<RecordGeneral> parseRecord(List<ConsumeRecord> records){
+        List<RecordGeneral> recordGenerals = new ArrayList<>();
+        for (ConsumeRecord record: records){
+            Venue venue = userDao.getVenue(record.getVenueid());
+            recordGenerals.add(new RecordGeneral(record.getHandleTime(),record.getEmail(),record.getVenueid(),venue.getName(),record.getValue(),record.isFund()));
+        }
+        return recordGenerals;
     }
 }
 

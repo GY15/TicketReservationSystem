@@ -8,21 +8,22 @@
     <title>购票</title>
 
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-    <link href="../css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../css/jquery.seat-charts.css">
-    <link rel="stylesheet" type="text/css" href="../css/seat-chart.css">
-    <link href="../css/flat/green.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/font-awesome.min.css">
-    <link href="../css/venue.css" rel="stylesheet">
-    <link href="../css/button.css" rel="stylesheet">
-    <link href="../css/bootstrap-select.css" rel="stylesheet">
+    <link href="../../css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../css/jquery.seat-charts.css">
+    <link rel="stylesheet" type="text/css" href="../../css/seat-chart.css">
+    <link href="../../css/flat/green.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css">
+    <link href="../../css/member.css" rel="stylesheet">
+    <link href="../../css/button.css" rel="stylesheet">
+    <link href="../../css/bootstrap-select.css" rel="stylesheet">
 </head>
 
 <body>
 <div class="container">
-    <jsp:include page="venue_navigation.jsp"></jsp:include>
+    <jsp:include page="member_navigation.jsp"></jsp:include>
 </div>
-<jsp:include page="common_buy.jsp"></jsp:include>
+<jsp:include page="../common_buy.jsp"></jsp:include>
+
 
 <div class="modal fade" id="buyTicketModal" tabindex="-1" role="dialog"
      aria-hidden="true">
@@ -33,15 +34,6 @@
                 <h4 class="modal-title" style="margin-top: 0px">现场购票</h4>
             </div>
             <div class="modal-body" style="">
-                <div class="row" style="margin-bottom: 10px">
-                    <label class="col-md-3 label-font" align="right">会员购票</label>
-                    <div class="col-md-6">
-                        <input type="text" id="email" class="form-control input-style">
-                    </div>
-                    <div class="col-md-1">
-                        <button class="btn btn-primary discount_btn">获取折扣</button>
-                    </div>
-                </div>
                 <div class="row" style="margin-bottom: 10px">
                     <label class="col-md-3 label-font" align="right">演出简介</label>
                     <div class="col-md-7">
@@ -62,12 +54,40 @@
                     </div>
                 </div>
                 <div class="row" style="margin-bottom: 10px">
+                    <label class="col-md-3 label-font" align="right">座位价格</label>
+                    <div class="col-md-2">
+                        <h4>￥<b id="ticket_value"></b></h4>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 10px">
+                    <label class="col-md-3 label-font" align="right">会员折扣</label>
+                    <div class="col-md-2">
+                        <h4><b id="discount">${discount}</b></h4>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 10px">
+                    <label class="col-md-3 label-font" align="right">选优惠券</label>
+                    <div class="col-md-7 couponBlock">
+                        <select data-actions-box="true" data-size="10" style="width: 300px"
+                                class="selectpicker show-tick" name="selectpicker">
+                            <option>不用优惠</option>
+                            <option>不用优惠</option>
+                            <%--<c:forEach items="${coupons}" var="coupon" varStatus="vs">--%>
+                                <%--<c:if test="${coupon}">--%>
+
+                                <%--</c:if>--%>
+                                <%--<option value="">${seat.block}</option>--%>
+                            <%--</c:forEach>--%>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 10px">
                     <label class="col-md-3 label-font" align="right">订单价格</label>
-                    <div class="col-md-offset-2 col-md-2">
+                    <div class="col-md-offset-1 col-md-2">
                         <h4>￥<b id="sure_value"></b></h4>
                     </div>
                     <div class="col-md-1 col-md-offset-1">
-                        <button class="btn btn-primary pay_btn">确认购买</button>
+                        <button class="btn btn-primary reserve_btn">确认购买</button>
                     </div>
                 </div>
                 <div class="errorMessage col-md-offset-4"></div>
@@ -75,17 +95,18 @@
         </div>
     </div>
 </div>
+</div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../../js/jquery-3.2.1.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../js/bootstrap.js"></script>
-<script src="../js/format-valid.js"></script>
-<script src="../js/icheck.js"></script>
+<script src="../../js/bootstrap.js"></script>
+<script src="../../js/format-valid.js"></script>
+<script src="../../js/icheck.js"></script>
 
 <!--<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>-->
-<script src="../js/jquery.seat-charts.js"></script>
-<script src="../js/bootstrap-select.js"></script>
-<script src="../js/icheck.js"></script>
+<script src="../../js/jquery.seat-charts.js"></script>
+<script src="../../js/bootstrap-select.js"></script>
+<script src="../../js/icheck.js"></script>
 
 <script>
     var plan;
@@ -93,59 +114,34 @@
     var planid = "";
     var block = "";
     var block_description = "";
-    var is_member = false;
+    var venueid="";
+    var coupons;
+    var couponid = 0;
     $(document).ready(function () {
         plan = JSON.parse('${planJson}');
+        coupons = JSON.parse('${couponJson}');
         planid = plan.planid;
         block = '${block}';
+        venueid = plan.venueid;
         createTicketArea();
     });
-    $(".discount_btn").bind("click",function () {
-        $.ajax({
-            type: "post",
-            async: true,
-            url: "/venue/getDiscount",
-            data: {
-                "email": $("#email").val()
-            },
-            success: function (result) {
-                $("#sure_value").html(($("#total").html()*result));
-                $('.errorMessage').html("你的折扣为 "+ result*10 +" 折");
-                setTimeout(function () {
-                    $('.errorMessage').html(" ")
-                }, 2000);
-                $("#sure_value").html(($("#total").html()*result));
-                $("#email").attr("disabled", true);
-                is_member = true;
-            },
-            error: function (result) {
-                $('.errorMessage').html("会员账号错误，请重新输入");
-                setTimeout(function () {
-                    $('.errorMessage').html(" ")
-                }, 2000);
-            }
-        });
-    });
-    $(".pay_btn").bind("click",function () {
+
+    $(".reserve_btn").bind("click",function () {
         var booked_seats = [];
         $("#seatLists").find(".selectedSeat").each(function () {
             booked_seats.push($(this).html());
         });
-        var email = "";
-        if(is_member){
-            email = $("#email").val();
-        }
         $.ajax({
             type: "post",
             async: true,
-            url: "/venue/createVenueOrder",
+            url: "/member/createMemberOrder",
             data: {
-                "email" : email,
-                "member": is_member,
                 "planid" : planid,
+                "venueid" : venueid,
                 "block" : block,
                 "seats" : JSON.stringify(booked_seats),
-                "value" :  $("#sure_value").html()
+                "value" : $("#sure_value").html(),
+                "couponid" : couponid
             },
             success: function (result) {
                 if(result == "fail"){
@@ -155,11 +151,11 @@
                         location.reload();
                     }, 2000);
                 }else{
-                    $('.errorMessage').html("成功购票，正在打印");
+                    $('.errorMessage').html("正在跳转支付界面");
                     setTimeout(function () {
                         $('.errorMessage').html(" ");
-                        location.reload();
-                    }, 4000);
+                        window.location.href="/member/goto_pay?orderid="+result;
+                    }, 2000);
                 }
             },
             error: function (result) {
@@ -194,9 +190,50 @@
             "</div>\n" +
             "<div id=\"legend\"></div>")
         $(".sure_seat").bind("click",  function() {
-            $("#sure_value").html($("#total").html());
+            $("#ticket_value").html($("#total").html());
             $("#seatLists").html($("#selected-seats").html());
             $("#buyTicketModal").modal();
+            var useful = "";
+            var useless= "";
+            for(var i = 0; i < coupons.length;i++){
+                if(coupons[i].minimum > $('#total').html()){
+                    if(coupons[i].type==1) {
+                        useless+="<option disabled value='"+coupons[i].couponid+"'>满"+coupons[i].minimum+"元减"+coupons[i].discount+"元</option>\n";
+                    }else{
+                        useless+="<option disabled value='"+coupons[i].couponid+"'>满"+coupons[i].minimum+"元打"+coupons[i].discount+"折</option>\n";
+                    }
+                }else{
+                    if(coupons[i].type==1) {
+                        useful+="<option value='"+coupons[i].couponid+"'>满"+coupons[i].minimum+"元减"+coupons[i].discount+"元</option>\n";
+                    }else{
+                        useful+="<option value='"+coupons[i].couponid+"'>满"+coupons[i].minimum+"元打"+coupons[i].discount+"折</option>\n";
+                    }
+                }
+            }
+            $(".couponBlock").html(
+                "<select data-actions-box=\"true\" data-size=\"10\" style=\"width: 300px\"\n" +
+                "              class=\"selectpicker show-tick\" name=\"selectpicker\">\n" +
+                "    <option value='0'>不用优惠</option>\n" +
+                useful + useless +
+                "</select>");
+            $(".selectpicker").selectpicker();
+            $("#sure_value").html($('#ticket_value').html()*${discount});
+            $(".selectpicker").on("changed.bs.select",function () {
+//                alert($(this).val());
+                couponid = $(this).val();
+                if($(this).val()==0){
+                    $("#sure_value").html($('#ticket_value').html()*${discount});
+                }
+                for(var i = 0; i < coupons.length;i++){
+                    if($(this).val()==coupons[i].couponid){
+                        if(coupons[i].type==1){
+                            $("#sure_value").html($('#ticket_value').html()*${discount}-coupons[i].discount);
+                        }else{
+                            $("#sure_value").html($('#ticket_value').html()*${discount}*coupons[i].discount);
+                        }
+                    }
+                }
+            })
         });
         var seats = {};
         var items = [

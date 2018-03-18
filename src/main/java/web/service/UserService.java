@@ -6,6 +6,9 @@ import web.entity.Member;
 import web.entity.Venue;
 import web.utilities.enums.MemberState;
 import web.utilities.enums.UserType;
+import web.utilities.exceptions.MemberInvalidExistException;
+import web.utilities.exceptions.PasswordWrongException;
+import web.utilities.exceptions.UserNotExistException;
 
 import java.util.List;
 
@@ -23,7 +26,7 @@ public interface UserService {
      * @param userType 登录类型
      * @return 是否成功
      */
-    boolean login(String userID, String password, UserType userType);
+    boolean login(String userID, String password, UserType userType) throws UserNotExistException, MemberInvalidExistException, PasswordWrongException;
     /**
      * 查看是否已经注册，否则生成并发送验证码
      *

@@ -16,10 +16,10 @@
     <title>会员登录</title>
 
     <!-- Bootstrap -->
-    <link href="../css/bootstrap.css" rel="stylesheet">
-    <link href="../css/home.css" rel="stylesheet">
-    <link href="../css/flat/green.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link href="../../css/bootstrap.css" rel="stylesheet">
+    <link href="../../css/home.css" rel="stylesheet">
+    <link href="../../css/flat/green.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css">
 </head>
 <body>
 <header>
@@ -27,7 +27,7 @@
     <div class="banner-holder">
         <div class="banner-image-holder" style="z-index: 1">
             <div role="banner">
-                <img alt="Background" src="../img/home.jpg">
+                <img alt="Background" src="../../img/home.jpg">
                 <div class="fh5co-overlay"></div>
             </div>
         </div>
@@ -131,28 +131,29 @@
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../../js/jquery-3.2.1.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../js/bootstrap.js"></script>
-<script src="../js/format-valid.js"></script>
-<script src="../js/icheck.js"></script>
+<script src="../../js/bootstrap.js"></script>
+<script src="../../js/format-valid.js"></script>
+<script src="../../js/icheck.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function () {
         var message = "<%=session.getAttribute("errorMessage")%>";
-        if(message== "1"){
-            $('.errorMessage').html("账号或者密码错误");
+        if(message!= "0"&&message!=null){
+            $('.errorMessage').html(message);
             setTimeout(function () {
-                $('.errorMessage').html(" ")
+                $('.errorMessage').html(" ");
+                <%session.setAttribute("errorMessage","0");%>
             }, 2000);
         }
         var type = "<%=session.getAttribute("type")%>";
         if (type == "fail") {
             $(".registerPanel").show();
-            $('.errorMessage').html("验证码错误或已经被注册");
-            setTimeout(function () {
-                $('.errorMessage').html(" ")
-            }, 2000);
+//            $('.errorMessage').html("验证码错误或已经被注册");
+//            setTimeout(function () {
+//                $('.errorMessage').html(" ")
+//            }, 2000);
             <%session.setAttribute("type","init");%>
         } else {
             $(".loginPanel").show();

@@ -1,7 +1,7 @@
 package web.utilities;
 
 /**
- * 用于生成验证码
+ * 用于生成6位验证码
  */
 public class FormatValid {
     public static String createValid(){

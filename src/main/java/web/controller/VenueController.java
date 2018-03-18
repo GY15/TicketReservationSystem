@@ -13,6 +13,8 @@ import web.model.*;
 import web.service.*;
 import web.utilities.enums.OrderState;
 import web.utilities.enums.UserType;
+import web.utilities.exceptions.PasswordWrongException;
+import web.utilities.exceptions.UserNotExistException;
 import web.utilities.format.SeatMapConvert;
 
 import javax.servlet.ServletContext;
@@ -39,6 +41,8 @@ public class VenueController extends HttpServlet {
     private OrderService orderService;
     @Autowired
     private DiscountService discountService;
+    @Autowired
+    private RecordService recordService;
 
     @GetMapping(value = "/")
     protected String getHome(HttpServletRequest request) {
@@ -54,12 +58,11 @@ public class VenueController extends HttpServlet {
 //                }
 //            }
 //        }
-        session.setAttribute("type", "init");
-        return "venue_login";
+        return "/venue/venue_login";
     }
 
     @PostMapping(value = "/login")
-    protected ModelAndView login(@RequestParam("login_id") String venueid, @RequestParam("login_password") String password,
+    protected void login(@RequestParam("login_id") String venueid, @RequestParam("login_password") String password,
                            HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         HttpSession session = request.getSession(true);
@@ -72,14 +75,14 @@ public class VenueController extends HttpServlet {
 //        }
 
 
-        if (userService.login(venueid, password, UserType.VENUE)) {
-            session.setAttribute("venueid", venueid);
-            response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/venue/my_plan"));
-            return null;
-        } else {
-            ModelAndView mv = new ModelAndView("venue_login");
-            session.setAttribute("errorMessage","1");
-            return mv;
+        try {
+            userService.login(venueid, password, UserType.VENUE);
+                session.setAttribute("venueid", venueid);
+                response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/venue/my_plan"));
+        } catch (UserNotExistException | PasswordWrongException e) {
+            session.setAttribute("errorMessage",e.getMessage());
+            response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/venue/"));
+        }  catch (Exception e) {
         }
     }
 
@@ -131,7 +134,7 @@ public class VenueController extends HttpServlet {
         List<SeatMap> seatMaps = seatService.getSeatMap(venueid);
         List<SeatMapObj> seatMapObjs = SeatMapConvert.StringToObj(seatMaps);
         Venue venue = userService.getVenueInfo(venueid);
-        ModelAndView mv = new ModelAndView("publish_plan");
+        ModelAndView mv = new ModelAndView("venue/publish_plan");
         mv.addObject("valid", venue.isValid());
         mv.addObject("seatMaps", seatMapObjs);
         mv.addObject("seatMapsJson", JSON.toJSONString(seatMapObjs));
@@ -142,7 +145,7 @@ public class VenueController extends HttpServlet {
     protected ModelAndView myPlan(HttpServletRequest request, HttpServletResponse response) {
         int venueid = Integer.parseInt(request.getSession().getAttribute("venueid").toString());
         List<PlanGeneral> planGenerals = planService.getPlanGeneral(venueid);
-        ModelAndView mv = new ModelAndView("venue_plan");
+        ModelAndView mv = new ModelAndView("venue/venue_plan");
         mv.addObject("plans", planGenerals);
         return mv;
     }
@@ -151,7 +154,7 @@ public class VenueController extends HttpServlet {
     protected ModelAndView openDetail(@RequestParam("planid") int planid,@RequestParam("selectpicker") String block,
             HttpServletRequest request, HttpServletResponse response) {
         PlanGeneral planGeneral = planService.getPlan(planid);
-        ModelAndView mv = new ModelAndView("venue_buy");
+        ModelAndView mv = new ModelAndView("venue/venue_buy");
         mv.addObject("planJson", JSON.toJSONString(planGeneral));
         mv.addObject("plan", planGeneral);
         mv.addObject("block", block);
@@ -164,10 +167,11 @@ public class VenueController extends HttpServlet {
         int venueid = Integer.parseInt(request.getSession().getAttribute("venueid").toString());
         Venue venue = userService.getVenueInfo(venueid);
         List<SeatMapObj> seatMapObjs = SeatMapConvert.StringToObj(seatService.getSeatMap(venueid));
-        ModelAndView mv = new ModelAndView("venue_info");
+        ModelAndView mv = new ModelAndView("venue/venue_info");
         mv.addObject("venue", venue);
         mv.addObject("seatMaps", seatMapObjs);
         mv.addObject("seatMapsJson", JSON.toJSONString(seatMapObjs));
+        mv.addObject("records", JSON.toJSONString(recordService.getVenueConsumeRecords(venueid)));
         return mv;
     }
 
