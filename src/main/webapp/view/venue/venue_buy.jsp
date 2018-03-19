@@ -347,7 +347,7 @@
 
 
         var createCol = map.length;
-        var left = 780 / 26 * ((25 - createCol) / 2);
+        var left = 700 / 50 * ((25 - createCol) / 2);
         if (createCol > 25) {
             $("#seat-area").css("margin-left", 0 + "px");
             $(".seatCharts-container").css("width", 780 / 22 * createCol + "px");

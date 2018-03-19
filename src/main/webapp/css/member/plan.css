@@ -1,0 +1,120 @@
+.nav-tabs{
+    border: 1px #e5e5e5 solid;
+    border-radius: 4px;
+}
+
+#myTabContent{
+    border-left: 1px #e5e5e5 solid;
+    border-bottom: 1px #e5e5e5 solid;
+    border-right: 1px #e5e5e5 solid;
+    border-radius: 4px;
+    height: 300px;
+}
+
+.plan-panel{
+    margin-top: 15px;
+    /*text-align: center;*/
+
+}
+.tp-logo{
+    margin: 30px 0px 30px;
+    height: 60px;
+}
+.tp-logo img{
+    max-height: 100%;
+    max-width: 100%;
+
+}
+#myTabContent .img-box{
+    width: 100%;
+    height: 230px;
+    line-height: 180px;
+    text-align: center;
+}
+#myTabContent .img-box img{
+    max-height: 100%;
+    max-width: 90%;
+    vertical-align: middle;
+}
+.img-box img:hover{
+    cursor: pointer;
+}
+#myTabContent .plan-description{
+    width: 100%;
+    height: 60px;
+    line-height: 30px;
+    /*text-align: center;*/
+}
+#myTabContent .plan-description .description{
+    margin: 0 auto;
+    max-width: 90%;
+    vertical-align: middle;
+    word-break:keep-all;/* 不换行 */
+    white-space:nowrap;/* 不换行 */
+    overflow:hidden;
+    /*text-align: center;*/
+    font: 12px/1.5 "Microsoft YaHei";
+}
+#myTabContent .plan-description .price{
+    margin: 0 auto;
+    max-width: 90%;
+    vertical-align: middle;
+    word-break:keep-all;/* 不换行 */
+    white-space:nowrap;/* 不换行 */
+    overflow:hidden;
+    /*text-align: center;*/
+    font: 12px/1.5 "Adobe 楷体 Std R";
+}
+.plan-description .price label{
+     color: #b399a6;
+ }
+.other-description{
+    text-align: left;
+    /*margin: 0 auto;*/
+    padding-left: 4%;
+    padding-right: 5%;
+    width: 87%;
+    height: 30px;
+    position:absolute;
+    margin-top: -55px
+}
+.other-description .modal-panel{
+    height: 52px;
+    width: 100%;
+    color:whitesmoke;
+    padding-left: 20px;
+    padding-top: 5px;
+    background-color: rgba(49,125,243,0.8);
+}
+.search-btn{
+    width: 100px;
+    margin-top: -4px;
+    height: 42px;
+    background-color: #1ab7ea;
+    display:block;
+
+    text-align:center;
+    font-family:arial,verdana,sans-serif, '新宋体';
+    font-size:16px;
+    color:whitesmoke;
+    text-decoration:none;
+    border: 0px solid #357ebd;
+    cursor:pointer
+}
+.search-input{
+    outline: 4px solid #1ab7ea;
+}
+.search-input:focus{
+    outline: 4px solid #1ab7ea;
+}
+.recommend{
+    color: #ee0d75;
+    font-size: 80%;
+    margin-left: 15px;
+}
+.recommend-block{
+    margin-top: 30px;
+    border : 1px #e5e5e5 solid;
+    border-radius: 4px;
+    height: 600px;
+}

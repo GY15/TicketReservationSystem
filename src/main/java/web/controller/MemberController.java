@@ -267,7 +267,7 @@ public class MemberController extends HttpServlet {
     boolean quickOrder(@RequestParam("planid") int planid, @RequestParam("venueid") int venueid, @RequestParam("number") int number, @RequestParam("block") String block,
                        HttpServletRequest request) {
         String email = request.getSession().getAttribute("email").toString();
-        Reservation reservation = new Reservation(email, planid, venueid, number, ReservationState.RESERVATION.getRepre(), block);
+        Reservation reservation = new Reservation(email, planid, venueid, number, ReservationState.RESERVATION.getRepre(), block,planService.getPlan(planid).getDescription());
         return orderService.createReservation(reservation);
     }
 

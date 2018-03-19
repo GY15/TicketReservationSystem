@@ -84,6 +84,7 @@ public class VenueController extends HttpServlet {
             response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/venue/"));
         }  catch (Exception e) {
         }
+        response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/venue/"));
     }
 
 
@@ -183,7 +184,8 @@ public class VenueController extends HttpServlet {
                    @RequestParam("seat_info") String seat_info,  @RequestParam("seat_num") int seat_num,HttpServletRequest request, HttpServletResponse response) throws ParseException {
         int venueid = Integer.parseInt(request.getSession().getAttribute("venueid").toString());
         SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd HH:mm");
-        Plan plan = new Plan(venueid,seat_num,formatter.parse(startTime),formatter.parse(endTime),type,description,seat_info);
+        Venue venue = userService.getVenueInfo(venueid);
+        Plan plan = new Plan(venueid,seat_num,formatter.parse(startTime),formatter.parse(endTime),type,description,seat_info,venue.getName(),venue.getCity());
         planService.publishPlan(plan);
         return "publish_plan";
     }

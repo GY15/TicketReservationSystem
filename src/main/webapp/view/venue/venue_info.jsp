@@ -147,8 +147,8 @@
                     order: "desc"//默认排序方式
                 },
                 {
-                    title: "场馆",
-                    field: "venueid",
+                    title: "会员",
+                    field: "email",
                     sortable: true,//是否可排序
                     order: "desc"//默认排序方式
                 },

@@ -77,9 +77,17 @@ public class ManagerController extends HttpServlet {
     @PostMapping(value = "/verify_venue")
     protected @ResponseBody
     String verify( @RequestParam("venueid") int venueid,HttpServletRequest request, HttpServletResponse response) {
-        userService.verifyVenue(venueid);
+        userService.verifyVenue(venueid,true);
         return "success";
     }
+
+    @PostMapping(value = "/not_verify_venue")
+    protected @ResponseBody
+    String notVerify( @RequestParam("venueid") int venueid,HttpServletRequest request, HttpServletResponse response) {
+        userService.verifyVenue(venueid,false);
+        return "success";
+    }
+
     @GetMapping(value = "/balance")
     protected ModelAndView openBalance(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = new ModelAndView("manager/manager_balance");

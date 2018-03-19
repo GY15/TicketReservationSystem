@@ -89,17 +89,18 @@
         },
         {
             field: 'operate',
-            title: '操作',
+            title: '通过',
             width: '80px',
             events: verify,
-            formatter: operateFormatter
+            formatter: operateFormatter1
         }];
 
-    function operateFormatter(value, row, index) {
+    function operateFormatter1(value, row, index) {
         return [
-            '<button class="btn btn-sm btn-primary" id="verify" type="button">审核</button>',
+            '<button class="btn btn-sm btn-primary" id="verify" type="button">审核</button>'
         ].join('');
     }
+
 
 
 

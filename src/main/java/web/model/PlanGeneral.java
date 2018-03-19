@@ -24,6 +24,8 @@ public class PlanGeneral implements Serializable{
     private String location;
     private int valid;
 
+    private int isChecked;
+
     public PlanGeneral(int planid, Date startTime, Date endTime, String type, String description, List<SeatMapObj> seatMapObjs,String province, String city, String location,String name,int venueid){
         this.planid = planid;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -43,7 +45,11 @@ public class PlanGeneral implements Serializable{
         }else{
             valid = 1;
         }
-
+        if(startTime.getTime() > date.getTime()+10*1000*3600||endTime.getTime()< date.getTime()){
+            isChecked = 0;
+        }else{
+            isChecked = 1;
+        }
     }
 
 
@@ -141,5 +147,13 @@ public class PlanGeneral implements Serializable{
 
     public void setValid(int valid) {
         this.valid = valid;
+    }
+
+    public int getIsChecked() {
+        return isChecked;
+    }
+
+    public void setIsChecked(int isChecked) {
+        this.isChecked = isChecked;
     }
 }

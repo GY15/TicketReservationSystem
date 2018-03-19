@@ -18,6 +18,7 @@ public class Reservation implements Serializable{
     private int planid;
     private int venueid;
     private String block;
+    private String planName;
     private int number;
     private String state;
     private double value;
@@ -26,13 +27,14 @@ public class Reservation implements Serializable{
     }
 
 
-    public Reservation(String email, int planid, int venueid, int number, String state, String block) {
+    public Reservation(String email, int planid, int venueid, int number, String state, String block,String planName) {
         this.email = email;
         this.planid = planid;
         this.venueid = venueid;
         this.number = number;
         this.state = state;
         this.block = block;
+        this.planName = planName;
     }
 
     @Id
@@ -72,6 +74,15 @@ public class Reservation implements Serializable{
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    @Column(name="plan_name")
+    public String getPlanName() {
+        return planName;
+    }
+
+    public void setPlanName(String planName) {
+        this.planName = planName;
     }
 
     @Column(name="block")

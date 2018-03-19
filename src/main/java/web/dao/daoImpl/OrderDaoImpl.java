@@ -78,7 +78,7 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
         return orders;
     }
     /**
-     * 检查超过十五分钟的订单失效
+     * 检查超过十五分钟的订单失效(需求变更改为2分钟)
      *
      * @author 61990
      * @updateTime 2018/3/5
@@ -93,7 +93,7 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
                 "(SELECT orderid,TIMEDIFF(NOW(),create_time) as time_diff \n" +
                 "from orders \n" +
                 "WHERE state = '未支付' ) as t\n" +
-                "WHERE time_diff > 1500)";
+                "WHERE time_diff > 200)";
         Query query = session.createSQLQuery(sql).addEntity(Order.class);
         List<Order> orders= query.list();
         transaction.commit();

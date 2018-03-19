@@ -14,6 +14,8 @@ public class Plan implements Serializable{
 
     private int planid;
     private int venueid;
+    private String venueName;
+    private String city;
     private int seatNum;
     private int saleSeatNum;
     private int unsubscribeNum;
@@ -27,7 +29,7 @@ public class Plan implements Serializable{
 
     }
 
-    public Plan(int venueid, int seatNum,  Date startTime, Date endTime, String type, String description, String seatMaps) {
+    public Plan(int venueid, int seatNum,  Date startTime, Date endTime, String type, String description, String seatMaps, String venueName, String city) {
         this.venueid = venueid;
         this.seatNum = seatNum;
         this.saleSeatNum = 0;
@@ -37,6 +39,8 @@ public class Plan implements Serializable{
         this.type = type;
         this.description = description;
         this.seatMaps = seatMaps;
+        this.venueName = venueName;
+        this.city = city;
     }
 
     @Id
@@ -130,5 +134,21 @@ public class Plan implements Serializable{
         this.seatMaps = seatMaps;
     }
 
+    @Column(name="venue_name")
+    public String getVenueName() {
+        return venueName;
+    }
 
+
+    public void setVenueName(String venueName) {
+        this.venueName = venueName;
+    }
+    @Column(name="city")
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 }

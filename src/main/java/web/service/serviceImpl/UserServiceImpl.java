@@ -346,12 +346,16 @@ public class UserServiceImpl implements UserService {
      * @author 61990
      * @updateTime 2017/2/13
      * @param venueid 场馆的账户
-     * @return 是否充值成功
+     * @param isPass 是否通过审核
      */
-    public void verifyVenue(int venueid){
+    public void verifyVenue(int venueid, boolean isPass){
         Venue venue = userDao.getVenue(venueid);
-        venue.setValid(true);
-        userDao.updateVenue(venue);
+        if (isPass) {
+            venue.setValid(true);
+            userDao.updateVenue(venue);
+        }else{
+            userDao.delete(venue);
+        }
     }
 }
 

@@ -38,7 +38,8 @@
                             <div class="row">
                                 <h4 class="col-md-offset-1 col-md-3" style="">订单号: <b class="orderid">${order.orderid}</b></h4>
                                 <h5 class=" plan_id" hidden>${order.planid}</h5><h5 class="venue_id" hidden>${order.venueid}</h5>
-                                <h4 class="col-md-offset-9"><b>${order.number}张&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><span style="font-size: 90%">${order.state}</span></h4>
+                                <h4 class="col-md-4">${order.planName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${order.block}</h4>
+                                <h4 class="col-md-offset-1"><b>${order.number}张&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><span style="font-size: 90%">${order.state}</span></h4>
                             </div>
                     </div>
                 </c:forEach>

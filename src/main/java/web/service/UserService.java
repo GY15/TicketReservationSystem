@@ -208,7 +208,7 @@ public interface UserService {
      * @author 61990
      * @updateTime 2017/2/13
      * @param venueid 场馆的账户
-     * @return 是否充值成功
+     * @return 是否审核成功
      */
-    void verifyVenue(int venueid);
+    void verifyVenue(int venueid,boolean isPass);
 }

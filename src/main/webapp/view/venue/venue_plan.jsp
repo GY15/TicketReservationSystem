@@ -65,9 +65,16 @@
                                         <input type="submit" class=" btn btn-sm btn-info buy_ticket" disabled value="现场购票"
                                                style="margin-left: -25px;margin-top: 5px">
                                     </c:if>
-                                    <button class=" btn btn-sm btn-info col-md-offset-1 check_ticket"
-                                            style="margin-top: 5px">检票登记
-                                    </button>
+                                    <c:if test="${plan.isChecked == 1}">
+                                        <button class=" btn btn-sm btn-info col-md-offset-1 check_ticket"
+                                                style="margin-top: 5px">检票登记
+                                        </button>
+                                    </c:if>
+                                    <c:if test="${plan.isChecked == 0}">
+                                        <button class=" btn btn-sm btn-info col-md-offset-1 check_ticket" disabled
+                                                style="margin-top: 5px">检票登记
+                                        </button>
+                                    </c:if>
                                 </div>
                             </div>
                         </form>
@@ -91,12 +98,12 @@
         <div class="modal-content">
             <div class="modal-header text-center">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
-                <h4 class="modal-title" style="margin-top: 0px">现场购票</h4>
+                <h4 class="modal-title" style="margin-top: 0px">检票</h4>
             </div>
             <div class="modal-body" style="margin-top: 70px;margin-bottom: 100px">
                 <div class="row" style="margin-bottom: 10px">
                     <label class="col-md-5 label-font description" align="right"></label>
-                    <label class="col-md-3 label-font block" align="center"></label>
+                    <%--<label class="col-md-3 label-font block" align="center"></label>--%>
                 </div>
                 <div class="row" style="margin-bottom: 10px">
                     <label class="col-md-3 label-font" align="right">检票</label>

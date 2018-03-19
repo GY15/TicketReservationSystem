@@ -163,7 +163,7 @@ public class OrderServiceImpl implements OrderService {
         List<Reservation> reservations = orderDao.getReservationOrder();
         for (Reservation reservation : reservations) {
             Plan plan = planDao.getOnePlan(reservation.getPlanid());
-            if (plan.getStartTime().getTime() - new Date().getTime() <= 12 * 1000 * 3600 * 24) {
+            if (plan.getStartTime().getTime() - new Date().getTime() <= 15 * 1000 * 3600 * 24) {
                 List<Ticket> tickets = ticketDao.autoChooseTickets(reservation.getPlanid(), reservation.getNumber(), reservation.getBlock());
                 if (tickets == null) {
                     userService.refund(reservation.getEmail(), reservation.getVenueid(), reservation.getValue());
