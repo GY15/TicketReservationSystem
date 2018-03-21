@@ -1,5 +1,6 @@
 package web.dao.daoImpl;
 
+import com.alibaba.fastjson.JSON;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -11,6 +12,7 @@ import web.utilities.HibernateUtil;
 import web.utilities.enums.OrderState;
 import web.utilities.enums.ReservationState;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -84,7 +86,7 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
      * @updateTime 2018/3/5
      * @return null
      */
-    public void checkOvertime(){
+    public List<String> checkOvertime(){
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
         String sql = "SELECT * from orders\n" +
@@ -98,10 +100,13 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
         List<Order> orders= query.list();
         transaction.commit();
         session.close();
+        List<String> tickets = new ArrayList<>();
         for (Order order : orders){
             order.setState(OrderState.INVALID.getRepre());
             super.update(order);
+            tickets.addAll( JSON.parseArray(order.getTickets(), String.class));
         }
+        return tickets;
     }
 
     /**

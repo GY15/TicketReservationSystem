@@ -11,6 +11,7 @@ import web.entity.SeatMap;
 import web.entity.Venue;
 import web.model.*;
 import web.service.*;
+import web.utilities.HibernateUtil;
 import web.utilities.enums.OrderState;
 import web.utilities.enums.UserType;
 import web.utilities.exceptions.PasswordWrongException;
@@ -84,7 +85,6 @@ public class VenueController extends HttpServlet {
             response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/venue/"));
         }  catch (Exception e) {
         }
-        response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/venue/"));
     }
 
 

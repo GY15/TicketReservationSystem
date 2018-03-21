@@ -7,33 +7,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98fc3164-10dd-4611-9144-2c2cc10f4eb2" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/img/img1.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/img/img2.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/css/member/nav.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/css/member/plan.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/view/test/member_plan.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/img/logo.png" afterPath="$PROJECT_DIR$/src/main/webapp/img/logo.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/TicketReservationSystem/WEB-INF/classes/web/service/UserService.class" afterPath="$PROJECT_DIR$/target/TicketReservationSystem/WEB-INF/classes/web/service/UserService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/TicketReservationSystem/WEB-INF/classes/web/service/serviceImpl/UserServiceImpl.class" afterPath="$PROJECT_DIR$/target/TicketReservationSystem/WEB-INF/classes/web/service/serviceImpl/UserServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/web/service/UserService.class" afterPath="$PROJECT_DIR$/target/classes/web/service/UserService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/web/service/serviceImpl/UserServiceImpl.class" afterPath="$PROJECT_DIR$/target/classes/web/service/serviceImpl/UserServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/web/controller/ManagerController.java" afterPath="$PROJECT_DIR$/src/main/java/web/controller/ManagerController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/web/controller/MemberController.java" afterPath="$PROJECT_DIR$/src/main/java/web/controller/MemberController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/web/dao/OrderDao.java" afterPath="$PROJECT_DIR$/src/main/java/web/dao/OrderDao.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/web/controller/VenueController.java" afterPath="$PROJECT_DIR$/src/main/java/web/controller/VenueController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/web/dao/daoImpl/OrderDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/web/dao/daoImpl/OrderDaoImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/web/entity/Plan.java" afterPath="$PROJECT_DIR$/src/main/java/web/entity/Plan.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/web/entity/Reservation.java" afterPath="$PROJECT_DIR$/src/main/java/web/entity/Reservation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/web/model/PlanGeneral.java" afterPath="$PROJECT_DIR$/src/main/java/web/model/PlanGeneral.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/web/service/UserService.java" afterPath="$PROJECT_DIR$/src/main/java/web/service/UserService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/view/member/member_pay.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/view/member/member_pay.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/web/service/serviceImpl/OrderServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/web/service/serviceImpl/OrderServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/web/service/serviceImpl/UserServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/web/service/serviceImpl/UserServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/view/manager/manager_verify.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/view/manager/manager_verify.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/view/member/member_buy.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/view/member/member_buy.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/view/member/member_reservation.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/view/member/member_reservation.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/view/venue/venue_buy.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/view/venue/venue_buy.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/view/venue/venue_info.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/view/venue/venue_info.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/view/venue/venue_plan.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/view/venue/venue_plan.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/web/dao/daoImpl/OrderDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/web/dao/daoImpl/OrderDaoImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -60,117 +39,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="PlanGeneral.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/web/model/PlanGeneral.java">
+      <file leaf-file-name="Manager.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/web/entity/Manager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="475">
-              <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+            <state relative-caret-position="150">
+              <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Schedule.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/web/schedule/Schedule.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="25" column="36" lean-forward="false" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="36" />
-              <folding>
-                <element signature="e#624#625#0" expanded="true" />
-                <element signature="e#675#676#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FormatValid.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/web/utilities/FormatValid.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="member_plan.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/view/test/member_plan.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="875">
-              <caret line="181" column="53" lean-forward="true" selection-start-line="181" selection-start-column="53" selection-end-line="181" selection-end-column="53" />
-              <folding>
-                <element signature="n#div#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#5;n#body#0;n#html#0;n#!!top" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="venue_plan.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/view/venue/venue_plan.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="106" column="22" lean-forward="true" selection-start-line="106" selection-start-column="22" selection-end-line="106" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="VenueController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/web/controller/VenueController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="475">
-              <caret line="86" column="94" lean-forward="false" selection-start-line="86" selection-start-column="94" selection-end-line="86" selection-end-column="94" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="common_buy.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/view/common_buy.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="650">
-              <caret line="26" column="18" lean-forward="false" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="venue_buy.jsp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/view/venue/venue_buy.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="349" column="49" lean-forward="false" selection-start-line="349" selection-start-column="49" selection-end-line="349" selection-end-column="49" />
-              <folding>
-                <marker date="1521461175576" expanded="true" signature="7806:7823" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="member_buy.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/view/member/member_buy.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="386" column="5" lean-forward="false" selection-start-line="386" selection-start-column="5" selection-end-line="386" selection-end-column="53" />
-              <folding>
-                <marker date="1521460656084" expanded="true" signature="7959:7976" ph="..." />
-                <marker date="1521460656084" expanded="true" signature="9473:9485" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="seat-create.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/js/seat-create.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2404">
-              <caret line="188" column="65" lean-forward="false" selection-start-line="188" selection-start-column="65" selection-end-line="188" selection-end-column="65" />
-              <folding>
-                <marker date="1521460380894" expanded="true" signature="3345:3357" ph="..." />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -238,8 +112,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/web/utilities/HibernateUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/java/web/dao/RecordDao.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/view/venue_buy.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/view/member_buy.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/web/dao/daoImpl/RecordDaoImpl.java" />
@@ -275,8 +147,6 @@
         <option value="$PROJECT_DIR$/src/main/java/web/controller/ManagerController.java" />
         <option value="$PROJECT_DIR$/src/main/java/web/service/UserService.java" />
         <option value="$PROJECT_DIR$/src/main/java/web/service/serviceImpl/UserServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/web/dao/daoImpl/OrderDaoImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/web/service/serviceImpl/OrderServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/web/controller/MemberController.java" />
         <option value="$PROJECT_DIR$/src/main/java/web/entity/Reservation.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/view/member/member_reservation.jsp" />
@@ -285,10 +155,14 @@
         <option value="$PROJECT_DIR$/src/main/webapp/view/manager/manager_verify.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/web/entity/Plan.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/view/venue/venue_plan.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/web/controller/VenueController.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/js/seat-create.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/view/member/member_buy.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/view/venue/venue_buy.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/web/dao/daoImpl/OrderDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/web/dao/OrderDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/web/service/serviceImpl/OrderServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/view/member/member_pay.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/web/controller/VenueController.java" />
       </list>
     </option>
   </component>
@@ -360,10 +234,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -404,25 +274,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TicketReservationSystem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TicketReservationSystem" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="filters" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TicketReservationSystem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TicketReservationSystem" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="schedule" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TicketReservationSystem" type="b2602c69:ProjectViewProjectNode" />
@@ -430,46 +282,15 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TicketReservationSystem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TicketReservationSystem" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="view" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TicketReservationSystem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TicketReservationSystem" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="view" type="462c0819:PsiDirectoryNode" />
-              <item name="member" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TicketReservationSystem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TicketReservationSystem" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="view" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TicketReservationSystem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TicketReservationSystem" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="view" type="462c0819:PsiDirectoryNode" />
-              <item name="venue" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -485,12 +306,12 @@
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://D:/java/TicketReservationSystem/src/main/java/web/dao/daoImpl/SeatDaoImpl.java" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\java\TicketReservationSystem\src\main\webapp\img" />
-      <recent name="D:\java\TicketReservationSystem\src\main\webapp\css\member" />
-      <recent name="D:\java\TicketReservationSystem\src\main\webapp\view\test" />
-      <recent name="D:\java\TicketReservationSystem\src\main\java\web\utilities" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\java\TicketReservationSystem\src\main\webapp\view\venue" />
+      <recent name="D:\java\TicketReservationSystem\src\main\webapp\view\member" />
+      <recent name="D:\java\TicketReservationSystem\src\main\webapp\css\manager" />
       <recent name="D:\java\TicketReservationSystem\src\main\webapp\view\manager" />
+      <recent name="D:\java\TicketReservationSystem\src\main\webapp\view" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="web.utilities.exceptions" />
@@ -499,12 +320,12 @@
       <recent name="web.dao" />
       <recent name="web.service.serviceImpl" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\java\TicketReservationSystem\src\main\webapp\view\venue" />
-      <recent name="D:\java\TicketReservationSystem\src\main\webapp\view\member" />
-      <recent name="D:\java\TicketReservationSystem\src\main\webapp\css\manager" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\java\TicketReservationSystem\src\main\webapp\img" />
+      <recent name="D:\java\TicketReservationSystem\src\main\webapp\css\member" />
+      <recent name="D:\java\TicketReservationSystem\src\main\webapp\view\test" />
+      <recent name="D:\java\TicketReservationSystem\src\main\java\web\utilities" />
       <recent name="D:\java\TicketReservationSystem\src\main\webapp\view\manager" />
-      <recent name="D:\java\TicketReservationSystem\src\main\webapp\view" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -760,7 +581,12 @@
       <workItem from="1521360434683" duration="10263000" />
       <workItem from="1521374919410" duration="18027000" />
       <workItem from="1521425514641" duration="7276000" />
-      <workItem from="1521455563818" duration="5584000" />
+      <workItem from="1521455563818" duration="5646000" />
+      <workItem from="1521512218535" duration="769000" />
+      <workItem from="1521520470626" duration="599000" />
+      <workItem from="1521527541235" duration="1216000" />
+      <workItem from="1521611899100" duration="258000" />
+      <workItem from="1521618236731" duration="3000" />
     </task>
     <task id="LOCAL-00001" summary="项目的构建，用户注册时的验证，从前端到后端打通">
       <created>1518013951722</created>
@@ -909,15 +735,21 @@
       <option name="project" value="LOCAL" />
       <updated>1521377710024</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="至此版本1.0完成">
+      <created>1521461828081</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1521461828081</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="615570000" />
+    <option name="totallyTimeSpent" value="618477000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -932,14 +764,11 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34157833" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31919906" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.63486457" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.63486457" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979977" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23390558" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -951,8 +780,11 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31919906" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299356" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942554" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -984,7 +816,8 @@
     <MESSAGE value="经理就剩下tickets财务统计" />
     <MESSAGE value="基本完成所有的功能，需要将归类目录" />
     <MESSAGE value="所有功能实现" />
-    <option name="LAST_COMMIT_MESSAGE" value="所有功能实现" />
+    <MESSAGE value="至此版本1.0完成" />
+    <option name="LAST_COMMIT_MESSAGE" value="至此版本1.0完成" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1031,37 +864,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/web/utilities/exceptions/PasswordInputException.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/web/utilities/exceptions/PrivateStockExistedException.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/web/utilities/exceptions/CodeNotFoundException.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/web/utilities/exceptions/PasswordNotSameException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/web/utilities/exceptions/PasswordWrongException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/web/dao/daoImpl/BaseDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="498">
-          <caret line="45" column="32" lean-forward="true" selection-start-line="45" selection-start-column="32" selection-end-line="45" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/web/dao/daoImpl/UserDaoImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="214">
           <caret line="25" column="28" lean-forward="true" selection-start-line="25" selection-start-column="28" selection-end-line="25" selection-end-column="28" />
-          <folding>
-            <marker date="1521354444611" expanded="true" signature="4816:4850" ph="select max(v... venue" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1093,19 +899,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/view/venue/venue_login.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="180" column="21" lean-forward="false" selection-start-line="180" selection-start-column="21" selection-end-line="180" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/view/manager/manager_login.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="175">
           <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1113,7 +910,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="325">
           <caret line="155" column="23" lean-forward="true" selection-start-line="155" selection-start-column="23" selection-end-line="155" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1142,7 +938,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1164,7 +959,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
           <caret line="5" column="47" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="47" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1194,25 +988,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/web/dao/daoImpl/OrderDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
-          <folding>
-            <marker date="1521429203697" expanded="true" signature="775:810" ph="select max(o... orders" />
-            <marker date="1521429203697" expanded="true" signature="4058:4098" ph="select max(r... reservation" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/web/dao/OrderDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="50" column="19" lean-forward="true" selection-start-line="50" selection-start-column="19" selection-end-line="50" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/web/service/UserService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
@@ -1224,25 +999,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
           <caret line="242" column="16" lean-forward="false" selection-start-line="242" selection-start-column="16" selection-end-line="242" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/web/service/serviceImpl/OrderServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="48" column="18" lean-forward="false" selection-start-line="48" selection-start-column="18" selection-end-line="48" selection-end-column="18" />
-          <folding>
-            <element signature="e#4025#4026#0" expanded="true" />
-            <element signature="e#4065#4066#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/web/service/OrderService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="21" column="19" lean-forward="true" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1258,7 +1014,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1000">
           <caret line="40" column="51" lean-forward="false" selection-start-line="40" selection-start-column="51" selection-end-line="40" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1266,12 +1021,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="400">
           <caret line="20" column="28" lean-forward="false" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
-          <folding>
-            <element signature="e#1704#1705#0" expanded="true" />
-            <element signature="e#1735#1736#0" expanded="true" />
-            <element signature="e#1783#1784#0" expanded="true" />
-            <element signature="e#1823#1824#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1279,7 +1028,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
           <caret line="22" column="39" lean-forward="false" selection-start-line="22" selection-start-column="39" selection-end-line="22" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1287,7 +1035,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2400">
           <caret line="115" column="0" lean-forward="false" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1295,7 +1042,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3750">
           <caret line="150" column="33" lean-forward="false" selection-start-line="150" selection-start-column="33" selection-end-line="150" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1311,7 +1057,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1600">
           <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1319,26 +1064,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="393">
           <caret line="136" column="22" lean-forward="false" selection-start-line="136" selection-start-column="22" selection-end-line="136" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/web/model/PlanGeneral.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
+        <state relative-caret-position="1100">
           <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/web/schedule/Schedule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="36" lean-forward="false" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="36" />
-          <folding>
-            <element signature="e#624#625#0" expanded="true" />
-            <element signature="e#675#676#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1346,7 +1079,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
           <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1354,40 +1086,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="250">
           <caret line="31" column="71" lean-forward="false" selection-start-line="31" selection-start-column="71" selection-end-line="31" selection-end-column="71" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/view/test/member_plan.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="875">
-          <caret line="181" column="53" lean-forward="true" selection-start-line="181" selection-start-column="53" selection-end-line="181" selection-end-column="53" />
-          <folding>
-            <element signature="n#div#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#5;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/web/controller/VenueController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="86" column="94" lean-forward="false" selection-start-line="86" selection-start-column="94" selection-end-line="86" selection-end-column="94" />
-          <folding />
+        <state relative-caret-position="3400">
+          <caret line="181" column="53" lean-forward="false" selection-start-line="181" selection-start-column="53" selection-end-line="181" selection-end-column="53" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/js/seat-create.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2404">
+        <state relative-caret-position="4700">
           <caret line="188" column="65" lean-forward="false" selection-start-line="188" selection-start-column="65" selection-end-line="188" selection-end-column="65" />
-          <folding>
-            <marker date="1521460380894" expanded="true" signature="3345:3357" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1395,36 +1107,124 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="650">
           <caret line="26" column="18" lean-forward="false" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/view/member/member_buy.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
+        <state relative-caret-position="9650">
           <caret line="386" column="5" lean-forward="false" selection-start-line="386" selection-start-column="5" selection-end-line="386" selection-end-column="53" />
-          <folding>
-            <marker date="1521460656084" expanded="true" signature="7959:7976" ph="..." />
-            <marker date="1521460656084" expanded="true" signature="9473:9485" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/view/venue/venue_plan.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="106" column="22" lean-forward="true" selection-start-line="106" selection-start-column="22" selection-end-line="106" selection-end-column="22" />
-          <folding />
+        <state relative-caret-position="2650">
+          <caret line="106" column="22" lean-forward="false" selection-start-line="106" selection-start-column="22" selection-end-line="106" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/view/venue/venue_buy.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="349" column="49" lean-forward="false" selection-start-line="349" selection-start-column="49" selection-end-line="349" selection-end-column="49" />
+        <state relative-caret-position="9000">
+          <caret line="360" column="0" lean-forward="false" selection-start-line="360" selection-start-column="0" selection-end-line="360" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/web/schedule/Schedule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="22" column="25" lean-forward="false" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/web/service/OrderService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2000">
+          <caret line="85" column="9" lean-forward="false" selection-start-line="85" selection-start-column="9" selection-end-line="85" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/web/service/serviceImpl/OrderServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3325">
+          <caret line="151" column="62" lean-forward="false" selection-start-line="151" selection-start-column="62" selection-end-line="151" selection-end-column="62" />
           <folding>
-            <marker date="1521461175576" expanded="true" signature="7806:7823" ph="..." />
+            <element signature="e#4025#4026#0" expanded="true" />
+            <element signature="e#4094#4095#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/view/member/member_pay.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1150">
+          <caret line="46" column="159" lean-forward="false" selection-start-line="46" selection-start-column="159" selection-end-line="46" selection-end-column="159" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/view/venue/venue_login.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4500">
+          <caret line="180" column="21" lean-forward="false" selection-start-line="180" selection-start-column="21" selection-end-line="180" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/web/utilities/HibernateUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-300">
+          <caret line="13" column="13" lean-forward="true" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/web/controller/VenueController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="49" column="55" lean-forward="false" selection-start-line="49" selection-start-column="55" selection-end-line="49" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/web/dao/OrderDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="52" column="23" lean-forward="false" selection-start-line="52" selection-start-column="23" selection-end-line="52" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/web/dao/daoImpl/OrderDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="88" column="23" lean-forward="false" selection-start-line="88" selection-start-column="10" selection-end-line="88" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/web/dao/TicketDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="593">
+          <caret line="59" column="24" lean-forward="false" selection-start-line="59" selection-start-column="24" selection-end-line="59" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/web/service/serviceImpl/TicketServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="543">
+          <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/web/service/TicketService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="593">
+          <caret line="41" column="20" lean-forward="false" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/web/entity/Manager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>

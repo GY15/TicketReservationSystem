@@ -50,7 +50,7 @@ public interface OrderDao extends BaseDao {
      * @updateTime 2018/3/5
      * @return null
      */
-    void checkOvertime();
+    List<String> checkOvertime();
 
     /**
      * 获得可以处理的快速预定的票

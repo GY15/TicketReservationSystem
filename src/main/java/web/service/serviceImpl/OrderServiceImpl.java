@@ -149,7 +149,7 @@ public class OrderServiceImpl implements OrderService {
      * @updateTime 2018/3/5
      */
     public void checkOvertime() {
-        orderDao.checkOvertime();
+        ticketService.refundTickets(orderDao.checkOvertime());
     }
 
     /**

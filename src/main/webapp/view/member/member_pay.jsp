@@ -43,6 +43,9 @@
             <div class="row">
                 <h4 class="col-md-offset-1" style="">订单价格: <b>￥${order.value}</b></h4>
             </div>
+            <div class="row">
+                <h4 class="col-md-offset-1 col-md-2" style="">支付密码:</h4> <div class="col-md-4"> <input value="123" type="password" class="form-control"/></div>
+            </div>
             <div class="col-md-offset-2" style="margin-top: 20px">
                 <button class="btn col-md-2 btn-info pay_order">支付</button>
             </div>
